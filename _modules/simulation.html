@@ -1,0 +1,445 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>simulation &mdash; ALISEQ 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ALISEQ
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../page1.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../page2.html">Instalation and setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../page3.html">simulation.py</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ALISEQ</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>simulation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for simulation</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Thu Sep 20 13:53:33 2018</span>
+
+<span class="sd">@author: chris</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="c1">#from collections import Counter</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="c1">#import matplotlib.pyplot as plt</span>
+<span class="c1">#import math</span>
+<span class="kn">from</span> <span class="nn">Bio</span> <span class="k">import</span> <span class="n">Seq</span>
+
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<div class="viewcode-block" id="random_gene"><a class="viewcode-back" href="../page3.html#simulation.random_gene">[docs]</a><span class="k">def</span> <span class="nf">random_gene</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;create a random ATCG string with length randomly chosen from within the range [m,M]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="c1">#    length = random.choice(range(m,M+1))</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">length</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">M</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">3392</span><span class="p">,</span><span class="mi">2600</span><span class="p">))</span> <span class="c1"># mu, sigma</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="s1">&#39;ATCG&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)])</span></div>
+
+
+<div class="viewcode-block" id="fastwrap"><a class="viewcode-back" href="../page3.html#simulation.fastwrap">[docs]</a><span class="k">def</span> <span class="nf">fastwrap</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;much quicker than textwrap.wrap&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">width</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="n">width</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="fasta"><a class="viewcode-back" href="../page3.html#simulation.fasta">[docs]</a><span class="k">def</span> <span class="nf">fasta</span><span class="p">(</span><span class="n">seq_index</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="mi">80</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;format a dictionary of {label:sequence} pairs into a fasta string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;&gt;</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">fastwrap</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">wrap</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">seq_index</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span></div>
+
+
+<div class="viewcode-block" id="fastq"><a class="viewcode-back" href="../page3.html#simulation.fastq">[docs]</a><span class="k">def</span> <span class="nf">fastq</span><span class="p">(</span><span class="n">seq_index</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="mi">80</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;format a dictionary of {label:sequence} pairs into a fasta string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;&gt;</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s1">+</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">fastwrap</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">wrap</span><span class="p">),</span> <span class="n">fastwrap</span><span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">wrap</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">seq_index</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span></div>
+
+
+<span class="k">def</span> <span class="nf">generate_random_seqs</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">([(</span><span class="s1">&#39;gene_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">random_gene</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+
+
+<span class="k">def</span> <span class="nf">decision</span><span class="p">(</span><span class="n">probability</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">probability</span>
+
+
+<span class="k">def</span> <span class="nf">parse_headers</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;gene=&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    
+
+<div class="viewcode-block" id="index_fasta"><a class="viewcode-back" href="../page3.html#simulation.index_fasta">[docs]</a><span class="k">def</span> <span class="nf">index_fasta</span><span class="p">(</span><span class="n">fasta</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;loads the whole file into memory. </span>
+<span class="sd">    could easily be implemented as a generator.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fasta</span><span class="p">)</span> <span class="k">as</span> <span class="n">F</span><span class="p">:</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">records</span><span class="p">[:</span><span class="n">limit</span><span class="p">]:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">rec</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">head</span> <span class="o">=</span> <span class="n">parse_headers</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="n">tail</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">L</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">L</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]])</span>
+            <span class="k">if</span> <span class="n">tail</span><span class="p">:</span>
+                <span class="n">index</span><span class="p">[</span><span class="n">head</span><span class="p">]</span> <span class="o">=</span> <span class="n">tail</span>
+    <span class="k">return</span> <span class="n">index</span></div>
+
+<span class="k">def</span> <span class="nf">todo</span><span class="p">():</span>
+    <span class="n">SNP_frequency</span> <span class="o">=</span> <span class="mf">0.000625</span> <span class="c1"># in an average human, 0.0625% of the exome is heterozygous (18798 SNPs / 30 MB)</span>
+    <span class="n">ase_frequency</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># 5% of genes have ASE</span>
+    <span class="n">library_size</span> <span class="o">=</span> <span class="mi">2315672</span> <span class="c1"># 2.3M reads (target only - the actual number of reads will be different)</span>
+    <span class="n">read_length</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># 100bp PE reads</span>
+    <span class="n">adaptor_3p</span> <span class="o">=</span> <span class="s1">&#39;GGGGTTTT&#39;</span>
+    <span class="n">adaptor_5p</span> <span class="o">=</span> <span class="s1">&#39;AAAACCCC&#39;</span>
+    <span class="n">reads_file_1</span> <span class="o">=</span> <span class="s2">&quot;simulated_reads_1.fastq&quot;</span>
+    <span class="n">reads_file_2</span> <span class="o">=</span> <span class="s2">&quot;simulated_reads_2.fastq&quot;</span>
+    <span class="n">stats_file</span> <span class="o">=</span> <span class="s2">&quot;stats.csv&quot;</span>
+    <span class="n">inbalance</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># alt alleles have 2x abundance compared to ref alleles</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">inbalance</span><span class="p">,</span> <span class="mi">1</span> <span class="c1"># e.g. (0.5, 1)</span>
+    <span class="n">proportions</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">ratio</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ratio</span><span class="p">]</span> <span class="c1"># e.g. (0.33, 0.66)</span>
+    
+    <span class="sd">&quot;&quot;&quot;generate a random sequence library&quot;&quot;&quot;</span>
+    <span class="c1">#n_seqs=400</span>
+    <span class="c1">#seqs = generate_random_seqs(n_seqs)</span>
+    <span class="c1">#transcriptome = fasta(seqs)</span>
+    <span class="c1">#with open(&quot;simulated_transcriptome.fasta&quot;, &#39;w&#39;) as F:</span>
+    <span class="c1">#    F.write(transcriptome)</span>
+        
+    <span class="sd">&quot;&quot;&quot;use an existing reference sequence library, e.g. a transcriptome file&quot;&quot;&quot;</span>
+    <span class="n">input_fasta_file</span> <span class="o">=</span> <span class="s2">&quot;water_buffalo_transcriptome.fasta&quot;</span>
+    <span class="n">seqs</span> <span class="o">=</span> <span class="n">index_fasta</span><span class="p">(</span><span class="n">input_fasta_file</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">4000</span><span class="p">)</span> <span class="c1"># first 4000 transcripts only</span>
+    <span class="n">n_seqs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+    
+    
+    <span class="n">heads</span><span class="p">,</span> <span class="n">tails</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">seqs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+    <span class="n">decisions</span> <span class="o">=</span> <span class="p">[</span><span class="n">decision</span><span class="p">(</span><span class="n">ase_frequency</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_seqs</span><span class="p">)]</span> <span class="c1"># randomly select ASE genes at the desired frequency</span>
+    <span class="c1">#print(Counter(decisions))</span>
+    <span class="c1">#Counter({False: 90, True: 10})</span>
+    
+    <span class="n">RPKM_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;rpkm.csv&#39;</span><span class="p">)</span>
+    <span class="n">rpkm_ref</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">RPKM_index</span><span class="p">[</span><span class="s1">&#39;RPKM&#39;</span><span class="p">]),</span> <span class="n">n_seqs</span><span class="p">)</span> <span class="c1"># randomly obtain a list of RPKM values with a realistic distribution profile</span>
+    
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">reads_1</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">reads_2</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">def</span> <span class="nf">make_read</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">count</span>
+    
+    <span class="n">start_1</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)))</span>
+    <span class="n">start_2</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)))</span>
+    
+    <span class="n">str_s</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="n">s_fwd</span> <span class="o">=</span> <span class="n">str_s</span> <span class="o">+</span> <span class="n">adaptor_3p</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="o">*</span><span class="n">read_length</span><span class="p">)</span>
+    <span class="n">reads_1</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;/1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">s_fwd</span><span class="p">[</span><span class="n">start_1</span><span class="p">:</span><span class="n">start_1</span><span class="o">+</span><span class="n">read_length</span><span class="p">]</span>
+    
+    <span class="n">s_rev</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Seq</span><span class="o">.</span><span class="n">Seq</span><span class="p">(</span><span class="n">str_s</span><span class="p">)</span><span class="o">.</span><span class="n">reverse_complement</span><span class="p">())</span>
+    <span class="n">s_rev</span> <span class="o">=</span> <span class="n">s_rev</span> <span class="o">+</span> <span class="n">adaptor_5p</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="o">*</span><span class="n">read_length</span><span class="p">)</span>
+    <span class="n">reads_2</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;/2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s_rev</span><span class="p">[</span><span class="n">start_2</span><span class="p">:</span><span class="n">start_2</span><span class="o">+</span><span class="n">read_length</span><span class="p">])</span>
+    
+    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="predict_SNP_count"><a class="viewcode-back" href="../page3.html#simulation.predict_SNP_count">[docs]</a><span class="k">def</span> <span class="nf">predict_SNP_count</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;An example of weighted random choosing (currently unused)</span>
+<span class="sd">    only works in py3.6</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span>
+            <span class="n">population</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+            <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span>
+            <span class="n">k</span><span class="o">=</span><span class="mi">1</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="mutate"><a class="viewcode-back" href="../page3.html#simulation.mutate">[docs]</a><span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">ref_seq</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;once positions to mutate are chosen, identify the ref nucleotides at </span>
+<span class="sd">    these positions, then select replacements at random. Construct and return </span>
+<span class="sd">    the mutated sequence plus a list of records documenting the mutations: </span>
+<span class="sd">        [(position, ref_nucleotide, alt_nucleotide), ...]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">alt_seq</span> <span class="o">=</span> <span class="n">ref_seq</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1">#    mutations = random.choice(range(1,21)) # the number of SNPs is not uniformly distributed - this should be biased towards fewer SNPs</span>
+    <span class="c1">#mutation_indices = random.sample(range(len(row.seq)), mutations)</span>
+    <span class="n">mutation_indices</span> <span class="o">=</span> <span class="n">mutate2</span><span class="p">(</span><span class="n">ref_seq</span><span class="p">)</span>
+    <span class="n">ref_nucleotides</span> <span class="o">=</span> <span class="p">[</span><span class="n">ref_seq</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mutation_indices</span><span class="p">]</span>
+    <span class="n">alt_nucleotides</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="s1">&#39;ATCG&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">r</span><span class="p">)))))</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">ref_nucleotides</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">alt</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mutation_indices</span><span class="p">,</span> <span class="n">ref_nucleotides</span><span class="p">,</span> <span class="n">alt_nucleotides</span><span class="p">):</span>
+        <span class="n">alt_seq</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">alt</span>
+    <span class="k">return</span> <span class="n">alt_seq</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mutation_indices</span><span class="p">,</span> <span class="n">ref_nucleotides</span><span class="p">,</span> <span class="n">alt_nucleotides</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="mutate2"><a class="viewcode-back" href="../page3.html#simulation.mutate2">[docs]</a><span class="k">def</span> <span class="nf">mutate2</span><span class="p">(</span><span class="n">ref_seq</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;randomly assign positions to mutate by using the negative binomial </span>
+<span class="sd">    distribution to scan L-R along th egene length skipping n nucleotides </span>
+<span class="sd">    between successive mutations until the end of the sequence is reached.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ref_seq</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">mutation_indices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">negative_binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">SNP_frequency</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">+=</span> <span class="n">p</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">:</span>
+            <span class="n">mutation_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mutation_indices</span></div>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;gene&#39;</span><span class="p">:</span><span class="n">heads</span><span class="p">,</span>
+        <span class="s1">&#39;seq&#39;</span><span class="p">:</span><span class="n">tails</span><span class="p">,</span>
+        <span class="s1">&#39;ase&#39;</span><span class="p">:</span><span class="n">decisions</span><span class="p">,</span>
+        <span class="s1">&#39;rpkm&#39;</span><span class="p">:</span><span class="n">rpkm_ref</span><span class="p">,</span>
+        <span class="p">})</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">rpkm</span><span class="p">))</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;rpkm.png&#39;</span><span class="p">)</span>
+    <span class="c1">#print(sorted([math.floor(row.rpkm) for row in df.itertuples() if row.ase]))</span>
+    
+    <span class="sd">&quot;&quot;&quot;determine the total read count per locus from the RPKM values, desired library size and gene lengths&quot;&quot;&quot;</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;reads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">rpkm</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">seq</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">library_size</span> <span class="o">/</span> <span class="mi">1000000</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">reads</span><span class="p">))</span>
+    
+    <span class="n">mutation_statistics</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">snp_counter</span> <span class="o">=</span> <span class="mi">1</span>
+    
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span> <span class="c1"># iterate over each gene/transcript</span>
+        
+        <span class="n">ref_seq</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">seq</span><span class="p">)</span>
+        <span class="n">alt_seq</span><span class="p">,</span> <span class="n">stats</span> <span class="o">=</span> <span class="n">mutate</span><span class="p">(</span><span class="n">ref_seq</span><span class="p">)</span>
+        
+        <span class="c1"># determine allele-specific read counts</span>
+        <span class="k">if</span> <span class="n">row</span><span class="o">.</span><span class="n">ase</span><span class="p">:</span>
+            <span class="n">ref_read_count</span><span class="p">,</span> <span class="n">alt_read_count</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">reads</span><span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">proportions</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ref_read_count</span><span class="p">,</span> <span class="n">alt_read_count</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">reads</span><span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]]</span>
+        
+        <span class="c1"># write reads</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ref_read_count</span><span class="p">):</span>
+            <span class="n">make_read</span><span class="p">(</span><span class="n">ref_seq</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">alt_read_count</span><span class="p">):</span>
+            <span class="n">make_read</span><span class="p">(</span><span class="n">alt_seq</span><span class="p">)</span>
+            
+        <span class="n">genewise_snp_count</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">alt</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">:</span>
+            <span class="n">mutation_statistics</span><span class="p">[</span><span class="s1">&#39;SNP_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">snp_counter</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+                    <span class="s1">&#39;gene_id&#39;</span> <span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">gene</span><span class="p">,</span> 
+                    <span class="s1">&#39;transcript_snp_id&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">gene</span><span class="p">,</span> <span class="n">genewise_snp_count</span><span class="p">),</span>
+                    <span class="s1">&#39;ase&#39;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">ase</span><span class="p">,</span>
+                    <span class="s1">&#39;rpkm&#39;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">rpkm</span><span class="p">,</span> 
+                    <span class="s1">&#39;total_read_count&#39;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">reads</span><span class="p">,</span> 
+                    <span class="s1">&#39;ref_read_count&#39;</span><span class="p">:</span> <span class="n">ref_read_count</span><span class="p">,</span> 
+                    <span class="s1">&#39;alt_read_count&#39;</span><span class="p">:</span> <span class="n">alt_read_count</span><span class="p">,</span> 
+                    <span class="s1">&#39;transcript_length&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">seq</span><span class="p">),</span> 
+                    <span class="s1">&#39;relative_snp_position&#39;</span><span class="p">:</span> <span class="n">pos</span><span class="p">,</span> 
+                    <span class="s1">&#39;ref_nucleotide&#39;</span><span class="p">:</span> <span class="n">ref</span><span class="p">,</span> 
+                    <span class="s1">&#39;alt_nucleotide&#39;</span><span class="p">:</span> <span class="n">alt</span><span class="p">,</span>
+                    <span class="p">})</span>
+            <span class="n">snp_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">genewise_snp_count</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">reads_file_1</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">F</span><span class="p">:</span>
+        <span class="n">F</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fastq</span><span class="p">(</span><span class="n">reads_1</span><span class="p">))</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">reads_file_2</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">F</span><span class="p">:</span>
+        <span class="n">F</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fastq</span><span class="p">(</span><span class="n">reads_2</span><span class="p">))</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mutation_statistics</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;average_coverage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">total_read_count</span> <span class="o">*</span> <span class="n">read_length</span> <span class="o">/</span> <span class="n">df</span><span class="o">.</span><span class="n">transcript_length</span>
+    <span class="n">snp_count</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">gene</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">gene_id</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">gene</span><span class="p">))</span> <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">gene_id</span><span class="p">))])</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;snps_per_transcript&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">snp_count</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">gene_id</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">stats_file</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Chris Cowled
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
