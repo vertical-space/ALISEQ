@@ -1,8 +1,18 @@
-Instructions for use
+ALISEQ
 ================================================================================
 
+Welcome to ALISEQ, a program for analysing RNA-Seq data
 
-Editing the config file
+'Documentation <https://vertical-space.github.io/ALISEQ/>'_
+
+'Sourcecode <https://github.com/vertical-space/ALISEQ>'_
+
+Instalation
+--------------------------------------------------------------------------------
+
+git clone https://github.com/vertical-space/ALISEQ
+
+Edit the config file
 --------------------------------------------------------------------------------
 
 this is a demo of how to generate a document in sphinx
@@ -57,17 +67,14 @@ this is a demo of how to generate a document in sphinx
 
     description of the attr1 attribute
 
-.. _Link: https://github.com/vertical-space/practise-public
+.. _Link: https://vertical-space.github.io/ALISEQ/
 
 
 
 running the simulation
 --------------------------------------------------------------------------------
 
-.. image:: http://fossilshelf.com/images/museum/IMG_7713.jpg
-   :alt: this is an insect
-
-.. figure:: ../media/IMG_6774.JPG
+.. figure:: http://fossilshelf.com/images/museum/IMG_7713.jpg
    :alt: this is an insect
 
    This is the caption of the figure (a simple paragraph).
