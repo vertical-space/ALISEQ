@@ -10,7 +10,7 @@ Welcome to ALISEQ's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   includeme
+   page1
    page2
    page3
 
