@@ -16,6 +16,11 @@ latexpdf:
 	cp $(PDFBUILDDIR)/latex/*.pdf $(PDF)
 	@echo "pdflatex finished; see $(PDF)"
 
+
+buildandcommithtml: html
+	cd $(BUILDDIR)/html; git add . ; git commit -m "rebuilt docs"; git push origin gh-pages
+
+
 # Put it first so that "make" without argument is like "make help".
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
