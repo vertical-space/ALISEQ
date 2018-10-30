@@ -12,6 +12,7 @@ Welcome to ALISEQ's documentation!
 
    includeme
    page2
+   page3
 
 
 Indices and tables

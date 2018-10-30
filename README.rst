@@ -1,16 +1,18 @@
-ALISEQ
+ALISEQ, a program for analysing RNA-Seq data
 ================================================================================
 
-Welcome to ALISEQ, a program for analysing RNA-Seq data
+Full documentation https://vertical-space.github.io/ALISEQ
 
-'Documentation <https://vertical-space.github.io/ALISEQ/>'_
+Source code: https://github.com/vertical-space/ALISEQ
 
-'Sourcecode <https://github.com/vertical-space/ALISEQ>'_
+
 
 Instalation
 --------------------------------------------------------------------------------
 
 git clone https://github.com/vertical-space/ALISEQ
+
+
 
 Edit the config file
 --------------------------------------------------------------------------------
