@@ -11,6 +11,7 @@ Welcome to ALISEQ's documentation!
    :caption: Contents:
 
    includeme
+   page2
 
 
 Indices and tables
