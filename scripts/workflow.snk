@@ -6,6 +6,7 @@ chris cowled 16.08.2018
 snakemake -nps workflow.snk 
 """
 
+import os
 import pathlib
 import pandas as pd
 
@@ -16,11 +17,12 @@ filter_params = {
     'minSnps':       3,
 }
 
-PATH = workflow.basedir
+CWD = os.getcwd()
+BASEDIR = workflow.basedir # this is full path to the snakefile itself
 
 headers = ['sample', 'tissue', 'sex', 'age', 'region', 'country']
-metadata = pd.read_csv("%s/../data/buffalo_sample_metadata.csv" % PATH, header=None, names=headers, index_col=0)
-accessions = pd.read_csv("%s/../data/ERA1230280.csv" % PATH)
+metadata = pd.read_csv("%s/../data/buffalo_sample_metadata.csv" % BASEDIR, header=None, names=headers, index_col=0)
+accessions = pd.read_csv("%s/../data/ERA1230280.csv" % BASEDIR)
 
 url_index = dict(zip(
     accessions['run_accession'],
@@ -34,7 +36,7 @@ run2sampleACC = dict(zip(
     )
 )
 
-target_list = [s.strip() for s in open('targets.txt', 'r').read().split('\n')]
+target_list = [s.strip() for s in open('%s/targets.txt' % CWD, 'r').read().split('\n')]
 file_list = ["reports/%s.html" % s for s in target_list if s] 
 file_list = [s for s in file_list if not s[0] == '#']
 
