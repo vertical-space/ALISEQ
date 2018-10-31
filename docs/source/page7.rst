@@ -1,6 +1,6 @@
-genewiseMAFC.py
+convert2bed.py
 ================================================================================
 
-.. automodule:: genewiseMAFC
+.. automodule:: convert2bed
     :members:
 

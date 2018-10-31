@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Sep 20 13:53:33 2018
 
-@author: chris
 """
+
+.. Created on Thu Sep 20 13:53:33 2018
+
+   @author: chris
+
+"""
+
 import os
 import argparse
 import logging
@@ -15,8 +19,12 @@ import pandas as pd
 from randomdict import RandomDict
 from Bio import Seq
 
-"""Note: the first 3 functions to generate a random sequence library, 
-are not presently used, but could be useful later
+
+"""
+
+.. Note: the first 3 functions to generate a random sequence library, 
+   are not presently used, but could be useful later
+
 """
 
 def createRandomSequence(mu=3392, sigma=2600, m=300, M=10000):
@@ -336,6 +344,7 @@ def invert(i, s):
     TTTTTTTTTTTTTTTT
           |        |
           9    <-- 0
+
     '''
     return len(s) - i - 1
 

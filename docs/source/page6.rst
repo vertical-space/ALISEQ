@@ -1,6 +1,6 @@
-genewiseMAFC.py
+maketable.py
 ================================================================================
 
-.. automodule:: genewiseMAFC
+.. automodule:: maketable
     :members:
 

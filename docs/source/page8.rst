@@ -1,6 +1,6 @@
-genewiseMAFC.py
+read_buffalo_xml_data.py
 ================================================================================
 
-.. automodule:: genewiseMAFC
+.. automodule:: read_buffalo_xml_data
     :members:
 

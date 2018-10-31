@@ -16,8 +16,8 @@ this is a demo of how to generate a document in sphinx
 
     not a real function!
 
-.. this is an rst comment. it explain swhat the code here does, but should not 
-   show up in the actual document.
+.. this is an rst comment. it explains what the code does, but does not 
+   show up in the html document.
 
    it can continue with indentation.
 
