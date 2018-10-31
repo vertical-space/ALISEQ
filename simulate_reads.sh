@@ -1,8 +1,16 @@
 #!/bin/bash
 
-snakemake --cluster-config cluster.json \
-          --jobscript custombash.sh \
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+snakemake --cluster-config $DIR/scripts/cluster.json \
+          --jobscript $DIR/scripts/custombash.sh \
           --use-conda \
           --cluster "qsub -cwd -pe sharedmem {cluster.core} -l h_rt={cluster.time} -l h_vmem={cluster.vmem}" \
           --jobs 1000 \
-          --snakefile simulate_reads.snk
+          --snakefile $DIR/scripts/simulate_reads.snk
+
+# create the following directory if it doesn't exist already (-p prevents overwriting)
+mkdir -p logs/jobreports
+
+mv snakejob* logs/jobreports
+
