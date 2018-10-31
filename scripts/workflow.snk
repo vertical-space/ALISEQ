@@ -205,7 +205,7 @@ rule samtools_index:
 
 rule gtf2bed:
     input:
-        script="5s/convert2bed.py" % BASEDIR,
+        script="%s/convert2bed.py" % BASEDIR,
         gtf="genome/{sample}.gtf"
     output:
         bed="genome/{sample}.bed",
