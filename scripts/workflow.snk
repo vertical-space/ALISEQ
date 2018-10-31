@@ -16,7 +16,7 @@ filter_params = {
     'minSnps':       3,
 }
 
-PATH = pathlib.Path(__file__).parent
+PATH = workflow.basedir
 
 headers = ['sample', 'tissue', 'sex', 'age', 'region', 'country']
 metadata = pd.read_csv("%s/data/buffalo_sample_metadata.csv" % PATH, header=None, names=headers, index_col=0)
