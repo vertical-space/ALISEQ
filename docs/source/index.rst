@@ -10,10 +10,11 @@ Welcome to ALISEQ's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   page1
-   page2
-   page3
-
+   welcome
+   setup
+   usage
+   more
+   modules
 
 Indices and tables
 ==================
@@ -21,3 +22,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+

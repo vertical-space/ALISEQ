@@ -378,7 +378,7 @@ rule report:
         "reports/{sample}.html"
     run:
         from snakemake.utils import report as html_report
-        from scripts import maketable
+        import maketable
         import datetime
 
         date = datetime.datetime.today().strftime('%Y-%m-%d')
