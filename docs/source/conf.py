@@ -15,7 +15,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('../../ALISEQ'))
+sys.path.insert(0, os.path.abspath('../../scripts'))
 
 
 # -- Project information -----------------------------------------------------
@@ -182,6 +182,6 @@ epub_exclude_files = ['search.html']
 
 # -- Extension configuration -------------------------------------------------
 
-html_logo = 'tuna.png'
+html_logo = 'logo.png'
 
 

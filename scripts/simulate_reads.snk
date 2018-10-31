@@ -1,0 +1,12 @@
+"""
+simulate_reads.snk
+
+chris cowled 31.10.2018
+
+snakemake -nps simulate_reads.snk 
+"""
+
+rule all:
+    input:
+        ?
+

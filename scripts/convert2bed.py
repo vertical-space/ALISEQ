@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Aug 20 15:17:59 2018
 
-@author: cow082
+"""
+
+.. Created on Mon Aug 20 15:17:59 2018
+
+   @author: cow082
+
 """
 
 import sys
