@@ -2,6 +2,7 @@ Instalation and setup
 ================================================================================
 
 
+
 Download the source code
 --------------------------------------------------------------------------------
 
@@ -9,14 +10,24 @@ git clone https://github.com/vertical-space/ALISEQ
 
 
 
-Download allelecounter
---------------------------------------------------------------------------------
-
 git clone https://github.com/secastel/allelecounter.git ALISEQ/allelecounter
 
+export SRC_DIR=`pwd`
+
+conda env create -f ALISEQ/envs/aliseq.yaml -p ${SRC_DIR}/ALISEQ
+
+source activate aliseq
+
+mkdir testdirectory
+
+cd testdirectory
 
 
 
+Test if it's working
+--------------------------------------------------------------------------------
+
+bash aliseq.sh
 
 
 

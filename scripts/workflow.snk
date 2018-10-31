@@ -6,6 +6,7 @@ chris cowled 16.08.2018
 snakemake -nps workflow.snk 
 """
 
+import pathlib
 import pandas as pd
 
 
@@ -15,10 +16,11 @@ filter_params = {
     'minSnps':       3,
 }
 
+PATH = pathlib.Path(__file__).parent
 
 headers = ['sample', 'tissue', 'sex', 'age', 'region', 'country']
-metadata = pd.read_csv("../data/buffalo_sample_metadata.csv", header=None, names=headers, index_col=0)
-accessions = pd.read_csv("../data/ERA1230280.csv")
+metadata = pd.read_csv("%s/data/buffalo_sample_metadata.csv" % PATH, header=None, names=headers, index_col=0)
+accessions = pd.read_csv("%s/data/ERA1230280.csv" % PATH)
 
 url_index = dict(zip(
     accessions['run_accession'],
