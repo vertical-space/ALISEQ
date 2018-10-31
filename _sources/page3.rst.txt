@@ -1,9 +1,8 @@
-List of modules
+Python modules
 ================================================================================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Python modules:
 
    page4
    page5

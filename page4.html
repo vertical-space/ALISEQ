@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>simulation.py &mdash; ALISEQ 1.0 documentation</title>
+  <title>simulate_reads.py &mdash; ALISEQ 1.0 documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="test_simulation.py" href="page5.html" />
-    <link rel="prev" title="List of modules" href="page3.html" /> 
+    <link rel="next" title="genewiseMAFC.py" href="page5.html" />
+    <link rel="prev" title="Python modules" href="page3.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -53,7 +53,7 @@
 
           
             
-            <img src="_static/tuna.png" class="logo" alt="Logo"/>
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -85,9 +85,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="page1.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="page2.html">Instalation and setup</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="page3.html">List of modules</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">simulation.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="page5.html">test_simulation.py</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="page3.html">Python modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">simulate_reads.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page5.html">genewiseMAFC.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page6.html">maketable.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page7.html">convert2bed.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page8.html">read_buffalo_xml_data.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page9.html">evaluate_simulation.py</a></li>
 </ul>
 </li>
 </ul>
@@ -135,9 +139,9 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-          <li><a href="page3.html">List of modules</a> &raquo;</li>
+          <li><a href="page3.html">Python modules</a> &raquo;</li>
         
-      <li>simulation.py</li>
+      <li>simulate_reads.py</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -156,65 +160,65 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-simulation">
-<span id="simulation-py"></span><h1>simulation.py<a class="headerlink" href="#module-simulation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-simulate_reads">
+<span id="simulate-reads-py"></span><h1>simulate_reads.py<a class="headerlink" href="#module-simulate_reads" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="simulation.chooseInsert">
-<code class="descclassname">simulation.</code><code class="descname">chooseInsert</code><span class="sig-paren">(</span><em>seq</em>, <em>args</em>, <em>READ_COUNTER</em>, <em>max_attempts=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#chooseInsert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.chooseInsert" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.chooseInsert">
+<code class="descclassname">simulate_reads.</code><code class="descname">chooseInsert</code><span class="sig-paren">(</span><em>seq</em>, <em>args</em>, <em>READ_COUNTER</em>, <em>max_attempts=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#chooseInsert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.chooseInsert" title="Permalink to this definition">¶</a></dt>
 <dd><p>choose the insert start and end positions based on a 
 predetermined distribution of insert sizes</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.createAltAllele">
-<code class="descclassname">simulation.</code><code class="descname">createAltAllele</code><span class="sig-paren">(</span><em>seq</em>, <em>SNP_frequency</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#createAltAllele"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.createAltAllele" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.createAltAllele">
+<code class="descclassname">simulate_reads.</code><code class="descname">createAltAllele</code><span class="sig-paren">(</span><em>seq</em>, <em>SNP_frequency</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createAltAllele"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createAltAllele" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulate the mutation process to generate a heterozygous allele</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.createRandomSequence">
-<code class="descclassname">simulation.</code><code class="descname">createRandomSequence</code><span class="sig-paren">(</span><em>mu=3392</em>, <em>sigma=2600</em>, <em>m=300</em>, <em>M=10000</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#createRandomSequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.createRandomSequence" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.createRandomSequence">
+<code class="descclassname">simulate_reads.</code><code class="descname">createRandomSequence</code><span class="sig-paren">(</span><em>mu=3392</em>, <em>sigma=2600</em>, <em>m=300</em>, <em>M=10000</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createRandomSequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createRandomSequence" title="Permalink to this definition">¶</a></dt>
 <dd><p>create a random ATCG string with random length. 
 Note: use the normal distribution to choose the length (mean: 3392bp, s.d 2600bp), 
 but discard lengths outside the range [m,M]</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.createRandomSequenceIndex">
-<code class="descclassname">simulation.</code><code class="descname">createRandomSequenceIndex</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#createRandomSequenceIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.createRandomSequenceIndex" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.createRandomSequenceIndex">
+<code class="descclassname">simulate_reads.</code><code class="descname">createRandomSequenceIndex</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createRandomSequenceIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createRandomSequenceIndex" title="Permalink to this definition">¶</a></dt>
 <dd><p>constructs a dictionary {seq_id: sequence} of random ATCG sequences 
 (for default values see the randomGene() function</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.createRandomSequenceLibrary">
-<code class="descclassname">simulation.</code><code class="descname">createRandomSequenceLibrary</code><span class="sig-paren">(</span><em>n_seqs=400</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#createRandomSequenceLibrary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.createRandomSequenceLibrary" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.createRandomSequenceLibrary">
+<code class="descclassname">simulate_reads.</code><code class="descname">createRandomSequenceLibrary</code><span class="sig-paren">(</span><em>n_seqs=400</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createRandomSequenceLibrary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createRandomSequenceLibrary" title="Permalink to this definition">¶</a></dt>
 <dd><p>generate a random sequence library and save to file</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.createReadLibrary">
-<code class="descclassname">simulation.</code><code class="descname">createReadLibrary</code><span class="sig-paren">(</span><em>df</em>, <em>reads_file_1</em>, <em>reads_file_2</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#createReadLibrary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.createReadLibrary" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.createReadLibrary">
+<code class="descclassname">simulate_reads.</code><code class="descname">createReadLibrary</code><span class="sig-paren">(</span><em>df</em>, <em>reads_file_1</em>, <em>reads_file_2</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createReadLibrary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createReadLibrary" title="Permalink to this definition">¶</a></dt>
 <dd><p>loop through a dataframe containing sequences (ref and alt alleles) 
 and expression levels (ref and alt counts) and create two dictionaries of 
 simulated NGS reads (fwd and reverse read pairs)</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.createReadPair">
-<code class="descclassname">simulation.</code><code class="descname">createReadPair</code><span class="sig-paren">(</span><em>seq</em>, <em>reads_file_1</em>, <em>reads_file_2</em>, <em>READ_COUNTER</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#createReadPair"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.createReadPair" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.createReadPair">
+<code class="descclassname">simulate_reads.</code><code class="descname">createReadPair</code><span class="sig-paren">(</span><em>seq</em>, <em>reads_file_1</em>, <em>reads_file_2</em>, <em>READ_COUNTER</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createReadPair"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createReadPair" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulate a single pair of reads in an NGS experiment</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.createTestInsert">
-<code class="descclassname">simulation.</code><code class="descname">createTestInsert</code><span class="sig-paren">(</span><em>s_fwd</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#createTestInsert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.createTestInsert" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.createTestInsert">
+<code class="descclassname">simulate_reads.</code><code class="descname">createTestInsert</code><span class="sig-paren">(</span><em>s_fwd</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createTestInsert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createTestInsert" title="Permalink to this definition">¶</a></dt>
 <dd><p>create an insert (for testing purposes only)</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.defineCountsAndSequences">
-<code class="descclassname">simulation.</code><code class="descname">defineCountsAndSequences</code><span class="sig-paren">(</span><em>df</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#defineCountsAndSequences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.defineCountsAndSequences" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.defineCountsAndSequences">
+<code class="descclassname">simulate_reads.</code><code class="descname">defineCountsAndSequences</code><span class="sig-paren">(</span><em>df</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#defineCountsAndSequences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.defineCountsAndSequences" title="Permalink to this definition">¶</a></dt>
 <dd><p>loop through each gene (transcript) constructing a second
 allele (based on a defined mutation rate) and read counts for each allele 
 (divide up the total reads between ref &amp; alt alleles: proportions depend on whether the 
@@ -222,32 +226,32 @@ gene has been assigned as ASE or not)</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.fastWrap">
-<code class="descclassname">simulation.</code><code class="descname">fastWrap</code><span class="sig-paren">(</span><em>text</em>, <em>width=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#fastWrap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.fastWrap" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.fastWrap">
+<code class="descclassname">simulate_reads.</code><code class="descname">fastWrap</code><span class="sig-paren">(</span><em>text</em>, <em>width=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#fastWrap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.fastWrap" title="Permalink to this definition">¶</a></dt>
 <dd><p>much quicker than textwrap.wrap</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.fasta">
-<code class="descclassname">simulation.</code><code class="descname">fasta</code><span class="sig-paren">(</span><em>seq_index</em>, <em>wrap=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#fasta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.fasta" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.fasta">
+<code class="descclassname">simulate_reads.</code><code class="descname">fasta</code><span class="sig-paren">(</span><em>seq_index</em>, <em>wrap=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#fasta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.fasta" title="Permalink to this definition">¶</a></dt>
 <dd><p>format a dictionary of {label:sequence} pairs into a fasta string</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.fastq">
-<code class="descclassname">simulation.</code><code class="descname">fastq</code><span class="sig-paren">(</span><em>seq_index</em>, <em>args</em>, <em>wrap=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#fastq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.fastq" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.fastq">
+<code class="descclassname">simulate_reads.</code><code class="descname">fastq</code><span class="sig-paren">(</span><em>seq_index</em>, <em>args</em>, <em>wrap=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#fastq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.fastq" title="Permalink to this definition">¶</a></dt>
 <dd><p>format a dictionary of {label:sequence} pairs into a fastq string</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.indexFasta">
-<code class="descclassname">simulation.</code><code class="descname">indexFasta</code><span class="sig-paren">(</span><em>fasta</em>, <em>limit=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#indexFasta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.indexFasta" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.indexFasta">
+<code class="descclassname">simulate_reads.</code><code class="descname">indexFasta</code><span class="sig-paren">(</span><em>fasta</em>, <em>limit=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#indexFasta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.indexFasta" title="Permalink to this definition">¶</a></dt>
 <dd><p>re-written to account for some entries having ‘&gt;’ in the title string!</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.invert">
-<code class="descclassname">simulation.</code><code class="descname">invert</code><span class="sig-paren">(</span><em>i</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#invert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.invert" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.invert">
+<code class="descclassname">simulate_reads.</code><code class="descname">invert</code><span class="sig-paren">(</span><em>i</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#invert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.invert" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a coordinate corresponding to a position on the reverse strand
 that matches a coordinate on the forward strand, i.e.</p>
 <p>0     5
@@ -263,29 +267,29 @@ TTTTTTTTTTTTTTTT</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.mutateString">
-<code class="descclassname">simulation.</code><code class="descname">mutateString</code><span class="sig-paren">(</span><em>ref_seq</em>, <em>SNP_frequency</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#mutateString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.mutateString" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.mutateString">
+<code class="descclassname">simulate_reads.</code><code class="descname">mutateString</code><span class="sig-paren">(</span><em>ref_seq</em>, <em>SNP_frequency</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#mutateString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.mutateString" title="Permalink to this definition">¶</a></dt>
 <dd><p>based on a specified frequency, return a list of positions to mutate</p>
 <p>Note: there are many possible ways this could be done</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.parseHeaders">
-<code class="descclassname">simulation.</code><code class="descname">parseHeaders</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#parseHeaders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.parseHeaders" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.parseHeaders">
+<code class="descclassname">simulate_reads.</code><code class="descname">parseHeaders</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#parseHeaders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.parseHeaders" title="Permalink to this definition">¶</a></dt>
 <dd><p>custom fasta header parser specific to this dataset</p>
 <p>might not work with other datasets</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.prepareData">
-<code class="descclassname">simulation.</code><code class="descname">prepareData</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#prepareData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.prepareData" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.prepareData">
+<code class="descclassname">simulate_reads.</code><code class="descname">prepareData</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#prepareData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.prepareData" title="Permalink to this definition">¶</a></dt>
 <dd><p>index the reference transcriptome, assign read counts, then decide 
 which genes are going to be ASE</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.qualScore">
-<code class="descclassname">simulation.</code><code class="descname">qualScore</code><span class="sig-paren">(</span><em>i</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#qualScore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.qualScore" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.qualScore">
+<code class="descclassname">simulate_reads.</code><code class="descname">qualScore</code><span class="sig-paren">(</span><em>i</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#qualScore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.qualScore" title="Permalink to this definition">¶</a></dt>
 <dd><p>select a quality string at random from a real RNA-Seq dataset</p>
 <p>NOTE: It is assumed that desired strings are &lt;= the length of the 
 available strings.</p>
@@ -294,22 +298,22 @@ at the time of args.qualdata construction.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.randomDecision">
-<code class="descclassname">simulation.</code><code class="descname">randomDecision</code><span class="sig-paren">(</span><em>probability=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#randomDecision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.randomDecision" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.randomDecision">
+<code class="descclassname">simulate_reads.</code><code class="descname">randomDecision</code><span class="sig-paren">(</span><em>probability=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#randomDecision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.randomDecision" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns a random True/False based on:
 &lt;probability&gt;       chance of returning True
 1 - &lt;probability&gt;   chance of returning False</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.readQualscores">
-<code class="descclassname">simulation.</code><code class="descname">readQualscores</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#readQualscores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.readQualscores" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.readQualscores">
+<code class="descclassname">simulate_reads.</code><code class="descname">readQualscores</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#readQualscores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.readQualscores" title="Permalink to this definition">¶</a></dt>
 <dd><p>basic function for extracting quality strings from a fastq file</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.simulateSequencingExperiment">
-<code class="descclassname">simulation.</code><code class="descname">simulateSequencingExperiment</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#simulateSequencingExperiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.simulateSequencingExperiment" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.simulateSequencingExperiment">
+<code class="descclassname">simulate_reads.</code><code class="descname">simulateSequencingExperiment</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#simulateSequencingExperiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.simulateSequencingExperiment" title="Permalink to this definition">¶</a></dt>
 <dd><p>create a simulated NGS dataset containing allelic inbalance in the 
 expression of a defined proportion of genes</p>
 <p>this function can be modified to output multiple sequencing simulations 
@@ -318,20 +322,20 @@ assess the effect of increasing sequencing depth</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.test_1">
-<code class="descclassname">simulation.</code><code class="descname">test_1</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#test_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.test_1" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.test_1">
+<code class="descclassname">simulate_reads.</code><code class="descname">test_1</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#test_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.test_1" title="Permalink to this definition">¶</a></dt>
 <dd><p>plot insert sizes from an invariant pseudo-transcriptome</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.test_2">
-<code class="descclassname">simulation.</code><code class="descname">test_2</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#test_2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.test_2" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.test_2">
+<code class="descclassname">simulate_reads.</code><code class="descname">test_2</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#test_2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.test_2" title="Permalink to this definition">¶</a></dt>
 <dd><p>plot insert sizes from an actual transcriptome</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.test_3">
-<code class="descclassname">simulation.</code><code class="descname">test_3</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#test_3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.test_3" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.test_3">
+<code class="descclassname">simulate_reads.</code><code class="descname">test_3</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#test_3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.test_3" title="Permalink to this definition">¶</a></dt>
 <dd><p>model the insert size distribution of an actual transcriptome</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
 </pre></div>
@@ -357,8 +361,8 @@ transcriptome instead, then re-measure the insert sizes.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="simulation.test_4">
-<code class="descclassname">simulation.</code><code class="descname">test_4</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#test_4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.test_4" title="Permalink to this definition">¶</a></dt>
+<dt id="simulate_reads.test_4">
+<code class="descclassname">simulate_reads.</code><code class="descname">test_4</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#test_4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.test_4" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -371,10 +375,10 @@ transcriptome instead, then re-measure the insert sizes.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="page5.html" class="btn btn-neutral float-right" title="test_simulation.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="page5.html" class="btn btn-neutral float-right" title="genewiseMAFC.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="page3.html" class="btn btn-neutral" title="List of modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="page3.html" class="btn btn-neutral" title="Python modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
