@@ -177,7 +177,7 @@ rule hisat2_map_reads:
     threads: 
         8                               # optional, defaults to 1
     conda:
-        "%s/hisat2.yaml" ENVDIR
+        "%s/hisat2.yaml" % ENVDIR
     wrapper:
         "0.27.1/bio/hisat2"
 
