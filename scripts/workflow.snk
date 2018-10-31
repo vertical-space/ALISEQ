@@ -18,8 +18,8 @@ filter_params = {
 }
 
 BASEDIR = workflow.basedir # this is full path to the snakefile itself
-ENVDIR  = '%s/../envs'
-DATADIR = '%s/../data'
+ENVDIR  = '%s/../envs' % BASEDIR
+DATADIR = '%s/../data' % BASEDIR
 
 headers = ['sample', 'tissue', 'sex', 'age', 'region', 'country']
 metadata = pd.read_csv("%s/buffalo_sample_metadata.csv" % DATADIR, header=None, names=headers, index_col=0)
