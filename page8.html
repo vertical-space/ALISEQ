@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ALISEQ, a program for analysing RNA-Seq data &mdash; ALISEQ 1.0 documentation</title>
+  <title>read_buffalo_xml_data.py &mdash; ALISEQ 1.0 documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Instalation and setup" href="page2.html" />
-    <link rel="prev" title="Welcome to ALISEQ’s documentation!" href="index.html" /> 
+    <link rel="next" title="evaluate_simulation.py" href="page9.html" />
+    <link rel="prev" title="convert2bed.py" href="page7.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -83,9 +83,17 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">ALISEQ, a program for analysing RNA-Seq data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="page1.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="page2.html">Instalation and setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="page3.html">List of modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="page3.html">List of modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="page4.html">simulation.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page5.html">genewiseMAFC.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page6.html">maketable.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page7.html">convert2bed.py</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">read_buffalo_xml_data.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page9.html">evaluate_simulation.py</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -131,13 +139,15 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>ALISEQ, a program for analysing RNA-Seq data</li>
+          <li><a href="page3.html">List of modules</a> &raquo;</li>
+        
+      <li>read_buffalo_xml_data.py</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/page1.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/page8.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -150,10 +160,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="aliseq-a-program-for-analysing-rna-seq-data">
-<h1>ALISEQ, a program for analysing RNA-Seq data<a class="headerlink" href="#aliseq-a-program-for-analysing-rna-seq-data" title="Permalink to this headline">¶</a></h1>
-<p>Full documentation <a class="reference external" href="https://vertical-space.github.io/ALISEQ">https://vertical-space.github.io/ALISEQ</a></p>
-<p>Source code: <a class="reference external" href="https://github.com/vertical-space/ALISEQ">https://github.com/vertical-space/ALISEQ</a></p>
+  <div class="section" id="module-read_buffalo_xml_data">
+<span id="read-buffalo-xml-data-py"></span><h1>read_buffalo_xml_data.py<a class="headerlink" href="#module-read_buffalo_xml_data" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="read_buffalo_xml_data.processXML">
+<code class="descclassname">read_buffalo_xml_data.</code><code class="descname">processXML</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/read_buffalo_xml_data.html#processXML"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#read_buffalo_xml_data.processXML" title="Permalink to this definition">¶</a></dt>
+<dd><p>used to construct ‘resources/buffalo_sample_metadata.csv’</p>
+<p># it uses the following xml files 
+“ERS2495773-ERS2495833.xml”, “ERS2495835-ERS2495900.xml”,”ERS2495902-ERS2495992.xml”</p>
+<p># which are obtained from here (there is an xml download link on the page): 
+<a class="reference external" href="https://www.ebi.ac.uk/ena/data/view/ERS2495773-ERS2495833">https://www.ebi.ac.uk/ena/data/view/ERS2495773-ERS2495833</a>
+<a class="reference external" href="https://www.ebi.ac.uk/ena/data/view/ERS2495835-ERS2495900">https://www.ebi.ac.uk/ena/data/view/ERS2495835-ERS2495900</a>
+<a class="reference external" href="https://www.ebi.ac.uk/ena/data/view/ERS2495902-ERS2495992">https://www.ebi.ac.uk/ena/data/view/ERS2495902-ERS2495992</a></p>
+</dd></dl>
+
 </div>
 
 
@@ -164,10 +184,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="page2.html" class="btn btn-neutral float-right" title="Instalation and setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="page9.html" class="btn btn-neutral float-right" title="evaluate_simulation.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Welcome to ALISEQ’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="page7.html" class="btn btn-neutral" title="convert2bed.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

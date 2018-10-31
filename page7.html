@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>genewiseMAFC.py &mdash; ALISEQ 1.0 documentation</title>
+  <title>convert2bed.py &mdash; ALISEQ 1.0 documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="maketable.py" href="page6.html" />
-    <link rel="prev" title="simulation.py" href="page4.html" /> 
+    <link rel="next" title="read_buffalo_xml_data.py" href="page8.html" />
+    <link rel="prev" title="maketable.py" href="page6.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -87,9 +87,9 @@
 <li class="toctree-l1"><a class="reference internal" href="page2.html">Instalation and setup</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="page3.html">List of modules</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="page4.html">simulation.py</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">genewiseMAFC.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page5.html">genewiseMAFC.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="page6.html">maketable.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="page7.html">convert2bed.py</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">convert2bed.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="page8.html">read_buffalo_xml_data.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="page9.html">evaluate_simulation.py</a></li>
 </ul>
@@ -141,13 +141,13 @@
         
           <li><a href="page3.html">List of modules</a> &raquo;</li>
         
-      <li>genewiseMAFC.py</li>
+      <li>convert2bed.py</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/page5.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/page7.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -160,47 +160,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-genewiseMAFC">
-<span id="genewisemafc-py"></span><h1>genewiseMAFC.py<a class="headerlink" href="#module-genewiseMAFC" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-convert2bed">
+<span id="convert2bed-py"></span><h1>convert2bed.py<a class="headerlink" href="#module-convert2bed" title="Permalink to this headline">¶</a></h1>
+<p>Created on Mon Aug 20 15:17:59 2018</p>
+<p>&#64;author: cow082</p>
 <dl class="function">
-<dt id="genewiseMAFC.enrichASE">
-<code class="descclassname">genewiseMAFC.</code><code class="descname">enrichASE</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genewiseMAFC.html#enrichASE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genewiseMAFC.enrichASE" title="Permalink to this definition">¶</a></dt>
-<dd><p>identify genes with differential expression between two alleles</p>
-<p>requires: annotated SNP data (<a href="#id1"><span class="problematic" id="id2">*</span></a>.merged.csv) output from bedtools intersect</p>
-<dl class="docutils">
-<dt>How it works:</dt>
-<dd><ol class="first last arabic simple">
-<li>group SNPs together by gene</li>
-<li>For each SNP in that gene, calculate the absolute(log2(fold change))</li>
-<li>take the average of absolute(log2(fold change)) values across all SNPS for that gene</li>
-<li><dl class="first docutils">
-<dt>filter on:</dt>
-<dd><ul class="first last">
-<li>average read depth at variable positions for the gene</li>
-<li>number of SNPs in the gene</li>
-<li>average(absolute(log2(fold change))) for the gene</li>
-</ul>
-</dd>
-</dl>
-</li>
-</ol>
-</dd>
-<dt>Two optional args with no defaults change the program behaviour:</dt>
-<dd><ol class="first last arabic simple">
-<li>–output &lt;file&gt; sends the results to file rather than stdout</li>
-<li>–gene &lt;gene&gt; yields data for every SNP in a specific gene. Without
-this arg, the program produces instead a summary table of all 
-significant genes in order of priority 
-(sorted by: average(absolute(log2(fold change))))</li>
-</ol>
-</dd>
-</dl>
+<dt id="convert2bed.csv2bed">
+<code class="descclassname">convert2bed.</code><code class="descname">csv2bed</code><span class="sig-paren">(</span><em>csv</em>, <em>bed=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/convert2bed.html#csv2bed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#convert2bed.csv2bed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a <a href="#id1"><span class="problematic" id="id2">*</span></a>.csv file output from allelecounter.py into a <a href="#id3"><span class="problematic" id="id4">*</span></a>.bed file</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="genewiseMAFC.meanAbsoluteFoldChange">
-<code class="descclassname">genewiseMAFC.</code><code class="descname">meanAbsoluteFoldChange</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genewiseMAFC.html#meanAbsoluteFoldChange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genewiseMAFC.meanAbsoluteFoldChange" title="Permalink to this definition">¶</a></dt>
-<dd><p>find the average log2 fold change of SNPs (alleles) for a single gene</p>
+<dt id="convert2bed.gtf2bed">
+<code class="descclassname">convert2bed.</code><code class="descname">gtf2bed</code><span class="sig-paren">(</span><em>gtf</em>, <em>bed=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/convert2bed.html#gtf2bed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#convert2bed.gtf2bed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a <a href="#id5"><span class="problematic" id="id6">*</span></a>.gtf file into a <a href="#id7"><span class="problematic" id="id8">*</span></a>.bed file</p>
+<p>Note: discard everything except exons</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="convert2bed.vcf2bed">
+<code class="descclassname">convert2bed.</code><code class="descname">vcf2bed</code><span class="sig-paren">(</span><em>vcf</em>, <em>bed=None</em>, <em>MIN_TOTAL_COUNT=10</em>, <em>MIN_ALLELE_COUNT=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/convert2bed.html#vcf2bed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#convert2bed.vcf2bed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a <a href="#id9"><span class="problematic" id="id10">*</span></a>.vcf file output from bcftools::call into a <a href="#id11"><span class="problematic" id="id12">*</span></a>.bed file</p>
+<p>MIN_TOTAL_COUNT specifies the minimum number of high quality reads
+for a candidate to be retained</p>
+<p>MIN_ALLELE_COUNT sets a lower limit on the read depth of the 
+minor allele</p>
 </dd></dl>
 
 </div>
@@ -213,10 +197,10 @@ significant genes in order of priority
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="page6.html" class="btn btn-neutral float-right" title="maketable.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="page8.html" class="btn btn-neutral float-right" title="read_buffalo_xml_data.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="page4.html" class="btn btn-neutral" title="simulation.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="page6.html" class="btn btn-neutral" title="maketable.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

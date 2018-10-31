@@ -1,0 +1,406 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>convert2bed &mdash; ALISEQ 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ALISEQ
+          
+
+          
+            
+            <img src="../_static/tuna.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../page1.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../page2.html">Instalation and setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../page3.html">List of modules</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ALISEQ</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>convert2bed</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for convert2bed</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Mon Aug 20 15:17:59 2018</span>
+
+<span class="sd">@author: cow082</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<div class="viewcode-block" id="gtf2bed"><a class="viewcode-back" href="../page7.html#convert2bed.gtf2bed">[docs]</a><span class="k">def</span> <span class="nf">gtf2bed</span><span class="p">(</span><span class="n">gtf</span><span class="p">,</span> <span class="n">bed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a *.gtf file into a *.bed file</span>
+<span class="sd">    </span>
+<span class="sd">    Note: discard everything except exons</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">outlines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">gtf</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">v</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">readlines</span><span class="p">()):</span>
+            
+            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span><span class="p">:</span> <span class="c1"># headers</span>
+                <span class="k">pass</span>
+                <span class="c1">#print(line.strip())</span>
+                
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">elements</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>
+                    <span class="c1">#print(repr(elements))</span>
+                    <span class="k">pass</span>
+                
+                <span class="k">elif</span> <span class="n">elements</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CDS&#39;</span><span class="p">,</span> <span class="s1">&#39;gene&#39;</span><span class="p">,</span> <span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;cDNA_match&#39;</span><span class="p">,</span> 
+                                         <span class="s1">&#39;lnc_RNA&#39;</span><span class="p">,</span> <span class="s1">&#39;mRNA&#39;</span><span class="p">,</span> <span class="s1">&#39;tRNA&#39;</span><span class="p">,</span> 
+                                         <span class="s1">&#39;origin_of_replication&#39;</span><span class="p">,</span> <span class="s1">&#39;pseudogene&#39;</span><span class="p">,</span> 
+                                         <span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="s1">&#39;transcript&#39;</span><span class="p">,</span> <span class="s1">&#39;V_gene_segment&#39;</span><span class="p">,</span> 
+                                         <span class="s1">&#39;rRNA&#39;</span><span class="p">,</span> <span class="s1">&#39;D_loop&#39;</span><span class="p">,</span> <span class="s1">&#39;snoRNA&#39;</span><span class="p">,</span> 
+                                         <span class="s1">&#39;snRNA&#39;</span><span class="p">,</span> <span class="s1">&#39;C_gene_segment&#39;</span><span class="p">,</span> <span class="s1">&#39;guide_RNA&#39;</span><span class="p">]:</span>
+                    <span class="c1">#print(elements[2])</span>
+                    <span class="k">pass</span>
+                
+                <span class="k">if</span> <span class="n">elements</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;exon&#39;</span><span class="p">:</span>
+                    <span class="n">meta</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([</span><span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)])</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>           <span class="c1"># chromosome</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>           <span class="c1"># start</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>           <span class="c1"># end</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>           <span class="c1"># name (&#39;exon&#39;)</span>
+                            <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;gene&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">),</span> <span class="c1"># &quot;score&quot; (HGNC gene id)</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>           <span class="c1"># strand (+/-)</span>
+                            <span class="p">]</span>
+                    <span class="n">outlines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">bed</span><span class="p">:</span>
+        <span class="n">bed</span> <span class="o">=</span> <span class="n">gtf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.gtf&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;.bed&#39;</span>
+        
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bed</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fOut</span><span class="p">:</span>
+        <span class="n">fOut</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outlines</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="vcf2bed"><a class="viewcode-back" href="../page7.html#convert2bed.vcf2bed">[docs]</a><span class="k">def</span> <span class="nf">vcf2bed</span><span class="p">(</span><span class="n">vcf</span><span class="p">,</span> <span class="n">bed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">MIN_TOTAL_COUNT</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">MIN_ALLELE_COUNT</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a *.vcf file output from bcftools::call into a *.bed file</span>
+<span class="sd">    </span>
+<span class="sd">    MIN_TOTAL_COUNT specifies the minimum number of high quality reads</span>
+<span class="sd">    for a candidate to be retained</span>
+<span class="sd">    </span>
+<span class="sd">    MIN_ALLELE_COUNT sets a lower limit on the read depth of the </span>
+<span class="sd">    minor allele</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">outlines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">vcf</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">v</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">readlines</span><span class="p">()):</span>
+            
+            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span><span class="p">:</span> <span class="c1"># headers</span>
+                <span class="c1">#print(line.strip())</span>
+                <span class="k">pass</span>
+                
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">elements</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span> <span class="o">==</span> <span class="mi">10</span><span class="p">:</span>
+                    <span class="c1">#print(repr(elements))</span>
+                    <span class="k">pass</span>
+                
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">metadata</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([</span><span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)])</span>
+                    <span class="c1">#print(metadata)</span>
+                    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">                    # example:</span>
+<span class="sd">                        </span>
+<span class="sd">                    {&#39;DP&#39;: &#39;3&#39;, &#39;VDB&#39;: &#39;0.66&#39;, &#39;SGB&#39;: &#39;-0.453602&#39;, &#39;MQSB&#39;: &#39;1&#39;, </span>
+<span class="sd">                    &#39;MQ0F&#39;: &#39;0&#39;, &#39;AF1&#39;: &#39;1&#39;, &#39;AC1&#39;: &#39;2&#39;, &#39;DP4&#39;: &#39;0,0,1,1&#39;, </span>
+<span class="sd">                    &#39;MQ&#39;: &#39;60&#39;, &#39;FQ&#39;: &#39;-32.988&#39;}   </span>
+<span class="sd">                    </span>
+<span class="sd">                    DP4:    &quot;Number of high-quality ref-forward , ref-reverse, alt-forward and alt-reverse bases&quot;</span>
+
+<span class="sd">                    &quot;&quot;&quot;</span>
+                    <span class="n">counts</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;DP4&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+                    
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                        <span class="n">counts</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">counts</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">counts</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+                        
+                    <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">MIN_TOTAL_COUNT</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    
+                    <span class="n">refCount</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">counts</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="n">altCount</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+                                             
+                    <span class="k">if</span> <span class="nb">min</span><span class="p">(</span><span class="n">refCount</span><span class="p">,</span> <span class="n">altCount</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">MIN_ALLELE_COUNT</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    
+                    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>             <span class="c1"># chrom</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>             <span class="c1"># chromStart</span>
+                            <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="c1"># chromEnd</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>             <span class="c1"># refAllele			</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>             <span class="c1"># altAllele</span>
+                            <span class="nb">str</span><span class="p">(</span><span class="n">refCount</span><span class="p">),</span>           <span class="c1"># refCount</span>
+                            <span class="nb">str</span><span class="p">(</span><span class="n">altCount</span><span class="p">),</span>           <span class="c1"># altCount</span>
+                            <span class="p">]</span>
+                    
+                    <span class="n">outlines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">bed</span><span class="p">:</span>
+        <span class="n">bed</span> <span class="o">=</span> <span class="n">vcf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.vcf&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;.bed&#39;</span>
+        
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bed</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fOut</span><span class="p">:</span>
+        <span class="n">fOut</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outlines</span><span class="p">))</span></div>
+        
+<span class="c1">#    print(&#39;\n&#39;.join(outlines))</span>
+
+
+<div class="viewcode-block" id="csv2bed"><a class="viewcode-back" href="../page7.html#convert2bed.csv2bed">[docs]</a><span class="k">def</span> <span class="nf">csv2bed</span><span class="p">(</span><span class="n">csv</span><span class="p">,</span> <span class="n">bed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a *.csv file output from allelecounter.py into a *.bed file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outlines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;contig&#39;</span><span class="p">,</span> <span class="s1">&#39;position&#39;</span><span class="p">,</span> <span class="s1">&#39;variantID&#39;</span><span class="p">,</span> <span class="s1">&#39;refAllele&#39;</span><span class="p">,</span> <span class="s1">&#39;altAllele&#39;</span><span class="p">,</span> 
+               <span class="s1">&#39;refCount&#39;</span><span class="p">,</span> <span class="s1">&#39;altCount&#39;</span><span class="p">,</span> <span class="s1">&#39;totalCount&#39;</span><span class="p">,</span> <span class="s1">&#39;lowMAPQDepth&#39;</span><span class="p">,</span> 
+               <span class="s1">&#39;lowBaseQDepth&#39;</span><span class="p">,</span> <span class="s1">&#39;rawDepth&#39;</span><span class="p">,</span> <span class="s1">&#39;otherBases&#39;</span> <span class="p">]</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">csv</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">v</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">readlines</span><span class="p">()):</span>
+            
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># header</span>
+                <span class="n">cols</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">cols</span> <span class="o">!=</span> <span class="n">headers</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+                            <span class="s2">&quot;Incorrect file type:&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;This function is solely designed to work on&quot;</span><span class="p">,</span> 
+                            <span class="s2">&quot;output files produced by allelecounter.py&quot;</span><span class="p">,</span>
+                            <span class="p">]))</span>
+                    
+                    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+                
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">elements</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span> <span class="o">==</span> <span class="mi">12</span><span class="p">:</span>
+                    <span class="c1">#print(repr(elements))</span>
+                    <span class="k">pass</span>
+                
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>             <span class="c1"># chrom</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>             <span class="c1"># chromStart</span>
+                            <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="c1"># chromEnd</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>             <span class="c1"># refAllele			</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>             <span class="c1"># altAllele</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>             <span class="c1"># refCount</span>
+                            <span class="n">elements</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>             <span class="c1"># altCount</span>
+                            <span class="p">]</span>
+                    <span class="n">outlines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">bed</span><span class="p">:</span>
+        <span class="n">bed</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;.bed&#39;</span>
+        
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bed</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fOut</span><span class="p">:</span>
+        <span class="n">fOut</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outlines</span><span class="p">))</span></div>
+    
+<span class="c1">#    with open(bed, &#39;r&#39;) as fIn:</span>
+<span class="c1">#        print(fIn.read())</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+<span class="c1">#    gtf2bed(&quot;C:/Users/cow082/water_buffalo_genome.gtf&quot;)</span>
+<span class="c1">#    vcf2bed(&quot;C:/Users/cow082/ERR2353209.vcf&quot;)</span>
+<span class="c1">#    csv2bed(&quot;C:/Users/cow082/ERR2353209.m2.csv&quot;)</span>
+
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;gtf&#39;</span><span class="p">:</span>
+        <span class="n">gtf2bed</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;vcf&#39;</span><span class="p">:</span>
+        <span class="n">vcf2bed</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;csv&#39;</span><span class="p">:</span>
+        <span class="n">csv2bed</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Chris Cowled
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

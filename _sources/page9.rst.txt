@@ -1,6 +1,6 @@
-genewiseMAFC.py
+evaluate_simulation.py
 ================================================================================
 
-.. automodule:: genewiseMAFC
+.. automodule:: evaluate_simulation
     :members:
 
