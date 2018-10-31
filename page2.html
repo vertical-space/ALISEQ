@@ -86,8 +86,8 @@
 <li class="toctree-l1"><a class="reference internal" href="page1.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Instalation and setup</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#download-the-source-code">Download the source code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#download-allelecounter">Download allelecounter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#edit-the-config-file">Edit the config file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-if-it-s-working">Test if it’s working</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#edit-the-file-targets-txt">Edit the file targets.txt</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#other-stuff">Other stuff</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-the-simulation">running the simulation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-the-ase-workflow">running the ASE workflow</a></li>
@@ -162,16 +162,57 @@
 <h1>Instalation and setup<a class="headerlink" href="#instalation-and-setup" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="download-the-source-code">
 <h2>Download the source code<a class="headerlink" href="#download-the-source-code" title="Permalink to this headline">¶</a></h2>
-<p>git clone <a class="reference external" href="https://github.com/vertical-space/ALISEQ">https://github.com/vertical-space/ALISEQ</a></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/vertical-space/ALISEQ
+
+git clone https://github.com/secastel/allelecounter.git ALISEQ/allelecounter
+
+<span class="nb">export</span> <span class="nv">SRC_DIR</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>
+
+conda env create -f ALISEQ/envs/aliseq.yaml -p <span class="si">${</span><span class="nv">SRC_DIR</span><span class="si">}</span>/ALISEQ
+
+<span class="nb">source</span> activate aliseq
+
+mkdir testdirectory   <span class="c1"># or whatever you want to call your working directory</span>
+
+<span class="nb">cd</span> testdirectory
+</pre></div>
 </div>
-<div class="section" id="download-allelecounter">
-<h2>Download allelecounter<a class="headerlink" href="#download-allelecounter" title="Permalink to this headline">¶</a></h2>
-<p>git clone <a class="reference external" href="https://github.com/secastel/allelecounter.git">https://github.com/secastel/allelecounter.git</a> ALISEQ/allelecounter</p>
 </div>
-<div class="section" id="edit-the-config-file">
-<h2>Edit the config file<a class="headerlink" href="#edit-the-config-file" title="Permalink to this headline">¶</a></h2>
-<p>obtain fastq files in one of</p>
-<p>Edit the file targets.txt</p>
+<div class="section" id="test-if-it-s-working">
+<h2>Test if it’s working<a class="headerlink" href="#test-if-it-s-working" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;ERR2353209&#39;</span> &gt; targets.txt
+
+bash aliseq.sh
+</pre></div>
+</div>
+<p>It can take quite a while to download all of the required third party software</p>
+</div>
+<div class="section" id="edit-the-file-targets-txt">
+<h2>Edit the file targets.txt<a class="headerlink" href="#edit-the-file-targets-txt" title="Permalink to this headline">¶</a></h2>
+<p>manually edit the file targets.txt, placing one accession number per line, e.g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ERR2352620</span>
+<span class="n">ERR2352630</span>
+<span class="n">ERR2352640</span>
+<span class="n">ERR2352650</span>
+<span class="n">ERR2352660</span>
+<span class="n">ERR2352670</span>
+</pre></div>
+</div>
+<p>alternatively, if you have run the simulate reads pipeline, you can specify
+simulated data, e.g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">simulation_1_x1</span>
+<span class="n">simulation_1_x2</span>
+</pre></div>
+</div>
+<p>Making sure the names correspond to fastq files in the reads directory, e.g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">simulation_1_x1</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">simulation_1_x2</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<p>Then you can just relaunch the workflow with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash aliseq.sh
+</pre></div>
+</div>
 </div>
 <div class="section" id="other-stuff">
 <h2>Other stuff<a class="headerlink" href="#other-stuff" title="Permalink to this headline">¶</a></h2>

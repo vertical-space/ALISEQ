@@ -2,30 +2,77 @@ Instalation and setup
 ================================================================================
 
 
+
 Download the source code
 --------------------------------------------------------------------------------
 
-git clone https://github.com/vertical-space/ALISEQ
+.. code-block:: bash
+
+   git clone https://github.com/vertical-space/ALISEQ
+
+   git clone https://github.com/secastel/allelecounter.git ALISEQ/allelecounter
+
+   export SRC_DIR=`pwd`
+
+   conda env create -f ALISEQ/envs/aliseq.yaml -p ${SRC_DIR}/ALISEQ
+
+   source activate aliseq
+
+   mkdir testdirectory   # or whatever you want to call your working directory
+
+   cd testdirectory
 
 
 
-Download allelecounter
+Test if it's working
 --------------------------------------------------------------------------------
 
-git clone https://github.com/secastel/allelecounter.git ALISEQ/allelecounter
+.. code-block:: bash
+
+   echo 'ERR2353209' > targets.txt
+
+   bash aliseq.sh
 
 
+It can take quite a while to download all of the required third party software
 
 
-
-
-
-Edit the config file
---------------------------------------------------------------------------------
-
-obtain fastq files in one of 
 
 Edit the file targets.txt
+--------------------------------------------------------------------------------
+
+manually edit the file targets.txt, placing one accession number per line, e.g.
+
+::
+
+   ERR2352620
+   ERR2352630
+   ERR2352640
+   ERR2352650
+   ERR2352660
+   ERR2352670
+
+alternatively, if you have run the simulate reads pipeline, you can specify 
+simulated data, e.g.
+
+::
+
+   simulation_1_x1
+   simulation_1_x2
+
+Making sure the names correspond to fastq files in the reads directory, e.g.
+
+::
+
+   simulation_1_x1.fastq.gz
+   simulation_1_x2.fastq.gz
+  
+Then you can just relaunch the workflow with:
+
+.. code-block:: bash
+
+   bash aliseq.sh
+
 
 
 
