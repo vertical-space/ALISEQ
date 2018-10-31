@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>simulation.py &mdash; ALISEQ 1.0 documentation</title>
+  <title>List of modules &mdash; ALISEQ 1.0 documentation</title>
   
 
   
@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="simulation.py" href="page4.html" />
     <link rel="prev" title="Instalation and setup" href="page2.html" /> 
 
   
@@ -81,7 +82,11 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="page1.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="page2.html">Instalation and setup</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">simulation.py</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">List of modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="page4.html">simulation.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page5.html">test_simulation.py</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -127,7 +132,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>simulation.py</li>
+      <li>List of modules</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -146,66 +151,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-simulation">
-<span id="simulation-py"></span><h1>simulation.py<a class="headerlink" href="#module-simulation" title="Permalink to this headline">¶</a></h1>
-<p>Created on Thu Sep 20 13:53:33 2018</p>
-<p>&#64;author: chris</p>
-<dl class="function">
-<dt id="simulation.fasta">
-<code class="descclassname">simulation.</code><code class="descname">fasta</code><span class="sig-paren">(</span><em>seq_index</em>, <em>wrap=80</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#fasta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.fasta" title="Permalink to this definition">¶</a></dt>
-<dd><p>format a dictionary of {label:sequence} pairs into a fasta string</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="simulation.fastq">
-<code class="descclassname">simulation.</code><code class="descname">fastq</code><span class="sig-paren">(</span><em>seq_index</em>, <em>wrap=80</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#fastq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.fastq" title="Permalink to this definition">¶</a></dt>
-<dd><p>format a dictionary of {label:sequence} pairs into a fasta string</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="simulation.fastwrap">
-<code class="descclassname">simulation.</code><code class="descname">fastwrap</code><span class="sig-paren">(</span><em>text</em>, <em>width</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#fastwrap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.fastwrap" title="Permalink to this definition">¶</a></dt>
-<dd><p>much quicker than textwrap.wrap</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="simulation.index_fasta">
-<code class="descclassname">simulation.</code><code class="descname">index_fasta</code><span class="sig-paren">(</span><em>fasta</em>, <em>limit=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#index_fasta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.index_fasta" title="Permalink to this definition">¶</a></dt>
-<dd><p>loads the whole file into memory. 
-could easily be implemented as a generator.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="simulation.mutate">
-<code class="descclassname">simulation.</code><code class="descname">mutate</code><span class="sig-paren">(</span><em>ref_seq</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#mutate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.mutate" title="Permalink to this definition">¶</a></dt>
-<dd><p>once positions to mutate are chosen, identify the ref nucleotides at 
-these positions, then select replacements at random. Construct and return 
-the mutated sequence plus a list of records documenting the mutations:</p>
-<blockquote>
-<div>[(position, ref_nucleotide, alt_nucleotide), …]</div></blockquote>
-</dd></dl>
-
-<dl class="function">
-<dt id="simulation.mutate2">
-<code class="descclassname">simulation.</code><code class="descname">mutate2</code><span class="sig-paren">(</span><em>ref_seq</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#mutate2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.mutate2" title="Permalink to this definition">¶</a></dt>
-<dd><p>randomly assign positions to mutate by using the negative binomial 
-distribution to scan L-R along th egene length skipping n nucleotides 
-between successive mutations until the end of the sequence is reached.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="simulation.predict_SNP_count">
-<code class="descclassname">simulation.</code><code class="descname">predict_SNP_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#predict_SNP_count"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.predict_SNP_count" title="Permalink to this definition">¶</a></dt>
-<dd><p>An example of weighted random choosing (currently unused)
-only works in py3.6</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="simulation.random_gene">
-<code class="descclassname">simulation.</code><code class="descname">random_gene</code><span class="sig-paren">(</span><em>m=300</em>, <em>M=10000</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulation.html#random_gene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulation.random_gene" title="Permalink to this definition">¶</a></dt>
-<dd><p>create a random ATCG string with length randomly chosen from within the range [m,M]</p>
-</dd></dl>
-
+  <div class="section" id="list-of-modules">
+<h1>List of modules<a class="headerlink" href="#list-of-modules" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="page4.html">simulation.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="page5.html">test_simulation.py</a></li>
+</ul>
+</div>
 </div>
 
 
@@ -215,6 +168,8 @@ only works in py3.6</p>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="page4.html" class="btn btn-neutral float-right" title="simulation.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="page2.html" class="btn btn-neutral" title="Instalation and setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

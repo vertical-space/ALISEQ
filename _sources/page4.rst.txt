@@ -1,8 +1,5 @@
-List of modules
+simulation.py
 ================================================================================
 
-.. toctree::
-   :maxdepth: 2
-
-   page4
-   page5
+.. automodule:: simulation
+    :members:
