@@ -8,5 +8,22 @@ snakemake -nps simulate_reads.snk
 
 rule all:
     input:
-        ?
+        reads/simulation_9_x1.1.fastq.gz,
+        reads/simulation_9_x1.2.fastq.gz
+
+rule simulate_reads:
+    input:
+        params.txt
+    output:
+        reads/
+    run:
+        python simulation_3.0.py --output_tag 22 \
+                         --transcriptome water_buffalo_transcriptome.filtered.fasta \
+                         --use_multipliers
+
+gzip simulation_*_x*.fastq
+
+mv *.fastq.gz ../test_qsub_full/reads
+
+mv *stats.txt stats
 

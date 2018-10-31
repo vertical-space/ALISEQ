@@ -1,13 +1,38 @@
 Instalation and setup
 ================================================================================
 
-Get the source code
+
+Download the source code
 --------------------------------------------------------------------------------
 
 git clone https://github.com/vertical-space/ALISEQ
 
 
+
+Download allelecounter
+--------------------------------------------------------------------------------
+
+git clone https://github.com/secastel/allelecounter.git ALISEQ/allelecounter
+
+
+
+
+
+
+
 Edit the config file
+--------------------------------------------------------------------------------
+
+obtain fastq files in one of 
+
+Edit the file targets.txt
+
+
+
+
+
+
+Other stuff
 --------------------------------------------------------------------------------
 
 this is a demo of how to generate a document in sphinx

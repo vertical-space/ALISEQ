@@ -1,5 +1,5 @@
-simulation.py
+simulate_reads.py
 ================================================================================
 
-.. automodule:: simulation
+.. automodule:: simulate_reads
     :members:

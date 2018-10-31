@@ -39,13 +39,6 @@ file_list = [s for s in file_list if not s[0] == '#']
 
 rule all:
     input:
-        #"reports/ERR2353209.html",
-        #"reports/ERS2495958.html",
-        #"reports/simulation_1.html",
-        #"reports/simulation_2.html",
-        #"reports/simulation_3.html",
-        #"reports/simulation_4.html",
-        #"reports/ERR2353699.html",
         file_list
     run:
         for file_path in {input}:
