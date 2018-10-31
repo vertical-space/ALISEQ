@@ -205,7 +205,7 @@ rule samtools_index:
 
 rule gtf2bed:
     input:
-        script="convert2bed.py",
+        script="5s/convert2bed.py" % BASEDIR,
         gtf="genome/{sample}.gtf"
     output:
         bed="genome/{sample}.bed",
@@ -270,7 +270,7 @@ rule index_vcf:
 
 rule allele_counter:
     input:
-        script="../allelecounter/allelecounter.py",
+        script="%s/../allelecounter/allelecounter.py" % BASEDIR,
 	vcf="variation/{sample}.vcf.gz",
 	index="variation/{sample}.vcf.gz.tbi",
 	bam="sorted/{sample}.bam",
@@ -294,7 +294,7 @@ rule allele_counter:
 
 rule vcf2bed:
     input:
-        script="convert2bed.py",
+        script="%s/convert2bed.py" % BASEDIR,
         vcf="variation/{sample}.vcf"
     output:
         bed="variation/{sample}.bed",
@@ -310,7 +310,7 @@ rule vcf2bed:
 
 rule csv2bed:
     input:
-        script="convert2bed.py",
+        script="%s/convert2bed.py" % BASEDIR,
         csv="expression/{sample}.csv"
     output:
         "expression/{sample}.bed"
@@ -334,7 +334,7 @@ rule annotate:
 
 rule summary:
     input:
-        script="genewiseMAFC.py",
+        script="%s/genewiseMAFC.py" % BASEDIR,
         data="merged/{sample}.merged.csv"
     output:
         "results/{sample}.summary.csv"
@@ -356,7 +356,7 @@ rule summary:
 
 rule graph_workflow:
     input:
-        "workflow.snk"
+        "%s/workflow.snk" % BASEDIR
     output:
         "graphics/rulegraph.png"
     conda:
