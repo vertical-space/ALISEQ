@@ -1,8 +1,6 @@
-List of modules
+test_simulation.py
 ================================================================================
 
-.. toctree::
-   :maxdepth: 2
+.. automodule:: test_simulation
+    :members:
 
-   page4
-   page5
