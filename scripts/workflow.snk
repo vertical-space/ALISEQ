@@ -17,12 +17,13 @@ filter_params = {
     'minSnps':       3,
 }
 
-CWD = os.getcwd()
 BASEDIR = workflow.basedir # this is full path to the snakefile itself
+ENVDIR  = '%s/../envs'
+DATADIR = '%s/../data'
 
 headers = ['sample', 'tissue', 'sex', 'age', 'region', 'country']
-metadata = pd.read_csv("%s/../data/buffalo_sample_metadata.csv" % BASEDIR, header=None, names=headers, index_col=0)
-accessions = pd.read_csv("%s/../data/ERA1230280.csv" % BASEDIR)
+metadata = pd.read_csv("%s/buffalo_sample_metadata.csv" % DATADIR, header=None, names=headers, index_col=0)
+accessions = pd.read_csv("%s/ERA1230280.csv" % DATADIR)
 
 url_index = dict(zip(
     accessions['run_accession'],
@@ -36,7 +37,7 @@ run2sampleACC = dict(zip(
     )
 )
 
-target_list = [s.strip() for s in open('%s/targets.txt' % CWD, 'r').read().split('\n')]
+target_list = [s.strip() for s in open('%s/targets.txt' % os.getcwd(), 'r').read().split('\n')]
 file_list = ["reports/%s.html" % s for s in target_list if s] 
 file_list = [s for s in file_list if not s[0] == '#']
 
@@ -155,7 +156,7 @@ rule create_hisat2_index:
     output:
         expand("UOA_WB_1.{int}.ht2", int=[1,2,3,4,5,6,7,8])
     conda:
-        "envs/hisat2.yaml"
+        "%s/hisat2.yaml" % ENVDIR
     threads:
         8
     shell:
@@ -176,7 +177,7 @@ rule hisat2_map_reads:
     threads: 
         8                               # optional, defaults to 1
     conda:
-        "envs/hisat2.yaml"
+        "%s/hisat2.yaml" ENVDIR
     wrapper:
         "0.27.1/bio/hisat2"
 
@@ -187,7 +188,7 @@ rule samtools_sort:
     output:
         "sorted/{sample}.bam"
     conda:
-        "envs/samtools.yaml"
+        "%s/samtools.yaml" % ENVDIR
     shell:
         "samtools sort -o {output} {input}"
 
@@ -198,7 +199,7 @@ rule samtools_index:
     output:
         "sorted/{sample}.bam.bai"
     conda:
-        "envs/samtools.yaml"
+        "%s/samtools.yaml" % ENVDIR
     shell:
         "samtools index {input}"
 
@@ -213,7 +214,7 @@ rule gtf2bed:
         merged="genome/{sample}.merged.bed",            # for use with bedtools
         renamed="genome/{sample}.merged.bed.txt"        # for use with bcftools mpileup
     conda:
-        "envs/gtf2bed.yaml"
+        "%s/gtf2bed.yaml" % ENVDIR
     shell:
         """
         python {input.script} {input.gtf}
@@ -236,7 +237,7 @@ rule call_variants:
     threads:
         8
     conda:
-        "envs/bcftools.yaml"
+        "%s/bcftools.yaml" % ENVDIR
     shell:
         """
         bcftools mpileup --output-type u \
@@ -260,7 +261,7 @@ rule index_vcf:
         "variation/{sample}.vcf.gz",
         "variation/{sample}.vcf.gz.tbi"
     conda:
-        "envs/samtools.yaml"
+        "%s/samtools.yaml" % ENVDIR
     shell:
         """
         bgzip -c {input} > {output[0]}
@@ -278,7 +279,7 @@ rule allele_counter:
     output:
         csv="expression/{sample}.csv"
     conda:
-        "envs/allelecounter.yaml"
+        "%s/allelecounter.yaml" % ENVDIR
     shell:
         """
         python {input.script} --vcf {input.vcf} \
@@ -300,7 +301,7 @@ rule vcf2bed:
         bed="variation/{sample}.bed",
         merged="variation/{sample}.merged.bed"
     conda:
-        "envs/bcftools.yaml"
+        "%s/bcftools.yaml" % ENVDIR
     shell:
         """
         python {input.script} {input.vcf}
@@ -315,7 +316,7 @@ rule csv2bed:
     output:
         "expression/{sample}.bed"
     conda:
-        "envs/bcftools.yaml"
+        "%s/bcftools.yaml" % ENVDIR
     shell:
         "python {input.script} {input.csv}"
 
@@ -327,7 +328,7 @@ rule annotate:
     output:
         "merged/{sample}.merged.csv"
     conda:
-        "envs/gtf2bed.yaml"
+        "%s/gtf2bed.yaml" % ENVDIR
     shell:
         "bedtools intersect -a {input.snps} -b {input.annotation} -wa -wb > {output}"
 
@@ -339,7 +340,7 @@ rule summary:
     output:
         "results/{sample}.summary.csv"
     conda:
-        "envs/bcftools.yaml"
+        "%s/bcftools.yaml" % ENVDIR
     params:
         minCoverage=filter_params['minCoverage'],
         minFoldChange=filter_params['minFoldChange'],
@@ -360,7 +361,7 @@ rule graph_workflow:
     output:
         "graphics/rulegraph.png"
     conda:
-        "envs/graphviz.yaml"
+        "%s/graphviz.yaml" % ENVDIR
     shell:
         "snakemake -s {input} --rulegraph 2> /dev/null | dot -T png > {output}"
 

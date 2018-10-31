@@ -8,8 +8,6 @@ Download the source code
 
 git clone https://github.com/vertical-space/ALISEQ
 
-
-
 git clone https://github.com/secastel/allelecounter.git ALISEQ/allelecounter
 
 export SRC_DIR=`pwd`
