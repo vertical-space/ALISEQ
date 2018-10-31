@@ -8,8 +8,8 @@ snakemake -nps simulate_reads.snk
 
 rule all:
     input:
-        reads/simulation_9_x1.1.fastq.gz,
-        reads/simulation_9_x1.2.fastq.gz
+        expand("reads/simulation_9_x{DEPTH}.{READ}.fastq.gz", DEPTH=[1,2,4,8,16,32], READ=[1,2]),
+
 
 rule simulate_reads:
     input:
