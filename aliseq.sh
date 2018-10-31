@@ -9,8 +9,8 @@ snakemake --cluster-config $DIR/scripts/cluster.json \
           --jobs 1000 \
           --snakefile $DIR/scripts/workflow.snk
 
-# create this directory, if it doesn't already exist
-mkdir -p jobreports
+# create the following directory if it doesn't exist already (-p prevents overwriting)
+mkdir -p logs/jobreports
 
-mk snakejob* jobreports
+mv snakejob* logs/jobreports
 
