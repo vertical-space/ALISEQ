@@ -13,6 +13,7 @@ Welcome to ALISEQ's documentation!
    welcome
    setup
    usage
+   workflow
    more
    modules
 
