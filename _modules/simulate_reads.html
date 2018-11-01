@@ -81,9 +81,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../page1.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../page2.html">Instalation and setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../page3.html">Python modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Instalation and setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Running the software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../more.html">More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Python modules</a></li>
 </ul>
 
             
@@ -176,7 +178,7 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="createRandomSequence"><a class="viewcode-back" href="../page4.html#simulate_reads.createRandomSequence">[docs]</a><span class="k">def</span> <span class="nf">createRandomSequence</span><span class="p">(</span><span class="n">mu</span><span class="o">=</span><span class="mi">3392</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">2600</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
+<div class="viewcode-block" id="createRandomSequence"><a class="viewcode-back" href="../simulation.html#simulate_reads.createRandomSequence">[docs]</a><span class="k">def</span> <span class="nf">createRandomSequence</span><span class="p">(</span><span class="n">mu</span><span class="o">=</span><span class="mi">3392</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">2600</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;create a random ATCG string with random length. </span>
 <span class="sd">    Note: use the normal distribution to choose the length (mean: 3392bp, s.d 2600bp), </span>
 <span class="sd">    but discard lengths outside the range [m,M]</span>
@@ -187,14 +189,14 @@
     <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="s1">&#39;ATCG&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)])</span></div>
 
 
-<div class="viewcode-block" id="createRandomSequenceIndex"><a class="viewcode-back" href="../page4.html#simulate_reads.createRandomSequenceIndex">[docs]</a><span class="k">def</span> <span class="nf">createRandomSequenceIndex</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="viewcode-block" id="createRandomSequenceIndex"><a class="viewcode-back" href="../simulation.html#simulate_reads.createRandomSequenceIndex">[docs]</a><span class="k">def</span> <span class="nf">createRandomSequenceIndex</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;constructs a dictionary {seq_id: sequence} of random ATCG sequences </span>
 <span class="sd">    (for default values see the randomGene() function</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">([(</span><span class="s1">&#39;gene_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">createRandomSequence</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span></div>
 
 
-<div class="viewcode-block" id="createRandomSequenceLibrary"><a class="viewcode-back" href="../page4.html#simulate_reads.createRandomSequenceLibrary">[docs]</a><span class="k">def</span> <span class="nf">createRandomSequenceLibrary</span><span class="p">(</span><span class="n">n_seqs</span><span class="o">=</span><span class="mi">400</span><span class="p">):</span>
+<div class="viewcode-block" id="createRandomSequenceLibrary"><a class="viewcode-back" href="../simulation.html#simulate_reads.createRandomSequenceLibrary">[docs]</a><span class="k">def</span> <span class="nf">createRandomSequenceLibrary</span><span class="p">(</span><span class="n">n_seqs</span><span class="o">=</span><span class="mi">400</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;generate a random sequence library and save to file</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">seqs</span> <span class="o">=</span> <span class="n">createRandomSequenceIndex</span><span class="p">(</span><span class="n">n_seqs</span><span class="p">)</span>
@@ -203,7 +205,7 @@
         <span class="n">F</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">transcriptome</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fastWrap"><a class="viewcode-back" href="../page4.html#simulate_reads.fastWrap">[docs]</a><span class="k">def</span> <span class="nf">fastWrap</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="fastWrap"><a class="viewcode-back" href="../simulation.html#simulate_reads.fastWrap">[docs]</a><span class="k">def</span> <span class="nf">fastWrap</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;much quicker than textwrap.wrap</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">width</span><span class="p">:</span>
@@ -212,20 +214,20 @@
     <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">width</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="n">width</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="fasta"><a class="viewcode-back" href="../page4.html#simulate_reads.fasta">[docs]</a><span class="k">def</span> <span class="nf">fasta</span><span class="p">(</span><span class="n">seq_index</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="fasta"><a class="viewcode-back" href="../simulation.html#simulate_reads.fasta">[docs]</a><span class="k">def</span> <span class="nf">fasta</span><span class="p">(</span><span class="n">seq_index</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;format a dictionary of {label:sequence} pairs into a fasta string</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;&gt;</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">fastWrap</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">wrap</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">seq_index</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span></div>
 
 
-<div class="viewcode-block" id="fastq"><a class="viewcode-back" href="../page4.html#simulate_reads.fastq">[docs]</a><span class="k">def</span> <span class="nf">fastq</span><span class="p">(</span><span class="n">seq_index</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="fastq"><a class="viewcode-back" href="../simulation.html#simulate_reads.fastq">[docs]</a><span class="k">def</span> <span class="nf">fastq</span><span class="p">(</span><span class="n">seq_index</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;format a dictionary of {label:sequence} pairs into a fastq string</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;@</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s1">+</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">fastWrap</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">wrap</span><span class="p">),</span> \
                 <span class="n">fastWrap</span><span class="p">(</span><span class="n">qualScore</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">args</span><span class="p">),</span> <span class="n">wrap</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">seq_index</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span></div>
 
 
-<div class="viewcode-block" id="qualScore"><a class="viewcode-back" href="../page4.html#simulate_reads.qualScore">[docs]</a><span class="k">def</span> <span class="nf">qualScore</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="qualScore"><a class="viewcode-back" href="../simulation.html#simulate_reads.qualScore">[docs]</a><span class="k">def</span> <span class="nf">qualScore</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;select a quality string at random from a real RNA-Seq dataset</span>
 <span class="sd">    </span>
 <span class="sd">    NOTE: It is assumed that desired strings are &lt;= the length of the </span>
@@ -237,7 +239,7 @@
     <span class="k">return</span> <span class="n">args</span><span class="o">.</span><span class="n">qual_scores</span><span class="o">.</span><span class="n">random_value</span><span class="p">()[:</span><span class="n">args</span><span class="o">.</span><span class="n">read_length</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span></div>
     
     
-<div class="viewcode-block" id="randomDecision"><a class="viewcode-back" href="../page4.html#simulate_reads.randomDecision">[docs]</a><span class="k">def</span> <span class="nf">randomDecision</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+<div class="viewcode-block" id="randomDecision"><a class="viewcode-back" href="../simulation.html#simulate_reads.randomDecision">[docs]</a><span class="k">def</span> <span class="nf">randomDecision</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;returns a random True/False based on:</span>
 <span class="sd">            &lt;probability&gt;       chance of returning True</span>
 <span class="sd">            1 - &lt;probability&gt;   chance of returning False</span>
@@ -247,7 +249,7 @@
     <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">probability</span></div>
 
 
-<div class="viewcode-block" id="parseHeaders"><a class="viewcode-back" href="../page4.html#simulate_reads.parseHeaders">[docs]</a><span class="k">def</span> <span class="nf">parseHeaders</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<div class="viewcode-block" id="parseHeaders"><a class="viewcode-back" href="../simulation.html#simulate_reads.parseHeaders">[docs]</a><span class="k">def</span> <span class="nf">parseHeaders</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;custom fasta header parser specific to this dataset</span>
 <span class="sd">    </span>
 <span class="sd">    might not work with other datasets</span>
@@ -259,7 +261,7 @@
         <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="indexFasta"><a class="viewcode-back" href="../page4.html#simulate_reads.indexFasta">[docs]</a><span class="k">def</span> <span class="nf">indexFasta</span><span class="p">(</span><span class="n">fasta</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="indexFasta"><a class="viewcode-back" href="../simulation.html#simulate_reads.indexFasta">[docs]</a><span class="k">def</span> <span class="nf">indexFasta</span><span class="p">(</span><span class="n">fasta</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;re-written to account for some entries having &#39;&gt;&#39; in the title string!</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">index</span> <span class="o">=</span> <span class="p">{}</span>
@@ -287,7 +289,7 @@
     <span class="k">return</span> <span class="n">index</span></div>
 
 
-<div class="viewcode-block" id="createAltAllele"><a class="viewcode-back" href="../page4.html#simulate_reads.createAltAllele">[docs]</a><span class="k">def</span> <span class="nf">createAltAllele</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">SNP_frequency</span><span class="p">):</span>
+<div class="viewcode-block" id="createAltAllele"><a class="viewcode-back" href="../simulation.html#simulate_reads.createAltAllele">[docs]</a><span class="k">def</span> <span class="nf">createAltAllele</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">SNP_frequency</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;simulate the mutation process to generate a heterozygous allele</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     
@@ -313,7 +315,7 @@
     <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">alt_seq</span><span class="p">),</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mutation_indices</span><span class="p">,</span> <span class="n">ref_nucleotides</span><span class="p">,</span> <span class="n">alt_nucleotides</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="mutateString"><a class="viewcode-back" href="../page4.html#simulate_reads.mutateString">[docs]</a><span class="k">def</span> <span class="nf">mutateString</span><span class="p">(</span><span class="n">ref_seq</span><span class="p">,</span> <span class="n">SNP_frequency</span><span class="p">):</span>
+<div class="viewcode-block" id="mutateString"><a class="viewcode-back" href="../simulation.html#simulate_reads.mutateString">[docs]</a><span class="k">def</span> <span class="nf">mutateString</span><span class="p">(</span><span class="n">ref_seq</span><span class="p">,</span> <span class="n">SNP_frequency</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;based on a specified frequency, return a list of positions to mutate</span>
 <span class="sd">    </span>
 <span class="sd">    Note: there are many possible ways this could be done</span>
@@ -329,7 +331,7 @@
     <span class="k">return</span> <span class="n">mutation_indices</span></div>
 
 
-<div class="viewcode-block" id="prepareData"><a class="viewcode-back" href="../page4.html#simulate_reads.prepareData">[docs]</a><span class="k">def</span> <span class="nf">prepareData</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="prepareData"><a class="viewcode-back" href="../simulation.html#simulate_reads.prepareData">[docs]</a><span class="k">def</span> <span class="nf">prepareData</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;index the reference transcriptome, assign read counts, then decide </span>
 <span class="sd">    which genes are going to be ASE</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -373,7 +375,7 @@
     <span class="k">return</span> <span class="n">df</span></div>
 
 
-<div class="viewcode-block" id="defineCountsAndSequences"><a class="viewcode-back" href="../page4.html#simulate_reads.defineCountsAndSequences">[docs]</a><span class="k">def</span> <span class="nf">defineCountsAndSequences</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="defineCountsAndSequences"><a class="viewcode-back" href="../simulation.html#simulate_reads.defineCountsAndSequences">[docs]</a><span class="k">def</span> <span class="nf">defineCountsAndSequences</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;loop through each gene (transcript) constructing a second</span>
 <span class="sd">    allele (based on a defined mutation rate) and read counts for each allele </span>
 <span class="sd">    (divide up the total reads between ref &amp; alt alleles: proportions depend on whether the </span>
@@ -438,7 +440,7 @@
     <span class="k">return</span> <span class="n">df1</span><span class="p">,</span> <span class="n">statistics</span></div>
 
 
-<div class="viewcode-block" id="chooseInsert"><a class="viewcode-back" href="../page4.html#simulate_reads.chooseInsert">[docs]</a><span class="k">def</span> <span class="nf">chooseInsert</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">READ_COUNTER</span><span class="p">,</span> <span class="n">max_attempts</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<div class="viewcode-block" id="chooseInsert"><a class="viewcode-back" href="../simulation.html#simulate_reads.chooseInsert">[docs]</a><span class="k">def</span> <span class="nf">chooseInsert</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">READ_COUNTER</span><span class="p">,</span> <span class="n">max_attempts</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;choose the insert start and end positions based on a </span>
 <span class="sd">    predetermined distribution of insert sizes</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -483,7 +485,7 @@
     <span class="k">return</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span></div>
             
 
-<div class="viewcode-block" id="invert"><a class="viewcode-back" href="../page4.html#simulate_reads.invert">[docs]</a><span class="k">def</span> <span class="nf">invert</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+<div class="viewcode-block" id="invert"><a class="viewcode-back" href="../simulation.html#simulate_reads.invert">[docs]</a><span class="k">def</span> <span class="nf">invert</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;return a coordinate corresponding to a position on the reverse strand</span>
 <span class="sd">    that matches a coordinate on the forward strand, i.e.</span>
 <span class="sd">    </span>
@@ -504,7 +506,7 @@
 <span class="c1">#    return s + &#39;N&#39;*max(0, args.read_length-len(s))</span>
 
 
-<div class="viewcode-block" id="createReadPair"><a class="viewcode-back" href="../page4.html#simulate_reads.createReadPair">[docs]</a><span class="k">def</span> <span class="nf">createReadPair</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">reads_file_1</span><span class="p">,</span> <span class="n">reads_file_2</span><span class="p">,</span> <span class="n">READ_COUNTER</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="createReadPair"><a class="viewcode-back" href="../simulation.html#simulate_reads.createReadPair">[docs]</a><span class="k">def</span> <span class="nf">createReadPair</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">reads_file_1</span><span class="p">,</span> <span class="n">reads_file_2</span><span class="p">,</span> <span class="n">READ_COUNTER</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;simulate a single pair of reads in an NGS experiment</span>
 <span class="sd">    &#39;&#39;&#39;</span>   
     
@@ -538,7 +540,7 @@
     <span class="k">return</span> <span class="n">READ_COUNTER</span></div>
     
 
-<div class="viewcode-block" id="readQualscores"><a class="viewcode-back" href="../page4.html#simulate_reads.readQualscores">[docs]</a><span class="k">def</span> <span class="nf">readQualscores</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="readQualscores"><a class="viewcode-back" href="../simulation.html#simulate_reads.readQualscores">[docs]</a><span class="k">def</span> <span class="nf">readQualscores</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;basic function for extracting quality strings from a fastq file</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">quals</span> <span class="o">=</span> <span class="p">[]</span>
@@ -555,7 +557,7 @@
     <span class="k">return</span> <span class="n">quals</span></div>
 
 
-<div class="viewcode-block" id="createReadLibrary"><a class="viewcode-back" href="../page4.html#simulate_reads.createReadLibrary">[docs]</a><span class="k">def</span> <span class="nf">createReadLibrary</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">reads_file_1</span><span class="p">,</span> <span class="n">reads_file_2</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="createReadLibrary"><a class="viewcode-back" href="../simulation.html#simulate_reads.createReadLibrary">[docs]</a><span class="k">def</span> <span class="nf">createReadLibrary</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">reads_file_1</span><span class="p">,</span> <span class="n">reads_file_2</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;loop through a dataframe containing sequences (ref and alt alleles) </span>
 <span class="sd">    and expression levels (ref and alt counts) and create two dictionaries of </span>
 <span class="sd">    simulated NGS reads (fwd and reverse read pairs)</span>
@@ -592,7 +594,7 @@
                 <span class="n">row</span><span class="o">.</span><span class="n">seq</span><span class="p">,</span> <span class="n">reads_file_1</span><span class="p">,</span> <span class="n">reads_file_2</span><span class="p">,</span> <span class="n">READ_COUNTER</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span></div>
             
 
-<div class="viewcode-block" id="simulateSequencingExperiment"><a class="viewcode-back" href="../page4.html#simulate_reads.simulateSequencingExperiment">[docs]</a><span class="k">def</span> <span class="nf">simulateSequencingExperiment</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="simulateSequencingExperiment"><a class="viewcode-back" href="../simulation.html#simulate_reads.simulateSequencingExperiment">[docs]</a><span class="k">def</span> <span class="nf">simulateSequencingExperiment</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;create a simulated NGS dataset containing allelic inbalance in the </span>
 <span class="sd">    expression of a defined proportion of genes</span>
 <span class="sd">    </span>
@@ -633,7 +635,7 @@
         <span class="n">reads_file_2</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="createTestInsert"><a class="viewcode-back" href="../page4.html#simulate_reads.createTestInsert">[docs]</a><span class="k">def</span> <span class="nf">createTestInsert</span><span class="p">(</span><span class="n">s_fwd</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="createTestInsert"><a class="viewcode-back" href="../simulation.html#simulate_reads.createTestInsert">[docs]</a><span class="k">def</span> <span class="nf">createTestInsert</span><span class="p">(</span><span class="n">s_fwd</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;create an insert (for testing purposes only)</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">start_1</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s_fwd</span><span class="p">)</span> <span class="o">-</span> <span class="n">args</span><span class="o">.</span><span class="n">insert_min</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
@@ -650,7 +652,7 @@
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">insert_max</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">a</span><span class="p">)]]))</span>
     
     
-<div class="viewcode-block" id="test_1"><a class="viewcode-back" href="../page4.html#simulate_reads.test_1">[docs]</a><span class="k">def</span> <span class="nf">test_1</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="test_1"><a class="viewcode-back" href="../simulation.html#simulate_reads.test_1">[docs]</a><span class="k">def</span> <span class="nf">test_1</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;plot insert sizes from an invariant pseudo-transcriptome</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     
@@ -662,7 +664,7 @@
     <span class="n">printStats</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span></div>
     
 
-<div class="viewcode-block" id="test_2"><a class="viewcode-back" href="../page4.html#simulate_reads.test_2">[docs]</a><span class="k">def</span> <span class="nf">test_2</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="test_2"><a class="viewcode-back" href="../simulation.html#simulate_reads.test_2">[docs]</a><span class="k">def</span> <span class="nf">test_2</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;plot insert sizes from an actual transcriptome</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     
@@ -676,7 +678,7 @@
     <span class="n">printStats</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span></div>
     
 
-<div class="viewcode-block" id="test_3"><a class="viewcode-back" href="../page4.html#simulate_reads.test_3">[docs]</a><span class="k">def</span> <span class="nf">test_3</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="test_3"><a class="viewcode-back" href="../simulation.html#simulate_reads.test_3">[docs]</a><span class="k">def</span> <span class="nf">test_3</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    model the insert size distribution of an actual transcriptome</span>
 <span class="sd">    </span>
@@ -740,7 +742,7 @@
     <span class="n">printStats</span><span class="p">(</span><span class="n">insert_distribution</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span></div>
     
     
-<div class="viewcode-block" id="test_4"><a class="viewcode-back" href="../page4.html#simulate_reads.test_4">[docs]</a><span class="k">def</span> <span class="nf">test_4</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="test_4"><a class="viewcode-back" href="../simulation.html#simulate_reads.test_4">[docs]</a><span class="k">def</span> <span class="nf">test_4</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">simulateSequencingExperiment</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></div>

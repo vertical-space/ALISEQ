@@ -1,0 +1,409 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>simulate_reads.py &mdash; ALISEQ 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ALISEQ
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Instalation and setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Running the software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more.html">More</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ALISEQ</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>simulate_reads.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/simulation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-simulate_reads">
+<span id="simulate-reads-py"></span><h1>simulate_reads.py<a class="headerlink" href="#module-simulate_reads" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="simulate_reads.chooseInsert">
+<code class="descclassname">simulate_reads.</code><code class="descname">chooseInsert</code><span class="sig-paren">(</span><em>seq</em>, <em>args</em>, <em>READ_COUNTER</em>, <em>max_attempts=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#chooseInsert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.chooseInsert" title="Permalink to this definition">¶</a></dt>
+<dd><p>choose the insert start and end positions based on a 
+predetermined distribution of insert sizes</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.createAltAllele">
+<code class="descclassname">simulate_reads.</code><code class="descname">createAltAllele</code><span class="sig-paren">(</span><em>seq</em>, <em>SNP_frequency</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createAltAllele"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createAltAllele" title="Permalink to this definition">¶</a></dt>
+<dd><p>simulate the mutation process to generate a heterozygous allele</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.createRandomSequence">
+<code class="descclassname">simulate_reads.</code><code class="descname">createRandomSequence</code><span class="sig-paren">(</span><em>mu=3392</em>, <em>sigma=2600</em>, <em>m=300</em>, <em>M=10000</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createRandomSequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createRandomSequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a random ATCG string with random length. 
+Note: use the normal distribution to choose the length (mean: 3392bp, s.d 2600bp), 
+but discard lengths outside the range [m,M]</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.createRandomSequenceIndex">
+<code class="descclassname">simulate_reads.</code><code class="descname">createRandomSequenceIndex</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createRandomSequenceIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createRandomSequenceIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>constructs a dictionary {seq_id: sequence} of random ATCG sequences 
+(for default values see the randomGene() function</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.createRandomSequenceLibrary">
+<code class="descclassname">simulate_reads.</code><code class="descname">createRandomSequenceLibrary</code><span class="sig-paren">(</span><em>n_seqs=400</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createRandomSequenceLibrary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createRandomSequenceLibrary" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate a random sequence library and save to file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.createReadLibrary">
+<code class="descclassname">simulate_reads.</code><code class="descname">createReadLibrary</code><span class="sig-paren">(</span><em>df</em>, <em>reads_file_1</em>, <em>reads_file_2</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createReadLibrary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createReadLibrary" title="Permalink to this definition">¶</a></dt>
+<dd><p>loop through a dataframe containing sequences (ref and alt alleles) 
+and expression levels (ref and alt counts) and create two dictionaries of 
+simulated NGS reads (fwd and reverse read pairs)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.createReadPair">
+<code class="descclassname">simulate_reads.</code><code class="descname">createReadPair</code><span class="sig-paren">(</span><em>seq</em>, <em>reads_file_1</em>, <em>reads_file_2</em>, <em>READ_COUNTER</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createReadPair"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createReadPair" title="Permalink to this definition">¶</a></dt>
+<dd><p>simulate a single pair of reads in an NGS experiment</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.createTestInsert">
+<code class="descclassname">simulate_reads.</code><code class="descname">createTestInsert</code><span class="sig-paren">(</span><em>s_fwd</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#createTestInsert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.createTestInsert" title="Permalink to this definition">¶</a></dt>
+<dd><p>create an insert (for testing purposes only)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.defineCountsAndSequences">
+<code class="descclassname">simulate_reads.</code><code class="descname">defineCountsAndSequences</code><span class="sig-paren">(</span><em>df</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#defineCountsAndSequences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.defineCountsAndSequences" title="Permalink to this definition">¶</a></dt>
+<dd><p>loop through each gene (transcript) constructing a second
+allele (based on a defined mutation rate) and read counts for each allele 
+(divide up the total reads between ref &amp; alt alleles: proportions depend on whether the 
+gene has been assigned as ASE or not)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.fastWrap">
+<code class="descclassname">simulate_reads.</code><code class="descname">fastWrap</code><span class="sig-paren">(</span><em>text</em>, <em>width=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#fastWrap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.fastWrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>much quicker than textwrap.wrap</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.fasta">
+<code class="descclassname">simulate_reads.</code><code class="descname">fasta</code><span class="sig-paren">(</span><em>seq_index</em>, <em>wrap=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#fasta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.fasta" title="Permalink to this definition">¶</a></dt>
+<dd><p>format a dictionary of {label:sequence} pairs into a fasta string</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.fastq">
+<code class="descclassname">simulate_reads.</code><code class="descname">fastq</code><span class="sig-paren">(</span><em>seq_index</em>, <em>args</em>, <em>wrap=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#fastq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.fastq" title="Permalink to this definition">¶</a></dt>
+<dd><p>format a dictionary of {label:sequence} pairs into a fastq string</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.indexFasta">
+<code class="descclassname">simulate_reads.</code><code class="descname">indexFasta</code><span class="sig-paren">(</span><em>fasta</em>, <em>limit=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#indexFasta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.indexFasta" title="Permalink to this definition">¶</a></dt>
+<dd><p>re-written to account for some entries having ‘&gt;’ in the title string!</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.invert">
+<code class="descclassname">simulate_reads.</code><code class="descname">invert</code><span class="sig-paren">(</span><em>i</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#invert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.invert" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a coordinate corresponding to a position on the reverse strand
+that matches a coordinate on the forward strand, i.e.</p>
+<p>0     5
+| –&gt; | 
+AAAAAAAAAAAAAAAA
+TTTTTTTTTTTTTTTT</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><a href="#id1"><span class="problematic" id="id2">|</span></a></div>
+</div>
+<p>9    &lt;– 0</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.mutateString">
+<code class="descclassname">simulate_reads.</code><code class="descname">mutateString</code><span class="sig-paren">(</span><em>ref_seq</em>, <em>SNP_frequency</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#mutateString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.mutateString" title="Permalink to this definition">¶</a></dt>
+<dd><p>based on a specified frequency, return a list of positions to mutate</p>
+<p>Note: there are many possible ways this could be done</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.parseHeaders">
+<code class="descclassname">simulate_reads.</code><code class="descname">parseHeaders</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#parseHeaders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.parseHeaders" title="Permalink to this definition">¶</a></dt>
+<dd><p>custom fasta header parser specific to this dataset</p>
+<p>might not work with other datasets</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.prepareData">
+<code class="descclassname">simulate_reads.</code><code class="descname">prepareData</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#prepareData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.prepareData" title="Permalink to this definition">¶</a></dt>
+<dd><p>index the reference transcriptome, assign read counts, then decide 
+which genes are going to be ASE</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.qualScore">
+<code class="descclassname">simulate_reads.</code><code class="descname">qualScore</code><span class="sig-paren">(</span><em>i</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#qualScore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.qualScore" title="Permalink to this definition">¶</a></dt>
+<dd><p>select a quality string at random from a real RNA-Seq dataset</p>
+<p>NOTE: It is assumed that desired strings are &lt;= the length of the 
+available strings.</p>
+<p>There is an assert statement in createReadLibrary() which enforces this 
+at the time of args.qualdata construction.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.randomDecision">
+<code class="descclassname">simulate_reads.</code><code class="descname">randomDecision</code><span class="sig-paren">(</span><em>probability=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#randomDecision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.randomDecision" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a random True/False based on:
+&lt;probability&gt;       chance of returning True
+1 - &lt;probability&gt;   chance of returning False</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.readQualscores">
+<code class="descclassname">simulate_reads.</code><code class="descname">readQualscores</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#readQualscores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.readQualscores" title="Permalink to this definition">¶</a></dt>
+<dd><p>basic function for extracting quality strings from a fastq file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.simulateSequencingExperiment">
+<code class="descclassname">simulate_reads.</code><code class="descname">simulateSequencingExperiment</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#simulateSequencingExperiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.simulateSequencingExperiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a simulated NGS dataset containing allelic inbalance in the 
+expression of a defined proportion of genes</p>
+<p>this function can be modified to output multiple sequencing simulations 
+from a single simulated RNA sample, but with varying read counts to 
+assess the effect of increasing sequencing depth</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.test_1">
+<code class="descclassname">simulate_reads.</code><code class="descname">test_1</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#test_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.test_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot insert sizes from an invariant pseudo-transcriptome</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.test_2">
+<code class="descclassname">simulate_reads.</code><code class="descname">test_2</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#test_2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.test_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot insert sizes from an actual transcriptome</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.test_3">
+<code class="descclassname">simulate_reads.</code><code class="descname">test_3</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#test_3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.test_3" title="Permalink to this definition">¶</a></dt>
+<dd><p>model the insert size distribution of an actual transcriptome</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
+</pre></div>
+</div>
+<p># choose some parameters
+&gt;&gt;&gt; a, loc, scale = 1.3, -0.1, 2.2
+# draw a sample
+&gt;&gt;&gt; sample = stats.skewnorm(a, loc, scale).rvs(1000)</p>
+<p># estimate parameters from sample
+&gt;&gt;&gt; ae, loce, scalee = stats.skewnorm.fit(sample)
+&gt;&gt;&gt; ae
+1.2495366661560348
+&gt;&gt;&gt; loce
+-0.039775813819310835
+&gt;&gt;&gt; scalee
+2.1126121580965536</p>
+<p>NOTE: the file ‘ERR2353209.insert_size_metrics.txt’ has insert data based on 
+mapping RNA-Seq reads to a genome. Therefore, some reported inserts will 
+span splice junctions and thus be recorded as longer than they actually are. 
+It was generated by running picard::CollectInsertSizeMetrics</p>
+<p>I do not plan to modify it, however one way would be to map reads to the 
+transcriptome instead, then re-measure the insert sizes.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simulate_reads.test_4">
+<code class="descclassname">simulate_reads.</code><code class="descname">test_4</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#test_4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.test_4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Chris Cowled
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

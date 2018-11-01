@@ -81,9 +81,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../page1.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../page2.html">Instalation and setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../page3.html">Python modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Instalation and setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Running the software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../more.html">More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Python modules</a></li>
 </ul>
 
             
@@ -159,7 +161,7 @@
 
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<div class="viewcode-block" id="gtf2bed"><a class="viewcode-back" href="../page7.html#convert2bed.gtf2bed">[docs]</a><span class="k">def</span> <span class="nf">gtf2bed</span><span class="p">(</span><span class="n">gtf</span><span class="p">,</span> <span class="n">bed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="gtf2bed"><a class="viewcode-back" href="../convert.html#convert2bed.gtf2bed">[docs]</a><span class="k">def</span> <span class="nf">gtf2bed</span><span class="p">(</span><span class="n">gtf</span><span class="p">,</span> <span class="n">bed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert a *.gtf file into a *.bed file</span>
 <span class="sd">    </span>
 <span class="sd">    Note: discard everything except exons</span>
@@ -211,7 +213,7 @@
         <span class="n">fOut</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outlines</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="vcf2bed"><a class="viewcode-back" href="../page7.html#convert2bed.vcf2bed">[docs]</a><span class="k">def</span> <span class="nf">vcf2bed</span><span class="p">(</span><span class="n">vcf</span><span class="p">,</span> <span class="n">bed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">MIN_TOTAL_COUNT</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">MIN_ALLELE_COUNT</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="vcf2bed"><a class="viewcode-back" href="../convert.html#convert2bed.vcf2bed">[docs]</a><span class="k">def</span> <span class="nf">vcf2bed</span><span class="p">(</span><span class="n">vcf</span><span class="p">,</span> <span class="n">bed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">MIN_TOTAL_COUNT</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">MIN_ALLELE_COUNT</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert a *.vcf file output from bcftools::call into a *.bed file</span>
 <span class="sd">    </span>
 <span class="sd">    MIN_TOTAL_COUNT specifies the minimum number of high quality reads</span>
@@ -289,7 +291,7 @@
 <span class="c1">#    print(&#39;\n&#39;.join(outlines))</span>
 
 
-<div class="viewcode-block" id="csv2bed"><a class="viewcode-back" href="../page7.html#convert2bed.csv2bed">[docs]</a><span class="k">def</span> <span class="nf">csv2bed</span><span class="p">(</span><span class="n">csv</span><span class="p">,</span> <span class="n">bed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="csv2bed"><a class="viewcode-back" href="../convert.html#convert2bed.csv2bed">[docs]</a><span class="k">def</span> <span class="nf">csv2bed</span><span class="p">(</span><span class="n">csv</span><span class="p">,</span> <span class="n">bed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert a *.csv file output from allelecounter.py into a *.bed file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">outlines</span> <span class="o">=</span> <span class="p">[]</span>
