@@ -366,10 +366,27 @@ rule graph_workflow:
         "snakemake -s {input} --rulegraph 2> /dev/null | dot -T png > {output}"
 
 
+rule insert_size_metrics:
+    input:
+        bam="sorted/{sample}.bam"
+    output:
+        txt="picard/{sample}.insert_size_metrics.txt",
+        pdf="picard/{sample}.insert_size_histogram.pdf",
+        png="graphics/{sample}.insert_size_histogram.png"
+    conda:
+        "%s/picard.yaml" % ENVDIR
+    shell:
+        """
+        picard CollectInsertSizeMetrics I={input.bam} O={output.txt} H={output.pdf} M=0.5
+        convert {output.pdf} {output.png}
+        """
+
+
 rule report:
     input:
         fq1="graphics/{sample}.1.per_base_quality.png",
         fq2="graphics/{sample}.2.per_base_quality.png",
+        inserts="graphics/{sample}.insert_size_histogram.png",
         exp="expression/{sample}.csv",
         res="results/{sample}.summary.csv",
         mapping_log = "logs/hisat2/{sample}.log",
@@ -468,6 +485,10 @@ rule report:
         Reads_2:
 
         .. image:: {input.fq2}
+
+        Insert size distribution:
+
+        .. image:: {input.inserts}
 
         Workflow:
 

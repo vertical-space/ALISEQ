@@ -182,6 +182,5 @@ epub_exclude_files = ['search.html']
 
 # -- Extension configuration -------------------------------------------------
 
-html_logo = 'logo.png'
-
+html_logo = 'ase.png'
 
