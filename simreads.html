@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>simulate_reads.snk &mdash; ALISEQ 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="workflow.snk" href="workflow.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ALISEQ
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Instalation and setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Running the software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more.html">More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Python modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="snakefiles.html">Snakefiles</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="workflow.html">workflow.snk</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">simulate_reads.snk</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ALISEQ</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="snakefiles.html">Snakefiles</a> &raquo;</li>
+        
+      <li>simulate_reads.snk</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/simreads.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="simulate-reads-snk">
+<h1>simulate_reads.snk<a class="headerlink" href="#simulate-reads-snk" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">simulate_reads.snk</span>
+
+<span class="sd">chris cowled 31.10.2018</span>
+
+<span class="sd">snakemake -nps simulate_reads.snk </span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="n">CWD</span>     <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">BASEDIR</span> <span class="o">=</span> <span class="n">workflow</span><span class="o">.</span><span class="n">basedir</span> <span class="c1"># this is full path to the snakefile itself</span>
+<span class="n">ENVSDIR</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/../envs&#39;</span> <span class="o">%</span> <span class="n">BASEDIR</span>
+<span class="n">DATADIR</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/../data&#39;</span> <span class="o">%</span> <span class="n">BASEDIR</span>
+<span class="n">READDIR</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/../reads&#39;</span> <span class="o">%</span> <span class="n">CWD</span>
+
+<span class="k">def</span> <span class="nf">dictFromText</span><span class="p">(</span><span class="n">infile</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;extract contents of a text file (in the form KEY=VALUE) and return as a dict</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">F</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">F</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+            <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)]</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+
+<span class="n">PARAMS</span>  <span class="o">=</span> <span class="n">dictFromText</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/params.txt&quot;</span> <span class="o">%</span> <span class="n">CWD</span><span class="p">)</span>
+
+
+<span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">expand</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/simulation_</span><span class="si">%s</span><span class="s2">_x{DEPTH}.{READ}.fastq.gz&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">READDIR</span><span class="p">,</span> <span class="n">PARAMS</span><span class="p">[</span><span class="s1">&#39;TAG&#39;</span><span class="p">]),</span> <span class="n">DEPTH</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">32</span><span class="p">],</span> <span class="n">READ</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+
+
+<span class="n">rule</span> <span class="n">simulate_reads</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">script</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/simulate_reads.py&quot;</span> <span class="o">%</span> <span class="n">BASEDIR</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="n">expand</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/simulation_</span><span class="si">%s</span><span class="s2">_x{DEPTH}.{READ}.fastq&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">CWD</span><span class="p">,</span> <span class="n">PARAMS</span><span class="p">[</span><span class="s1">&#39;TAG&#39;</span><span class="p">]),</span> <span class="n">DEPTH</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">32</span><span class="p">],</span> <span class="n">READ</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/simulation.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVSDIR</span>
+    <span class="n">run</span><span class="p">:</span>
+        <span class="s2">&quot;python {input.script} {PARAMS}&quot;</span>
+                        
+
+
+<span class="n">rule</span> <span class="n">compress_reads</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">expand</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/simulation_</span><span class="si">%s</span><span class="s2">_x{DEPTH}.{READ}.fastq&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">CWD</span><span class="p">,</span> <span class="n">PARAMS</span><span class="p">[</span><span class="s1">&#39;TAG&#39;</span><span class="p">]),</span> <span class="n">DEPTH</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">32</span><span class="p">],</span> <span class="n">READ</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="n">expand</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/simulation_</span><span class="si">%s</span><span class="s2">_x{DEPTH}.{READ}.fastq.gz&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">READDIR</span><span class="p">,</span> <span class="n">PARAMS</span><span class="p">[</span><span class="s1">&#39;TAG&#39;</span><span class="p">]),</span> <span class="n">DEPTH</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">32</span><span class="p">],</span> <span class="n">READ</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">run</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gzip simulation_*_x*.fastq</span>
+<span class="sd">        mv *.fastq.gz %s/reads</span>
+<span class="sd">        mv *stats.txt %s/stats</span>
+<span class="sd">        &quot;&quot;&quot;</span> <span class="o">%</span> <span class="n">CWD</span>
+
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="workflow.html" class="btn btn-neutral" title="workflow.snk" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Chris Cowled
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

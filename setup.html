@@ -90,7 +90,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Running the software</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more.html">More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more.html">Other stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Python modules</a></li>
 </ul>
 
             
@@ -171,18 +173,20 @@ conda env create -f ALISEQ/envs/aliseq.yaml -p <span class="si">${</span><span c
 
 mkdir testdirectory   <span class="c1"># or whatever you want to call your working directory</span>
 
+cp ALISEQ/data/targets.txt testdirectory
+
+cp ALISEQ/data/targets.txt testdirectory
+
 <span class="nb">cd</span> testdirectory
 </pre></div>
 </div>
 </div>
 <div class="section" id="test-if-it-s-working">
 <h2>Test if it’s working<a class="headerlink" href="#test-if-it-s-working" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;ERR2353209&#39;</span> &gt; targets.txt
-
-bash aliseq.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash aliseq.sh
 </pre></div>
 </div>
-<p>It can take quite a while to download all of the required third party software</p>
+<p>It can take a while for the required third party software to download</p>
 </div>
 </div>
 

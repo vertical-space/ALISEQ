@@ -1,6 +1,8 @@
 Instalation and setup
 ================================================================================
 
+
+
 Download the source code
 --------------------------------------------------------------------------------
 
@@ -18,16 +20,20 @@ Download the source code
 
    mkdir testdirectory   # or whatever you want to call your working directory
 
+   cp ALISEQ/data/targets.txt testdirectory
+
+   cp ALISEQ/data/targets.txt testdirectory
+
    cd testdirectory
+
+
 
 Test if it's working
 --------------------------------------------------------------------------------
 
 .. code-block:: bash
 
-   echo 'ERR2353209' > targets.txt
-
    bash aliseq.sh
 
-It can take quite a while to download all of the required third party software
+It can take a while for the required third party software to download
 

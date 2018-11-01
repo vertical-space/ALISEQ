@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>More &mdash; ALISEQ 1.0 documentation</title>
+  <title>Other stuff &mdash; ALISEQ 1.0 documentation</title>
   
 
   
@@ -28,7 +28,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Running the software" href="usage.html" /> 
+    <link rel="next" title="Python modules" href="modules.html" />
+    <link rel="prev" title="Workflow" href="workflow.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,12 +86,9 @@
 <li class="toctree-l1"><a class="reference internal" href="welcome.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Instalation and setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Running the software</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">More</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#other-stuff">Other stuff</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#running-the-simulation">running the simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#running-the-ase-workflow">running the ASE workflow</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflow</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Other stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Python modules</a></li>
 </ul>
 
             
@@ -136,7 +134,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>More</li>
+      <li>Other stuff</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -155,75 +153,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="more">
-<h1>More<a class="headerlink" href="#more" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="other-stuff">
-<h2>Other stuff<a class="headerlink" href="#other-stuff" title="Permalink to this headline">¶</a></h2>
-<p>this is a demo of how to generate a document in sphinx</p>
-<dl class="function">
-<dt id="secondFunc">
-<code class="descname">secondFunc</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="headerlink" href="#secondFunc" title="Permalink to this definition">¶</a></dt>
-<dd><p>not a real function!</p>
-</dd></dl>
-
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
-
-<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">randomGene</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;create a random ATCG string with length randomly chosen from within the range [m,M]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="ow">not</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">length</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">M</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">3392</span><span class="p">,</span><span class="mi">2600</span><span class="p">))</span> <span class="c1"># mu, sigm</span>
-    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="s1">&#39;ATCG&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)])</span>
-
-<span class="n">randomGene</span><span class="p">()</span>
-</pre></div>
-</div>
+  <div class="section" id="other-stuff">
+<h1>Other stuff<a class="headerlink" href="#other-stuff" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>this is a note</p>
-<p class="last">this is paragraph 2 of the note</p>
+<p class="last">this is a note</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">This is a warning</p>
 </div>
-<dl class="class">
-<dt id="Request">
-<em class="property">class </em><code class="descname">Request</code><a class="headerlink" href="#Request" title="Permalink to this definition">¶</a></dt>
-<dd><p>this is one way to document a class</p>
-<dl class="method">
-<dt id="Request.func1">
-<code class="descname">func1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Request.func1" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p>description of the func1 method</p>
-<dl class="attribute">
-<dt id="Request.attr1">
-<code class="descname">attr1</code><a class="headerlink" href="#Request.attr1" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p>description of the attr1 attribute</p>
-</dd></dl>
-
-</div>
-<div class="section" id="running-the-simulation">
-<h2>running the simulation<a class="headerlink" href="#running-the-simulation" title="Permalink to this headline">¶</a></h2>
-<div class="figure" id="id1">
-<img alt="this is an insect" src="http://fossilshelf.com/images/museum/IMG_7713.jpg" />
-<p class="caption"><span class="caption-text">This is the caption of the figure (a simple paragraph).</span></p>
-</div>
-</div>
-<div class="section" id="running-the-ase-workflow">
-<h2>running the ASE workflow<a class="headerlink" href="#running-the-ase-workflow" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>list item 1</li>
 <li>list item 2</li>
 <li>list item 3</li>
 </ul>
-</div>
 </div>
 
 
@@ -234,8 +178,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="modules.html" class="btn btn-neutral float-right" title="Python modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="usage.html" class="btn btn-neutral" title="Running the software" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="workflow.html" class="btn btn-neutral" title="Workflow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

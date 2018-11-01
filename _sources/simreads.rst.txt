@@ -1,0 +1,6 @@
+simulate_reads.snk
+================================================================================
+
+.. literalinclude:: ../../scripts/simulate_reads.snk
+   :language: python
+

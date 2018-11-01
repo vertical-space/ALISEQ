@@ -1,0 +1,702 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Workflow &mdash; ALISEQ 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Other stuff" href="more.html" />
+    <link rel="prev" title="Running the software" href="usage.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ALISEQ
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Instalation and setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Running the software</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more.html">Other stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Python modules</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ALISEQ</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Workflow</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/workflow.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="workflow">
+<h1>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline">¶</a></h1>
+<div class="figure">
+<img alt="layout of the workflow" src="_images/rulegraph.png" />
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">rules.snk</span>
+
+<span class="sd">chris cowled 16.08.2018</span>
+
+<span class="sd">snakemake -nps workflow.snk </span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+
+<span class="n">filter_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;minCoverage&#39;</span><span class="p">:</span>   <span class="mi">30</span><span class="p">,</span> 
+    <span class="s1">&#39;minFoldChange&#39;</span><span class="p">:</span> <span class="mf">1.75</span><span class="p">,</span> 
+    <span class="s1">&#39;minSnps&#39;</span><span class="p">:</span>       <span class="mi">3</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">BASEDIR</span> <span class="o">=</span> <span class="n">workflow</span><span class="o">.</span><span class="n">basedir</span> <span class="c1"># this is full path to the snakefile itself</span>
+<span class="n">ENVDIR</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/../envs&#39;</span> <span class="o">%</span> <span class="n">BASEDIR</span>
+<span class="n">DATADIR</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/../data&#39;</span> <span class="o">%</span> <span class="n">BASEDIR</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;tissue&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="p">]</span>
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/buffalo_sample_metadata.csv&quot;</span> <span class="o">%</span> <span class="n">DATADIR</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">accessions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/ERA1230280.csv&quot;</span> <span class="o">%</span> <span class="n">DATADIR</span><span class="p">)</span>
+
+<span class="n">url_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span>
+    <span class="n">accessions</span><span class="p">[</span><span class="s1">&#39;run_accession&#39;</span><span class="p">],</span>
+    <span class="n">accessions</span><span class="p">[</span><span class="s1">&#39;fastq_ftp&#39;</span><span class="p">],</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">run2sampleACC</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span>
+    <span class="n">accessions</span><span class="p">[</span><span class="s1">&#39;run_accession&#39;</span><span class="p">],</span>
+    <span class="n">accessions</span><span class="p">[</span><span class="s1">&#39;secondary_sample_accession&#39;</span><span class="p">],</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">target_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/targets.txt&#39;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)]</span>
+<span class="n">file_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;reports/</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">target_list</span> <span class="k">if</span> <span class="n">s</span><span class="p">]</span> 
+<span class="n">file_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">file_list</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span><span class="p">]</span>
+
+
+<span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">file_list</span>
+    <span class="n">run</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="p">{</span><span class="nb">input</span><span class="p">}:</span>
+            <span class="k">if</span> <span class="s1">&#39;simulation&#39;</span> <span class="ow">in</span> <span class="n">file_path</span><span class="p">:</span>
+                <span class="n">sample_id</span> <span class="o">=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;reports/&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">print</span><span class="p">(</span><span class="s1">&#39;testing out the function&#39;</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">sample_id</span><span class="p">)</span>
+                <span class="n">metadata</span><span class="p">[</span><span class="n">sample_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">sample_id</span><span class="p">,</span> <span class="s1">&#39;simulation&#39;</span><span class="p">,</span><span class="s1">&#39;simulation&#39;</span><span class="p">,</span><span class="s1">&#39;simulation&#39;</span><span class="p">,</span><span class="s1">&#39;simulation&#39;</span><span class="p">,</span><span class="s1">&#39;simulation&#39;</span><span class="p">])</span>
+                <span class="n">run2sampleACC</span><span class="p">[</span><span class="n">sample_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample_id</span>
+                <span class="n">url_index</span><span class="p">[</span><span class="n">sample_id</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">sample_id</span><span class="p">,</span> <span class="n">sample_id</span><span class="p">])</span>
+
+
+<span class="n">rule</span> <span class="n">get_reads</span><span class="p">:</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;reads/{sample}.1.fastq.gz&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;reads/{sample}.2.fastq.gz&quot;</span>
+    <span class="n">run</span><span class="p">:</span>
+        <span class="c1">#run_acc = sample2runACC[list({wildcards.sample})[0]]</span>
+        <span class="n">run_acc</span> <span class="o">=</span> <span class="nb">list</span><span class="p">({</span><span class="n">wildcards</span><span class="o">.</span><span class="n">sample</span><span class="p">})[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">reads</span> <span class="o">=</span> <span class="n">url_index</span><span class="p">[</span><span class="n">run_acc</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+        <span class="n">shell</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">              wget --tries=4 -O {output[0]} {reads[0]}</span>
+<span class="s2">              wget --tries=4 -O {output[1]} {reads[1]}</span>
+<span class="s2">              &quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="n">url</span><span class="o">=</span><span class="s2">&quot;ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/003/121/395/GCF_003121395.1_UOA_WB_1&quot;</span>
+
+<span class="n">rule</span> <span class="n">get_genome</span><span class="p">:</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;genome/water_buffalo_genome.fasta.gz&quot;</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="s2">&quot;wget --tries=4 -O {output} {url}/GCF_003121395.1_UOA_WB_1_genomic.fna.gz&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">get_gtf</span><span class="p">:</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;genome/water_buffalo_genome.gtf.gz&quot;</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="s2">&quot;wget --tries=4 -O {output} {url}/GCF_003121395.1_UOA_WB_1_genomic.gff.gz&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">unzip_genome</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="s2">&quot;genome/water_buffalo_genome.fasta.gz&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;genome/water_buffalo_genome.fasta&quot;</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="s2">&quot;gunzip -c {input} &gt; {output}&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">unzip_gtf</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="s2">&quot;genome/water_buffalo_genome.gtf.gz&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;genome/water_buffalo_genome.gtf&quot;</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="s2">&quot;gunzip -c {input} &gt; {output}&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">trim_reads</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="p">[</span><span class="s2">&quot;reads/{sample}.1.fastq.gz&quot;</span><span class="p">,</span> <span class="s2">&quot;reads/{sample}.2.fastq.gz&quot;</span><span class="p">]</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;trimmed/{sample}.1_val_1.fq.gz&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;trimmed/{sample}.1.fastq.gz_trimming_report.txt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;trimmed/{sample}.2_val_2.fq.gz&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;trimmed/{sample}.2.fastq.gz_trimming_report.txt&quot;</span>
+    <span class="n">params</span><span class="p">:</span>
+        <span class="n">extra</span><span class="o">=</span><span class="s2">&quot;--quality 20 --stringency 2 --length 30  --trim-n&quot;</span> <span class="c1"># NOTE: --paired is already included in the wrapper script</span>
+    <span class="n">log</span><span class="p">:</span>
+        <span class="s2">&quot;logs/trim_galore/{sample}.log&quot;</span>
+    <span class="n">wrapper</span><span class="p">:</span>
+        <span class="s2">&quot;0.27.1/bio/trim_galore/pe&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">fastqc</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="s2">&quot;trimmed/{sample}.fq.gz&quot;</span><span class="p">,</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="n">html</span><span class="o">=</span><span class="s2">&quot;fastqc/{sample}.html&quot;</span><span class="p">,</span>
+        <span class="nb">zip</span><span class="o">=</span><span class="s2">&quot;fastqc/{sample}.zip&quot;</span>
+    <span class="n">params</span><span class="p">:</span> 
+        <span class="s2">&quot;&quot;</span>
+    <span class="n">log</span><span class="p">:</span>
+        <span class="s2">&quot;logs/fastqc/{sample}.log&quot;</span>
+    <span class="n">wrapper</span><span class="p">:</span>
+        <span class="s2">&quot;0.27.1/bio/fastqc&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">unzip_fastqc_output</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="s2">&quot;fastqc/{sample}.1_val_1.zip&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fastqc/{sample}.2_val_2.zip&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;fastqc/{sample}.1_val_1_fastqc/Images/per_base_quality.png&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fastqc/{sample}.2_val_2_fastqc/Images/per_base_quality.png&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;graphics/{sample}.1.per_base_quality.png&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;graphics/{sample}.2.per_base_quality.png&quot;</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        unzip -q -u -d fastqc {input[0]}</span>
+<span class="sd">        unzip -q -u -d fastqc {input[1]}</span>
+<span class="sd">        cp {output[0]} {output[2]}</span>
+<span class="sd">        cp {output[1]} {output[3]}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">create_hisat2_index</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="s2">&quot;genome/water_buffalo_genome.fasta&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="n">expand</span><span class="p">(</span><span class="s2">&quot;UOA_WB_1.{int}.ht2&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/hisat2.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">threads</span><span class="p">:</span>
+        <span class="mi">8</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="s2">&quot;hisat2-build -p {threads} {input} UOA_WB_1&quot;</span>
+
+ 
+<span class="n">rule</span> <span class="n">hisat2_map_reads</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">reads</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;trimmed/{sample}.1_val_1.fq.gz&quot;</span><span class="p">,</span> <span class="s2">&quot;trimmed/{sample}.2_val_2.fq.gz&quot;</span><span class="p">],</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">expand</span><span class="p">(</span><span class="s2">&quot;UOA_WB_1.{int}.ht2&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;mapped/{sample}.bam&quot;</span>
+    <span class="n">log</span><span class="p">:</span>                                <span class="c1"># optional</span>
+        <span class="s2">&quot;logs/hisat2/{sample}.log&quot;</span>
+    <span class="n">params</span><span class="p">:</span>                             <span class="c1"># idx is required, extra is optional</span>
+        <span class="n">idx</span><span class="o">=</span><span class="s2">&quot;UOA_WB_1&quot;</span>
+        <span class="c1"># extra=&quot;-k 1&quot; # suppress multimapping reads</span>
+    <span class="n">threads</span><span class="p">:</span> 
+        <span class="mi">8</span>                               <span class="c1"># optional, defaults to 1</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/hisat2.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">wrapper</span><span class="p">:</span>
+        <span class="s2">&quot;0.27.1/bio/hisat2&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">samtools_sort</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="s2">&quot;mapped/{sample}.bam&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;sorted/{sample}.bam&quot;</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/samtools.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="s2">&quot;samtools sort -o {output} {input}&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">samtools_index</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="s2">&quot;sorted/{sample}.bam&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;sorted/{sample}.bam.bai&quot;</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/samtools.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="s2">&quot;samtools index {input}&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">gtf2bed</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">script</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/convert2bed.py&quot;</span> <span class="o">%</span> <span class="n">BASEDIR</span><span class="p">,</span>
+        <span class="n">gtf</span><span class="o">=</span><span class="s2">&quot;genome/{sample}.gtf&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="n">bed</span><span class="o">=</span><span class="s2">&quot;genome/{sample}.bed&quot;</span><span class="p">,</span>
+        <span class="nb">sorted</span><span class="o">=</span><span class="s2">&quot;genome/{sample}.sorted&quot;</span><span class="p">,</span>
+        <span class="n">merged</span><span class="o">=</span><span class="s2">&quot;genome/{sample}.merged.bed&quot;</span><span class="p">,</span>            <span class="c1"># for use with bedtools</span>
+        <span class="n">renamed</span><span class="o">=</span><span class="s2">&quot;genome/{sample}.merged.bed.txt&quot;</span>        <span class="c1"># for use with bcftools mpileup</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/gtf2bed.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        python {input.script} {input.gtf}</span>
+<span class="sd">        bedtools sort -i {output.bed} &gt; {output.sorted}</span>
+<span class="sd">        bedtools merge -i {output.sorted} -c 4,5,6 -o distinct &gt; {output.merged}</span>
+<span class="sd">        cp {output.merged} {output.renamed}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">call_variants</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;genome/water_buffalo_genome.fasta&quot;</span><span class="p">,</span>
+        <span class="n">bed</span><span class="o">=</span><span class="s2">&quot;genome/water_buffalo_genome.merged.bed.txt&quot;</span><span class="p">,</span>  <span class="c1"># must not end in .bed</span>
+        <span class="n">bam</span><span class="o">=</span><span class="s2">&quot;sorted/{sample}.bam&quot;</span><span class="p">,</span>
+        <span class="n">bai</span><span class="o">=</span><span class="s2">&quot;sorted/{sample}.bam.bai&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;variation/{sample}.vcf&quot;</span>
+    <span class="n">log</span><span class="p">:</span>
+        <span class="s2">&quot;logs/bcftools/{sample}.log&quot;</span>
+    <span class="n">threads</span><span class="p">:</span>
+        <span class="mi">8</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/bcftools.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        bcftools mpileup --output-type u \</span>
+<span class="sd">                         --skip-indels \</span>
+<span class="sd">                         --threads {threads} \</span>
+<span class="sd">                         --fasta-ref {input.genome} \</span>
+<span class="sd">                         --regions-file {input.bed} \</span>
+<span class="sd">                         {input.bam} \</span>
+<span class="sd">         | bcftools call --output-type v \</span>
+<span class="sd">                         --threads {threads} \</span>
+<span class="sd">                         --consensus-caller \</span>
+<span class="sd">                         --variants-only \</span>
+<span class="sd">                         --output {output}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">index_vcf</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="s2">&quot;variation/{sample}.vcf&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;variation/{sample}.vcf.gz&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;variation/{sample}.vcf.gz.tbi&quot;</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/samtools.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        bgzip -c {input} &gt; {output[0]}</span>
+<span class="sd">        tabix -p vcf {output[0]}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">allele_counter</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">script</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/../allelecounter/allelecounter.py&quot;</span> <span class="o">%</span> <span class="n">BASEDIR</span><span class="p">,</span>
+	<span class="n">vcf</span><span class="o">=</span><span class="s2">&quot;variation/{sample}.vcf.gz&quot;</span><span class="p">,</span>
+	<span class="n">index</span><span class="o">=</span><span class="s2">&quot;variation/{sample}.vcf.gz.tbi&quot;</span><span class="p">,</span>
+	<span class="n">bam</span><span class="o">=</span><span class="s2">&quot;sorted/{sample}.bam&quot;</span><span class="p">,</span>
+	<span class="n">genome</span><span class="o">=</span><span class="s2">&quot;genome/water_buffalo_genome.fasta&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="n">csv</span><span class="o">=</span><span class="s2">&quot;expression/{sample}.csv&quot;</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/allelecounter.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        python {input.script} --vcf {input.vcf} \</span>
+<span class="sd">                              --sample {input.bam} \</span>
+<span class="sd">                              --bam {input.bam} \</span>
+<span class="sd">                              --ref {input.genome} \</span>
+<span class="sd">                              --min_cov 10 \</span>
+<span class="sd">                              --min_baseq 16 \</span>
+<span class="sd">                              --min_mapq 35 \</span>
+<span class="sd">                              --o {output.csv}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">vcf2bed</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">script</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/convert2bed.py&quot;</span> <span class="o">%</span> <span class="n">BASEDIR</span><span class="p">,</span>
+        <span class="n">vcf</span><span class="o">=</span><span class="s2">&quot;variation/{sample}.vcf&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="n">bed</span><span class="o">=</span><span class="s2">&quot;variation/{sample}.bed&quot;</span><span class="p">,</span>
+        <span class="n">merged</span><span class="o">=</span><span class="s2">&quot;variation/{sample}.merged.bed&quot;</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/bcftools.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        python {input.script} {input.vcf}</span>
+<span class="sd">        sort {output.bed} | uniq &gt; {output.merged}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">csv2bed</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">script</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/convert2bed.py&quot;</span> <span class="o">%</span> <span class="n">BASEDIR</span><span class="p">,</span>
+        <span class="n">csv</span><span class="o">=</span><span class="s2">&quot;expression/{sample}.csv&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;expression/{sample}.bed&quot;</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/bcftools.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="s2">&quot;python {input.script} {input.csv}&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">annotate</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">snps</span><span class="o">=</span><span class="s2">&quot;variation/{sample}.merged.bed&quot;</span><span class="p">,</span>                        
+        <span class="n">annotation</span><span class="o">=</span><span class="s2">&quot;genome/water_buffalo_genome.merged.bed&quot;</span>            <span class="c1"># must end in .bed (created by gtf2bed_modified)</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;merged/{sample}.merged.csv&quot;</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/gtf2bed.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="s2">&quot;bedtools intersect -a {input.snps} -b {input.annotation} -wa -wb &gt; {output}&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">summary</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">script</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/genewiseMAFC.py&quot;</span> <span class="o">%</span> <span class="n">BASEDIR</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="s2">&quot;merged/{sample}.merged.csv&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;results/{sample}.summary.csv&quot;</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/bcftools.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">params</span><span class="p">:</span>
+        <span class="n">minCoverage</span><span class="o">=</span><span class="n">filter_params</span><span class="p">[</span><span class="s1">&#39;minCoverage&#39;</span><span class="p">],</span>
+        <span class="n">minFoldChange</span><span class="o">=</span><span class="n">filter_params</span><span class="p">[</span><span class="s1">&#39;minFoldChange&#39;</span><span class="p">],</span>
+        <span class="n">minSnps</span><span class="o">=</span><span class="n">filter_params</span><span class="p">[</span><span class="s1">&#39;minSnps&#39;</span><span class="p">]</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        python {input.script} --input {input.data} \</span>
+<span class="sd">                              --output {output} \</span>
+<span class="sd">                              --minCoverage {params.minCoverage} \</span>
+<span class="sd">                              --minFoldChange {params.minFoldChange} \</span>
+<span class="sd">                              --minSnps {params.minSnps} </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">graph_workflow</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/workflow.snk&quot;</span> <span class="o">%</span> <span class="n">BASEDIR</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;graphics/rulegraph.png&quot;</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/graphviz.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="s2">&quot;snakemake -s {input} --rulegraph 2&gt; /dev/null | dot -T png &gt; {output}&quot;</span>
+
+
+<span class="n">rule</span> <span class="n">report</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">fq1</span><span class="o">=</span><span class="s2">&quot;graphics/{sample}.1.per_base_quality.png&quot;</span><span class="p">,</span>
+        <span class="n">fq2</span><span class="o">=</span><span class="s2">&quot;graphics/{sample}.2.per_base_quality.png&quot;</span><span class="p">,</span>
+        <span class="n">exp</span><span class="o">=</span><span class="s2">&quot;expression/{sample}.csv&quot;</span><span class="p">,</span>
+        <span class="n">res</span><span class="o">=</span><span class="s2">&quot;results/{sample}.summary.csv&quot;</span><span class="p">,</span>
+        <span class="n">mapping_log</span> <span class="o">=</span> <span class="s2">&quot;logs/hisat2/{sample}.log&quot;</span><span class="p">,</span>
+        <span class="n">graph</span><span class="o">=</span><span class="s2">&quot;graphics/rulegraph.png&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="s2">&quot;reports/{sample}.html&quot;</span>
+    <span class="n">run</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">snakemake.utils</span> <span class="kn">import</span> <span class="n">report</span> <span class="k">as</span> <span class="n">html_report</span>
+        <span class="kn">import</span> <span class="nn">maketable</span>
+        <span class="kn">import</span> <span class="nn">datetime</span>
+
+        <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">exp</span><span class="p">)</span> <span class="k">as</span> <span class="n">counts</span><span class="p">:</span>
+            <span class="n">n_counts</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">counts</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">l</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">res</span><span class="p">)</span> <span class="k">as</span> <span class="n">genes</span><span class="p">:</span>
+            <span class="n">n_genes</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">genes</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">l</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">mapping_log</span><span class="p">)</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">mapping_stats</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;----&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">mapping_stats</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;    - &#39;</span><span class="o">+</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">mapping_stats</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)])</span>   <span class="c1"># left align, add 4 space indent + list bullet</span>
+
+        <span class="n">run_acc</span> <span class="o">=</span> <span class="nb">list</span><span class="p">({</span><span class="n">wildcards</span><span class="o">.</span><span class="n">sample</span><span class="p">})[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="s1">&#39;simulation&#39;</span> <span class="ow">in</span> <span class="n">run_acc</span><span class="p">:</span>
+            <span class="n">sample_acc</span> <span class="o">=</span> <span class="n">run_acc</span>
+            <span class="n">reads</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;simulation&#39;</span><span class="p">,</span> <span class="s1">&#39;simulation&#39;</span><span class="p">]</span>
+            <span class="n">meta_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">sample_acc</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;simulation&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span>
+            <span class="n">sim_metadata</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">headers</span><span class="p">,</span> <span class="n">meta_values</span><span class="p">)))</span>
+            <span class="n">metadata_table</span> <span class="o">=</span> <span class="n">maketable</span><span class="o">.</span><span class="n">make_table_from_df</span><span class="p">(</span><span class="n">sim_metadata</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sample_acc</span> <span class="o">=</span> <span class="n">run2sampleACC</span><span class="p">[</span><span class="n">run_acc</span><span class="p">]</span>
+            <span class="n">reads</span> <span class="o">=</span> <span class="n">url_index</span><span class="p">[</span><span class="n">run_acc</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+            <span class="n">metadata_table</span> <span class="o">=</span> <span class="n">maketable</span><span class="o">.</span><span class="n">make_table_from_df</span><span class="p">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample_acc</span><span class="p">,])</span>
+
+        <span class="n">url_1</span> <span class="o">=</span> <span class="n">reads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">url_2</span> <span class="o">=</span> <span class="n">reads</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">results_table</span> <span class="o">=</span> <span class="n">maketable</span><span class="o">.</span><span class="n">make_table_from_csv</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">res</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">filters</span> <span class="o">=</span>  <span class="n">maketable</span><span class="o">.</span><span class="n">make_table_from_df</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">filter_params</span><span class="p">))</span>
+        <span class="c1">#filters = str(filter_params)</span>
+
+        <span class="n">html_report</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        ==========================================================</span>
+<span class="s2">        A workflow for performing allele specific expression (ASE)</span>
+<span class="s2">        ==========================================================</span>
+
+<span class="s2">        Run accession::</span>
+
+<span class="s2">            {run_acc}</span>
+
+<span class="s2">        Sample accession::</span>
+
+<span class="s2">            {sample_acc}</span>
+
+<span class="s2">        Reads_1 source::</span>
+
+<span class="s2">            {url_1}</span>
+
+<span class="s2">        Reads_2 source::</span>
+
+<span class="s2">            {url_2}</span>
+
+<span class="s2">        Metadata:</span>
+
+<span class="s2">        {metadata_table}</span>
+
+<span class="s2">        Filters:</span>
+
+<span class="s2">        {filters}</span>
+
+<span class="s2">        Mapping results:</span>
+
+<span class="s2">        {mapping_stats}</span>
+
+<span class="s2">        Summary:</span>
+
+<span class="s2">            - Reads were trimmed with Trimgalore </span>
+<span class="s2">            - Reads were mapped to the buffalo genome with hisat2</span>
+<span class="s2">            - variants were called with BCFtools</span>
+<span class="s2">            - counts were determined by allelecounter.py</span>
+<span class="s2">            - python scripts were used for the other steps</span>
+<span class="s2">            - This resulted in {n_counts} snps (see Table exp_)</span>
+<span class="s2">            - This resulted in {n_genes} genes (see Table res_)</span>
+
+<span class="s2">        Results:</span>
+
+<span class="s2">        {results_table}</span>
+
+<span class="s2">        Reads_1:</span>
+
+<span class="s2">        .. image:: {input.fq1}</span>
+
+<span class="s2">        Reads_2:</span>
+
+<span class="s2">        .. image:: {input.fq2}</span>
+
+<span class="s2">        Workflow:</span>
+
+<span class="s2">        .. image:: {input.graph}</span>
+
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">metadata</span><span class="o">=</span><span class="s2">&quot;Author: Chris Cowled (chris.cowled@csiro.au)&quot;</span><span class="p">,</span> <span class="o">**</span><span class="nb">input</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="more.html" class="btn btn-neutral float-right" title="Other stuff" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="usage.html" class="btn btn-neutral" title="Running the software" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Chris Cowled
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
