@@ -101,7 +101,7 @@ rule download_ref_fastq:
         shell("""
         wget --tries=4 -O {output.gz} {URL}
         gunzip -c {output.gz} > {output.fq}
-        """
+        """)
 
 
 rule download_expression_data:   
