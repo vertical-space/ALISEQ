@@ -96,11 +96,12 @@ rule download_ref_fastq:
     output:
         gz=temp('%s/ERR2353209.1.fastq.gz' % LOCALDATA),
         fq='%s/ERR2353209.1.fastq' % LOCALDATA
-    shell:
-        """
+    run:
+        URL='ftp.sra.ebi.ac.uk/vol1/fastq/ERR235/009/ERR2353209/ERR2353209_1.fastq.gz'
+        shell("""
         wget --tries=4 -O {output.gz} {URL}
         gunzip -c {output.gz} > {output.fq}
-        """.format(URL='ftp.sra.ebi.ac.uk/vol1/fastq/ERR235/009/ERR2353209/ERR2353209_1.fastq.gz')
+        """
 
 
 rule download_expression_data:   
@@ -108,8 +109,8 @@ rule download_expression_data:
         original='%s/E-MTAB-3716-query-results.fpkms.tsv' % LOCALDATA,
         modified='%s/rpkm_fixed.csv' % LOCALDATA
     run:
-        shell("wget --tries=4 -O {output.original} {URL}".format(
-            URL='https://www.ebi.ac.uk/gxa/experiments-content/E-MTAB-3716/resources/ExperimentDownloadSupplier.RnaSeqBaseline/fpkms.tsv'))
+        URL='https://www.ebi.ac.uk/gxa/experiments-content/E-MTAB-3716/resources/ExperimentDownloadSupplier.RnaSeqBaseline/fpkms.tsv')
+        shell("wget --tries=4 -O {output.original} {URL}")
         
         import pandas as pd
     
