@@ -58,7 +58,7 @@ rule all:
 
 rule download_transcriptome:
     output:
-        gz=temp('%s/water_buffalo_transcriptome.fasta.gz' % LOCALDATA)
+        gz=temp('%s/water_buffalo_transcriptome.fasta.gz' % LOCALDATA),
         fa='%s/water_buffalo_transcriptome.fasta' % LOCALDATA
     shell:
         """
@@ -93,7 +93,7 @@ rule filter_transcriptome:
 
 rule download_ref_fastq:
     output:
-        gz=temp('%s/ERR2353209.1.fastq.gz' % LOCALDATA)
+        gz=temp('%s/ERR2353209.1.fastq.gz' % LOCALDATA),
         fq='%s/ERR2353209.1.fastq' % LOCALDATA
     shell:
         """
@@ -104,7 +104,7 @@ rule download_ref_fastq:
 
 rule download_expression_data:   
     output:
-        original='%s/E-MTAB-3716-query-results.fpkms.tsv' % LOCALDATA
+        original='%s/E-MTAB-3716-query-results.fpkms.tsv' % LOCALDATA,
         modified='%s/rpkm_fixed.csv' % LOCALDATA
     run:
         shell("wget --tries=4 -O {output.original} {URL}".format(
