@@ -1,0 +1,4 @@
+TypeError in line 60 of /home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk:
+can only join an iterable
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 62, in <module>
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 60, in stringFromConfig

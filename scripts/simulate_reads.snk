@@ -9,52 +9,72 @@ snakemake -nps simulate_reads.snk
 import os
 
 
-CWD     = os.getcwd()
+CWD     = os.getcwd() # this is where output will go
 BASEDIR = workflow.basedir # this is full path to the snakefile itself
 ENVSDIR = '%s/../envs' % BASEDIR
 DATADIR = '%s/../data' % BASEDIR
 READDIR = '%s/../reads' % CWD
 
-def dictFromText(infile):
-    '''extract contents of a text file (in the form KEY=VALUE) and return as a dict
+
+def config2dict(mylist):
+    '''convert a list of strings from a config file into a dictionary. 
+
+    where the string contains '=', split the string and use the two halves as a k,v pair
+    otherwise, use the whole string as the key and add a blank string as the defaults value
     '''
-    data = {}
-    with open(infile, 'r') as F:
-        for line in F.readlines():
-            items = [s.strip() for s in line.split('=')]
-            data[items[0]] = items[1]
-    return data
+    index = {}
+    for item in mylist:
+        data = item.strip()
+        if data:
+            parts = [i.strip() for i in item.split('=')]
+            if len(parts) == 1:
+                index[parts[0]] = ''
+            elif len(parts) == 2:
+                index[parts[0]] = parts[1]
+            elif len(parts) > 2:
+                raise("bad config file: items cannot contain more than one '=' symbol")
+            else:
+                pass
+                #raise('bad config file')
+    return index
 
 
-PARAMS  = dictFromText("%s/params.txt" % CWD)
+def stringFromDict(mydict):
+    '''
+    '''
+    args = ['--'+' '.join([k,v]) if v else '--'+k for k,v in mydict.items()]
+    return ' '.join(args)
+
+
+configfile: "%s/params.yaml" % ENVSDIR
+PARAMS = config2dict(config['params'])
 
 
 rule all:
     input:
-        expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq.gz" % (READDIR, PARAMS['TAG']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
+        expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq.gz" % (READDIR, PARAMS['output_tag']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
 
 
 rule simulate_reads:
     input:
         script="%s/simulate_reads.py" % BASEDIR
     output:
-        expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq" % (CWD, PARAMS['TAG']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
+        expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq" % (CWD, PARAMS['output_tag']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
     conda:
         "%s/simulation.yaml" % ENVSDIR
     run:
-        "python {input.script} {PARAMS}"
-                        
+        "python {input.script} %s" % stringFromDict(PARAMS)
 
 
 rule compress_reads:
     input:
-        expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq" % (CWD, PARAMS['TAG']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
+        expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq" % (CWD, PARAMS['output_tag']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
     output:
-        expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq.gz" % (READDIR, PARAMS['TAG']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
+        expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq.gz" % (READDIR, PARAMS['output_tag']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
     run:
         """
         gzip simulation_*_x*.fastq
         mv *.fastq.gz %s/reads
         mv *stats.txt %s/stats
-        """ % CWD
+        """ % (CWD, CWD)
 

@@ -1,0 +1,4 @@
+NameError in line 50 of /home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk:
+name 'item' is not defined
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 54, in <module>
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 50, in stringFromConfig

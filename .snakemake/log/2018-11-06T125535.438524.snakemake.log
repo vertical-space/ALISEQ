@@ -1,0 +1,3 @@
+NameError in line 57 of /home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk:
+name 'PARAMS' is not defined
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 57, in <module>

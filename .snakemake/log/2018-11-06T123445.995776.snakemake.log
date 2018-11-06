@@ -1,0 +1,5 @@
+ValueError in line 54 of /home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk:
+too many values to unpack (expected 2)
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 56, in <module>
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 54, in stringFromDict
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 54, in <listcomp>

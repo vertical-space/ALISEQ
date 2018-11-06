@@ -1,0 +1,5 @@
+AttributeError in line 50 of /home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk:
+'list' object has no attribute 'split'
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 68, in <module>
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 50, in stringFromConfig
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 50, in <listcomp>

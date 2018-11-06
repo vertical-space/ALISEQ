@@ -1,0 +1,3 @@
+AttributeError in line 37 of /home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk:
+'dict' object has no attribute 'vars'
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 37, in <module>

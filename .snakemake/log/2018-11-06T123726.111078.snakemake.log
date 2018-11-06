@@ -1,0 +1,5 @@
+TypeError in line 54 of /home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk:
+join() takes exactly one argument (2 given)
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 56, in <module>
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 54, in stringFromDict
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 54, in <listcomp>

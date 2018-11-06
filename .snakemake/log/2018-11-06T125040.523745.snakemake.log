@@ -1,0 +1,4 @@
+AttributeError in line 54 of /home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk:
+'list' object has no attribute 'items'
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 56, in <module>
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 54, in stringFromDict

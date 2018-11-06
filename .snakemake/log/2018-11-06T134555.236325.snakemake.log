@@ -1,0 +1,3 @@
+ZeroDivisionError in line 62 of /home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk:
+division by zero
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 62, in <module>

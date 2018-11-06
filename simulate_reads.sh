@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# get the full path to the toplevel project directory (this is the toplevel directory pulled down from github, called ALISEQ)
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 snakemake --cluster-config $DIR/scripts/cluster.json \

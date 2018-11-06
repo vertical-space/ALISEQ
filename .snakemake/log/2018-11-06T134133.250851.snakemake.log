@@ -1,0 +1,5 @@
+AttributeError in line 56 of /home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk:
+'list' object has no attribute 'strip'
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 64, in <module>
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 56, in stringFromConfig
+  File "/home/chris/aliseq-project/aliseq/scripts/simulate_reads.snk", line 56, in <listcomp>
