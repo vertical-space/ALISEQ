@@ -53,29 +53,29 @@ PARAMS = config2dict(config['params'])
 
 rule all:
     input:
-        expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq.gz" % (READDIR, PARAMS['output_tag']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
+        expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq.gz", DIR=READDIR, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
 
 
 rule simulate_reads:
     input:
-        script="%s/simulate_reads.py" % BASEDIR
+        script="{DIR}/simulate_reads.py".format(DIR=BASEDIR)
     output:
-        expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq" % (CWD, PARAMS['output_tag']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
+        expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq", DIR=CWD, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
     conda:
-        "%s/simulation.yaml" % ENVSDIR
+        "{DIR}/simulation.yaml".format(DIR=ENVSDIR)
     shell:
-        "python {input.script} %s" % stringFromDict(PARAMS)
+        "python {input.script} {ARGS}".format(ARGS=stringFromDict(PARAMS))
 
 
 rule compress_reads:
     input:
-        expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq" % (CWD, PARAMS['output_tag']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
+        expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq", DIR=CWD, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
     output:
-        expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq.gz" % (READDIR, PARAMS['output_tag']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
+        expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq.gz", DIR=READDIR, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
     shell:
         """
         gzip simulation_*_x*.fastq
-        mv *.fastq.gz %s/reads
-        mv *stats.txt %s/stats
-        """ % (CWD, CWD)
+        mv *.fastq.gz {DIR}/reads
+        mv *stats.txt {DIR}/stats
+        """.format(DIR=CWD)
 
