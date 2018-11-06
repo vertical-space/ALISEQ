@@ -60,11 +60,12 @@ rule download_transcriptome:
     output:
         gz=temp('%s/water_buffalo_transcriptome.fasta.gz' % LOCALDATA),
         fa='%s/water_buffalo_transcriptome.fasta' % LOCALDATA
-    shell:
-        """
+    run:
+        URL='ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/003/121/395/GCF_003121395.1_UOA_WB_1/GCF_003121395.1_UOA_WB_1_cds_from_genomic.fna.gz'
+        shell("""
         wget --tries=4 -O {output.gz} {URL}
         gunzip -c {output.gz} > {output.fa}
-        """.format(URL='ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/003/121/395/GCF_003121395.1_UOA_WB_1/GCF_003121395.1_UOA_WB_1_cds_from_genomic.fna.gz')
+        """)
 
 
 rule filter_transcriptome:
