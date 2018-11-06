@@ -63,7 +63,7 @@ rule simulate_reads:
         expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq" % (CWD, PARAMS['output_tag']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
     conda:
         "%s/simulation.yaml" % ENVSDIR
-    run:
+    shell:
         "python {input.script} %s" % stringFromDict(PARAMS)
 
 
@@ -72,7 +72,7 @@ rule compress_reads:
         expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq" % (CWD, PARAMS['output_tag']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
     output:
         expand("%s/simulation_%s_x{DEPTH}.{READ}.fastq.gz" % (READDIR, PARAMS['output_tag']), DEPTH=[1,2,4,8,16,32], READ=[1,2])
-    run:
+    shell:
         """
         gzip simulation_*_x*.fastq
         mv *.fastq.gz %s/reads
