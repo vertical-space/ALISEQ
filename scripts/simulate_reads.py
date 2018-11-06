@@ -186,26 +186,9 @@ def prepareData(args):
     '''
 
     assert args.output_tag # blank tags not allowed
-    
-    # for each of the 3 data file dependencies, first check whether they exist within the cwd, otherwise append the full pathname
-
-    try:
-        assert os.path.exists(args.rpkm_file)
-    except AssertionError:
-        args.rpkm_file = '%s/%s' % (args.datadir, args.rpkm_file)
-        assert os.path.exists(args.rpkm_file)
-
-    try:
-        assert os.path.exists(args.transcriptome)
-    except AssertionError:
-        args.transcriptome = '%s/%s' % (args.datadir, args.transcriptome)
-        assert os.path.exists(args.transcriptome)
-
-    try:
-        assert os.path.exists(args.fastq)
-    except AssertionError:
-        args.fastq = '%s/%s' % (args.datadir, args.fastq)
-        assert os.path.exists(args.fastq)
+    assert os.path.exists(args.rpkm_file)
+    assert os.path.exists(args.transcriptome)
+    assert os.path.exists(args.fastq)
 
     # index the reference expression data
     RPKM_index = pd.read_csv(args.rpkm_file)
@@ -664,10 +647,6 @@ def argParser():
                         help='make all inserts equal to <insert_mean> size')
     parser.add_argument('-v', '--fastq', required=False, default='ERR2353209.1.fastq',
                         help='an example fastq file that we will steal quality strings from')
-
-    # internal use only do not modify
-    parser.add_argument('-w', '--datadir', required=False, default='data',
-                        help='used internally, do not modify')
     
     return parser
 

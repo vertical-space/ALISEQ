@@ -9,12 +9,12 @@ snakemake -nps simulate_reads.snk
 import os
 
 
-CWD     = os.getcwd()
-BASEDIR = workflow.basedir # this is full path to the snakefile itself
-ENVSDIR = '%s/../envs' % BASEDIR
-DATADIR = '%s/../data' % BASEDIR
-READDIR = '%s/../reads' % CWD
-
+CWD       = os.getcwd()
+BASEDIR   = workflow.basedir # this is full path to the snakefile itself
+ENVSDIR   = '%s/../envs'  % BASEDIR
+DATADIR   = '%s/../data'  % BASEDIR
+READDIR   = '%s/../reads' % BASEDIR
+LOCALDATA = '%s/data' % CWD
 
 def config2dict(mylist):
     '''convert a list of strings from a config file into a dictionary. 
@@ -56,15 +56,79 @@ rule all:
         expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq.gz", DIR=READDIR, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
 
 
+rule download_transcriptome:
+    output:
+        gz=temp('%s/water_buffalo_transcriptome.fasta.gz' % LOCALDATA)
+        fa='%s/water_buffalo_transcriptome.fasta' % LOCALDATA
+    shell:
+        """
+        wget --tries=4 -O {output.gz} {URL}
+        gunzip -c {output.gz} > {output.fa}
+        """.format(URL='ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/003/121/395/GCF_003121395.1_UOA_WB_1/GCF_003121395.1_UOA_WB_1_cds_from_genomic.fna.gz')
+
+
+rule filter_transcriptome:
+    input:
+        '%s/water_buffalo_transcriptome.fasta' % LOCALDATA
+    output:
+        '%s/water_buffalo_transcriptome.filtered.fasta' % LOCALDATA
+    run:
+        from Bio import SeqIO
+
+        gene_list = {}
+
+        for record in SeqIO.parse({input}, 'fasta'):
+            components = [item.strip('[]').split('=') for item in record.description.split(' ')]
+            components = dict([k for k in components if len(k) == 2])  
+            try:
+                current_best = gene_list[components['gene']]
+                if len(record.seq) > len(current_best.seq):
+                    gene_list[components['gene']] = record
+            except KeyError:
+                gene_list[components['gene']] = record
+        
+        with open({output}, 'w') as handle:
+            SeqIO.write(gene_list.values(), handle, 'fasta')
+
+
+rule download_ref_fastq:
+    output:
+        gz=temp('%s/ERR2353209.1.fastq.gz' % LOCALDATA)
+        fq='%s/ERR2353209.1.fastq' % LOCALDATA
+    shell:
+        """
+        wget --tries=4 -O {output.gz} {URL}
+        gunzip -c {output.gz} > {output.fq}
+        """.format(URL='ftp.sra.ebi.ac.uk/vol1/fastq/ERR235/009/ERR2353209/ERR2353209_1.fastq.gz')
+
+
+rule download_expression_data:   
+    output:
+        original='%s/E-MTAB-3716-query-results.fpkms.tsv' % LOCALDATA
+        modified='%s/rpkm_fixed.csv' % LOCALDATA
+    run:
+        shell("wget --tries=4 -O {output.original} {URL}".format(
+            URL='https://www.ebi.ac.uk/gxa/experiments-content/E-MTAB-3716/resources/ExperimentDownloadSupplier.RnaSeqBaseline/fpkms.tsv'))
+        
+        import pandas as pd
+    
+        df = pd.read_csv({output.original}, sep='\t', comment='#')
+        df.fillna(0, inplace=True)
+        df.to_csv({output.modified})
+
+
 rule simulate_reads:
     input:
-        script="{DIR}/simulate_reads.py".format(DIR=BASEDIR)
+        script="%s/simulate_reads.py" % BASEDIR,
+        rpkm_file='%s/...' % LOCALDATA,
+        transcriptome='%s/...'% LOCALDATA,
+        fastq='%s/...'% LOCALDATA
     output:
         expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq", DIR=CWD, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
     conda:
         "{DIR}/simulation.yaml".format(DIR=ENVSDIR)
     shell:
-        "python {input.script} {ARGS}".format(ARGS=stringFromDict(PARAMS))
+        "python {input.script} {ARGS} ".format(ARGS=stringFromDict(PARAMS))
 
 
 rule compress_reads:
