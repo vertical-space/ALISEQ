@@ -15,7 +15,7 @@ BASEDIR    = workflow.basedir # this is full path to the snakefile itself
 
 ENVSDIR    = '%s/../envs'  % BASEDIR
 DATADIR    = '%s/../data'  % BASEDIR
-READDIR    = '%s/../reads' % BASEDIR
+
 LOCALDATA  = '%s/data'     % CWD
 LOCALREADS = '%s/reads'    % CWD
 
@@ -57,7 +57,7 @@ PARAMS = config2dict(config['params'])
 
 rule all:
     input:
-        expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq.gz", DIR=READDIR, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
+        expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq.gz", DIR=LOCALREADS, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
 
 
 rule download_transcriptome:
