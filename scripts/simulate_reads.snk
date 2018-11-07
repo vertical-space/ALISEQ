@@ -7,7 +7,8 @@ snakemake -nps simulate_reads.snk
 """
 
 import os
-
+import pandas as pd
+from Bio import SeqIO
 
 CWD       = os.getcwd()
 BASEDIR   = workflow.basedir # this is full path to the snakefile itself
@@ -15,6 +16,7 @@ ENVSDIR   = '%s/../envs'  % BASEDIR
 DATADIR   = '%s/../data'  % BASEDIR
 READDIR   = '%s/../reads' % BASEDIR
 LOCALDATA = '%s/data' % CWD
+
 
 def config2dict(mylist):
     '''convert a list of strings from a config file into a dictionary. 
@@ -73,11 +75,7 @@ rule filter_transcriptome:
         original='%s/water_buffalo_transcriptome.fasta' % LOCALDATA
     output:
         modified='%s/water_buffalo_transcriptome.filtered.fasta' % LOCALDATA
-    conda:
-        "%s/simulation.yaml" % ENVSDIR
     run:
-        from Bio import SeqIO
-
         gene_list = {}
 
         for record in SeqIO.parse(input.original, 'fasta'):
@@ -110,14 +108,10 @@ rule download_expression_data:
     output:
         original='%s/E-MTAB-3716-query-results.fpkms.tsv' % LOCALDATA,
         modified='%s/rpkm_fixed.csv' % LOCALDATA
-    conda:
-        "%s/simulation.yaml" % ENVSDIR
     run:
         URL='https://www.ebi.ac.uk/gxa/experiments-content/E-MTAB-3716/resources/ExperimentDownloadSupplier.RnaSeqBaseline/fpkms.tsv'
 
         shell("wget --tries=4 -O {output.original} {URL}")
-        
-        import pandas as pd
     
         df = pd.read_csv(output.original, sep='\t', comment='#')
         df.fillna(0, inplace=True)
