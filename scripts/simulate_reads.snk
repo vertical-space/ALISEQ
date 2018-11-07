@@ -110,6 +110,7 @@ rule download_expression_data:
         modified='%s/rpkm_fixed.csv' % LOCALDATA
     run:
         URL='https://www.ebi.ac.uk/gxa/experiments-content/E-MTAB-3716/resources/ExperimentDownloadSupplier.RnaSeqBaseline/fpkms.tsv')
+
         shell("wget --tries=4 -O {output.original} {URL}")
         
         import pandas as pd
@@ -128,9 +129,9 @@ rule simulate_reads:
     output:
         expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq", DIR=CWD, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
     conda:
-        "{DIR}/simulation.yaml".format(DIR=ENVSDIR)
+        "%s/simulation.yaml" % ENVSDIR
     shell:
-        "python {input.script} {ARGS} ".format(ARGS=stringFromDict(PARAMS))
+        "python {input.script} %s" % stringFromDict(PARAMS)
 
 
 rule compress_reads:
