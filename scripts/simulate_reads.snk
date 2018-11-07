@@ -70,15 +70,15 @@ rule download_transcriptome:
 
 rule filter_transcriptome:
     input:
-        '%s/water_buffalo_transcriptome.fasta' % LOCALDATA
+        original='%s/water_buffalo_transcriptome.fasta' % LOCALDATA
     output:
-        '%s/water_buffalo_transcriptome.filtered.fasta' % LOCALDATA
+        modified='%s/water_buffalo_transcriptome.filtered.fasta' % LOCALDATA
     run:
         from Bio import SeqIO
 
         gene_list = {}
 
-        for record in SeqIO.parse({input}, 'fasta'):
+        for record in SeqIO.parse(input.original, 'fasta'):
             components = [item.strip('[]').split('=') for item in record.description.split(' ')]
             components = dict([k for k in components if len(k) == 2])  
             try:
@@ -88,7 +88,7 @@ rule filter_transcriptome:
             except KeyError:
                 gene_list[components['gene']] = record
         
-        with open({output}, 'w') as handle:
+        with open(output.modified, 'w') as handle:
             SeqIO.write(gene_list.values(), handle, 'fasta')
 
 
