@@ -73,6 +73,8 @@ rule filter_transcriptome:
         original='%s/water_buffalo_transcriptome.fasta' % LOCALDATA
     output:
         modified='%s/water_buffalo_transcriptome.filtered.fasta' % LOCALDATA
+    conda:
+        "%s/simulation.yaml" % ENVSDIR
     run:
         from Bio import SeqIO
 
@@ -108,6 +110,8 @@ rule download_expression_data:
     output:
         original='%s/E-MTAB-3716-query-results.fpkms.tsv' % LOCALDATA,
         modified='%s/rpkm_fixed.csv' % LOCALDATA
+    conda:
+        "%s/simulation.yaml" % ENVSDIR
     run:
         URL='https://www.ebi.ac.uk/gxa/experiments-content/E-MTAB-3716/resources/ExperimentDownloadSupplier.RnaSeqBaseline/fpkms.tsv'
 
