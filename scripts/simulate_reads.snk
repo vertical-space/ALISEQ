@@ -109,7 +109,7 @@ rule download_expression_data:
         original='%s/E-MTAB-3716-query-results.fpkms.tsv' % LOCALDATA,
         modified='%s/rpkm_fixed.csv' % LOCALDATA
     run:
-        URL='https://www.ebi.ac.uk/gxa/experiments-content/E-MTAB-3716/resources/ExperimentDownloadSupplier.RnaSeqBaseline/fpkms.tsv')
+        URL='https://www.ebi.ac.uk/gxa/experiments-content/E-MTAB-3716/resources/ExperimentDownloadSupplier.RnaSeqBaseline/fpkms.tsv'
 
         shell("wget --tries=4 -O {output.original} {URL}")
         
