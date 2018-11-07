@@ -115,9 +115,22 @@ rule download_expression_data:
         
         import pandas as pd
     
-        df = pd.read_csv({output.original}, sep='\t', comment='#')
+        df = pd.read_csv(output.original, sep='\t', comment='#')
         df.fillna(0, inplace=True)
-        df.to_csv({output.modified})
+        df.to_csv(output.modified)
+
+
+rule compress_reads:
+    input:
+        expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq", DIR=CWD, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
+    output:
+        expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq.gz", DIR=READDIR, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
+    shell:
+        """
+        gzip simulation_*_x*.fastq
+        mv *.fastq.gz {DIR}/reads
+        mv *stats.txt {DIR}/stats
+        """.format(DIR=CWD)
 
 
 rule simulate_reads:
@@ -134,15 +147,4 @@ rule simulate_reads:
         "python {input.script} %s" % stringFromDict(PARAMS)
 
 
-rule compress_reads:
-    input:
-        expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq", DIR=CWD, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
-    output:
-        expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq.gz", DIR=READDIR, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
-    shell:
-        """
-        gzip simulation_*_x*.fastq
-        mv *.fastq.gz {DIR}/reads
-        mv *stats.txt {DIR}/stats
-        """.format(DIR=CWD)
 
