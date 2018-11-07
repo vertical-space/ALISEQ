@@ -123,9 +123,9 @@ rule download_expression_data:
 rule simulate_reads:
     input:
         script="%s/simulate_reads.py" % BASEDIR,
-        rpkm_file='%s/...' % LOCALDATA,
-        transcriptome='%s/...'% LOCALDATA,
-        fastq='%s/...'% LOCALDATA
+        rpkm_file='%s/rpkm_fixed.csv' % LOCALDATA,
+        transcriptome='%s/water_buffalo_transcriptome.filtered.fasta'% LOCALDATA,
+        fastq='%s/ERR2353209.1.fastq'% LOCALDATA
     output:
         expand("{DIR}/simulation_{TAG}_x{DEPTH}.{READ}.fastq", DIR=CWD, TAG=PARAMS['output_tag'], DEPTH=[1,2,4,8,16,32], READ=[1,2])
     conda:
