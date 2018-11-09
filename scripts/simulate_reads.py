@@ -73,19 +73,18 @@ def fastq(seq_index, args, wrap=None):
     '''format a dictionary of {label:sequence} pairs into a fastq string
     '''
     return '\n'.join(['@%s\n%s\n+\n%s' % (k, fastWrap(v, wrap), \
-                fastWrap(qualScore(len(v), args), wrap)) for k,v in seq_index.items()])
+                fastWrap(qualScore(args), wrap)) for k,v in seq_index.items()])
 
 
 def qualScore(i, args):
     '''select a quality string at random from a real RNA-Seq dataset
     
-    NOTE: It is assumed that desired strings are <= the length of the 
-    available strings.
-    
-    There is an assert statement in createReadLibrary() which enforces this 
-    at the time of args.qualdata construction.
+    NOTE: It is assumed that the available quality strings are >= the 
+    length of the sequence strings. There is an assert statement in 
+    createReadLibrary() which enforces this at the time of args.qualdata 
+    construction.
     '''
-    return args.qual_scores.random_value()[:args.read_length+1]
+    return args.qual_scores.random_value()[:args.read_length]
     
     
 def randomDecision(probability=0.5):
