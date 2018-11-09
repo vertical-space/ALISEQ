@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Other stuff" href="more.html" />
-    <link rel="prev" title="Running the software" href="usage.html" /> 
+    <link rel="prev" title="Running the read simulation pipeline" href="pipeline2.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -53,7 +53,7 @@
 
           
             
-            <img src="_static/logo.png" class="logo" alt="Logo"/>
+            <img src="_static/ase.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -85,7 +85,8 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="welcome.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Instalation and setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Running the software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline1.html">Running the allele specific expression (ASE) pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline2.html">Running the read simulation pipeline</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more.html">Other stuff</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Python modules</a></li>
@@ -526,10 +527,27 @@
         <span class="s2">&quot;snakemake -s {input} --rulegraph 2&gt; /dev/null | dot -T png &gt; {output}&quot;</span>
 
 
+<span class="n">rule</span> <span class="n">insert_size_metrics</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">bam</span><span class="o">=</span><span class="s2">&quot;sorted/{sample}.bam&quot;</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="n">txt</span><span class="o">=</span><span class="s2">&quot;picard/{sample}.insert_size_metrics.txt&quot;</span><span class="p">,</span>
+        <span class="n">pdf</span><span class="o">=</span><span class="s2">&quot;picard/{sample}.insert_size_histogram.pdf&quot;</span><span class="p">,</span>
+        <span class="n">png</span><span class="o">=</span><span class="s2">&quot;graphics/{sample}.insert_size_histogram.png&quot;</span>
+    <span class="n">conda</span><span class="p">:</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/picard.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">shell</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        picard CollectInsertSizeMetrics I={input.bam} O={output.txt} H={output.pdf} M=0.5</span>
+<span class="sd">        convert {output.pdf} {output.png}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
 <span class="n">rule</span> <span class="n">report</span><span class="p">:</span>
     <span class="nb">input</span><span class="p">:</span>
         <span class="n">fq1</span><span class="o">=</span><span class="s2">&quot;graphics/{sample}.1.per_base_quality.png&quot;</span><span class="p">,</span>
         <span class="n">fq2</span><span class="o">=</span><span class="s2">&quot;graphics/{sample}.2.per_base_quality.png&quot;</span><span class="p">,</span>
+        <span class="n">inserts</span><span class="o">=</span><span class="s2">&quot;graphics/{sample}.insert_size_histogram.png&quot;</span><span class="p">,</span>
         <span class="n">exp</span><span class="o">=</span><span class="s2">&quot;expression/{sample}.csv&quot;</span><span class="p">,</span>
         <span class="n">res</span><span class="o">=</span><span class="s2">&quot;results/{sample}.summary.csv&quot;</span><span class="p">,</span>
         <span class="n">mapping_log</span> <span class="o">=</span> <span class="s2">&quot;logs/hisat2/{sample}.log&quot;</span><span class="p">,</span>
@@ -629,6 +647,10 @@
 
 <span class="s2">        .. image:: {input.fq2}</span>
 
+<span class="s2">        Insert size distribution:</span>
+
+<span class="s2">        .. image:: {input.inserts}</span>
+
 <span class="s2">        Workflow:</span>
 
 <span class="s2">        .. image:: {input.graph}</span>
@@ -651,7 +673,7 @@
         <a href="more.html" class="btn btn-neutral float-right" title="Other stuff" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="usage.html" class="btn btn-neutral" title="Running the software" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pipeline2.html" class="btn btn-neutral" title="Running the read simulation pipeline" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

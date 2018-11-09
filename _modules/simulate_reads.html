@@ -51,7 +51,7 @@
 
           
             
-            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+            <img src="../_static/ase.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -83,7 +83,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../welcome.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../setup.html">Instalation and setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Running the software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipeline1.html">Running the allele specific expression (ASE) pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipeline2.html">Running the read simulation pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../workflow.html">Workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../more.html">Other stuff</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">Python modules</a></li>
@@ -225,19 +226,18 @@
     <span class="sd">&#39;&#39;&#39;format a dictionary of {label:sequence} pairs into a fastq string</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;@</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s1">+</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">fastWrap</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">wrap</span><span class="p">),</span> \
-                <span class="n">fastWrap</span><span class="p">(</span><span class="n">qualScore</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">args</span><span class="p">),</span> <span class="n">wrap</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">seq_index</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span></div>
+                <span class="n">fastWrap</span><span class="p">(</span><span class="n">qualScore</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">wrap</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">seq_index</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span></div>
 
 
 <div class="viewcode-block" id="qualScore"><a class="viewcode-back" href="../simulation.html#simulate_reads.qualScore">[docs]</a><span class="k">def</span> <span class="nf">qualScore</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;select a quality string at random from a real RNA-Seq dataset</span>
 <span class="sd">    </span>
-<span class="sd">    NOTE: It is assumed that desired strings are &lt;= the length of the </span>
-<span class="sd">    available strings.</span>
-<span class="sd">    </span>
-<span class="sd">    There is an assert statement in createReadLibrary() which enforces this </span>
-<span class="sd">    at the time of args.qualdata construction.</span>
+<span class="sd">    NOTE: It is assumed that the available quality strings are &gt;= the </span>
+<span class="sd">    length of the sequence strings. There is an assert statement in </span>
+<span class="sd">    createReadLibrary() which enforces this at the time of args.qualdata </span>
+<span class="sd">    construction.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">return</span> <span class="n">args</span><span class="o">.</span><span class="n">qual_scores</span><span class="o">.</span><span class="n">random_value</span><span class="p">()[:</span><span class="n">args</span><span class="o">.</span><span class="n">read_length</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">args</span><span class="o">.</span><span class="n">qual_scores</span><span class="o">.</span><span class="n">random_value</span><span class="p">()[:</span><span class="n">args</span><span class="o">.</span><span class="n">read_length</span><span class="p">]</span></div>
     
     
 <div class="viewcode-block" id="randomDecision"><a class="viewcode-back" href="../simulation.html#simulate_reads.randomDecision">[docs]</a><span class="k">def</span> <span class="nf">randomDecision</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
@@ -336,10 +336,12 @@
     <span class="sd">&#39;&#39;&#39;index the reference transcriptome, assign read counts, then decide </span>
 <span class="sd">    which genes are going to be ASE</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">assert</span> <span class="n">args</span><span class="o">.</span><span class="n">output_tag</span> <span class="c1"># blank tags not allowed</span>
     <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">rpkm_file</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">transcriptome</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">args</span><span class="o">.</span><span class="n">output_tag</span> <span class="c1"># blank tags not allowed</span>
-    
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">fastq</span><span class="p">)</span>
+
     <span class="c1"># index the reference expression data</span>
     <span class="n">RPKM_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">rpkm_file</span><span class="p">)</span>
     <span class="n">n_seqs</span> <span class="o">=</span> <span class="n">RPKM_index</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># number of rows in the df</span>

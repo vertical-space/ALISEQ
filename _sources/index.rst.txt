@@ -12,7 +12,8 @@ Welcome to ALISEQ's documentation!
 
    welcome
    setup
-   usage
+   pipeline1
+   pipeline2
    workflow
    more
    modules

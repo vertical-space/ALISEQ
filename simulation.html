@@ -53,7 +53,7 @@
 
           
             
-            <img src="_static/logo.png" class="logo" alt="Logo"/>
+            <img src="_static/ase.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -85,7 +85,8 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="welcome.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Instalation and setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Running the software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline1.html">Running the allele specific expression (ASE) pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline2.html">Running the read simulation pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more.html">Other stuff</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python modules</a><ul class="current">
@@ -294,10 +295,10 @@ which genes are going to be ASE</p>
 <dt id="simulate_reads.qualScore">
 <code class="descclassname">simulate_reads.</code><code class="descname">qualScore</code><span class="sig-paren">(</span><em>i</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#qualScore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.qualScore" title="Permalink to this definition">¶</a></dt>
 <dd><p>select a quality string at random from a real RNA-Seq dataset</p>
-<p>NOTE: It is assumed that desired strings are &lt;= the length of the 
-available strings.</p>
-<p>There is an assert statement in createReadLibrary() which enforces this 
-at the time of args.qualdata construction.</p>
+<p>NOTE: It is assumed that the available quality strings are &gt;= the 
+length of the sequence strings. There is an assert statement in 
+createReadLibrary() which enforces this at the time of args.qualdata 
+construction.</p>
 </dd></dl>
 
 <dl class="function">

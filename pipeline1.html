@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python Module Index &mdash; ALISEQ 1.0 documentation</title>
+  <title>Running the allele specific expression (ASE) pipeline &mdash; ALISEQ 1.0 documentation</title>
   
 
   
@@ -28,13 +28,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
- 
-
-    <script type="text/javascript">
-      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
-    </script>
-
-
+    <link rel="next" title="Running the read simulation pipeline" href="pipeline2.html" />
+    <link rel="prev" title="Instalation and setup" href="setup.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -87,10 +82,13 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="welcome.html">ALISEQ, a program for analysing RNA-Seq data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Instalation and setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pipeline1.html">Running the allele specific expression (ASE) pipeline</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running the allele specific expression (ASE) pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#edit-the-file-targets-txt">Edit the file targets.txt</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pipeline2.html">Running the read simulation pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more.html">Other stuff</a></li>
@@ -140,10 +138,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Python Module Index</li>
+      <li>Running the allele specific expression (ASE) pipeline</li>
     
     
       <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/pipeline1.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -155,74 +157,53 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-
-   <h1>Python Module Index</h1>
-
-   <div class="modindex-jumpbox">
-   <a href="#cap-c"><strong>c</strong></a> | 
-   <a href="#cap-e"><strong>e</strong></a> | 
-   <a href="#cap-g"><strong>g</strong></a> | 
-   <a href="#cap-m"><strong>m</strong></a> | 
-   <a href="#cap-r"><strong>r</strong></a> | 
-   <a href="#cap-s"><strong>s</strong></a>
-   </div>
-
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-c"><td></td><td>
-       <strong>c</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="convert.html#module-convert2bed"><code class="xref">convert2bed</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-e"><td></td><td>
-       <strong>e</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="evaluate.html#module-evaluate_simulation"><code class="xref">evaluate_simulation</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-g"><td></td><td>
-       <strong>g</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="genewiseMAFC.html#module-genewiseMAFC"><code class="xref">genewiseMAFC</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-m"><td></td><td>
-       <strong>m</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="maketable.html#module-maketable"><code class="xref">maketable</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-r"><td></td><td>
-       <strong>r</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="readXML.html#module-read_buffalo_xml_data"><code class="xref">read_buffalo_xml_data</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-s"><td></td><td>
-       <strong>s</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="simulation.html#module-simulate_reads"><code class="xref">simulate_reads</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+  <div class="section" id="running-the-allele-specific-expression-ase-pipeline">
+<h1>Running the allele specific expression (ASE) pipeline<a class="headerlink" href="#running-the-allele-specific-expression-ase-pipeline" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="edit-the-file-targets-txt">
+<h2>Edit the file targets.txt<a class="headerlink" href="#edit-the-file-targets-txt" title="Permalink to this headline">¶</a></h2>
+<p>manually edit the file targets.txt, placing one accession number per line, e.g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ERR2352620</span>
+<span class="n">ERR2352630</span>
+<span class="n">ERR2352640</span>
+<span class="n">ERR2352650</span>
+<span class="n">ERR2352660</span>
+<span class="n">ERR2352670</span>
+</pre></div>
+</div>
+<p>alternatively, if you have run the simulate reads pipeline, you can specify
+simulated data, e.g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">simulation_1_x1</span>
+<span class="n">simulation_1_x2</span>
+</pre></div>
+</div>
+<p>Make sure the names correspond to the prefix of paired fastq files in the reads directory, e.g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reads</span><span class="o">/</span><span class="n">simulation_1_x1</span><span class="o">.</span><span class="mf">1.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">reads</span><span class="o">/</span><span class="n">simulation_1_x1</span><span class="o">.</span><span class="mf">2.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">reads</span><span class="o">/</span><span class="n">simulation_1_x2</span><span class="o">.</span><span class="mf">1.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">reads</span><span class="o">/</span><span class="n">simulation_1_x2</span><span class="o">.</span><span class="mf">2.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<p>Then launch the workflow with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash ../ALISEQ/aliseq.sh
+</pre></div>
+</div>
+</div>
+</div>
 
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pipeline2.html" class="btn btn-neutral float-right" title="Running the read simulation pipeline" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="setup.html" class="btn btn-neutral" title="Instalation and setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

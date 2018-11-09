@@ -1,0 +1,22 @@
+Running the read simulation pipeline
+================================================================================
+
+To launch the workflow with default settings:
+
+.. code-block:: bash
+
+   bash ../ALISEQ/simulate_reads.sh
+
+
+Modifying simulation parameters
+--------------------------------------------------------------------------------
+
+Edit the file params.yaml
+
+Uncomment lines as required then adjust settings as desired. Use the default 
+values (provided) as a starting point
+
+It is necesary to set a new "output_tag" for each run, unless "clobber" is also 
+used, in which case it will overwrite previous runfiles of the same name, if they 
+exist.
+
