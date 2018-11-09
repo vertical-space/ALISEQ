@@ -76,7 +76,7 @@ def fastq(seq_index, args, wrap=None):
                 fastWrap(qualScore(args), wrap)) for k,v in seq_index.items()])
 
 
-def qualScore(i, args):
+def qualScore(args):
     '''select a quality string at random from a real RNA-Seq dataset
     
     NOTE: It is assumed that the available quality strings are >= the 

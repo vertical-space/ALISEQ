@@ -1,4 +1,4 @@
-Running the software
+Running the allele specific expression (ASE) pipeline
 ================================================================================
 
 Edit the file targets.txt
@@ -23,17 +23,19 @@ simulated data, e.g.
    simulation_1_x1
    simulation_1_x2
 
-Making sure the names correspond to fastq files in the reads directory, e.g.
+Make sure the names correspond to the prefix of paired fastq files in the reads directory, e.g.
 
 ::
 
-   simulation_1_x1.fastq.gz
-   simulation_1_x2.fastq.gz
+   reads/simulation_1_x1.1.fastq.gz
+   reads/simulation_1_x1.2.fastq.gz
+   reads/simulation_1_x2.1.fastq.gz
+   reads/simulation_1_x2.2.fastq.gz
   
-Then you can just relaunch the workflow with:
+Then launch the workflow with:
 
 .. code-block:: bash
 
-   bash aliseq.sh
+   bash ../ALISEQ/aliseq.sh
 
 

@@ -32,7 +32,7 @@ Test if it's working
 
 .. code-block:: bash
 
-   bash aliseq.sh
+   bash ../ALISEQ/aliseq.sh
 
-It can take a while for the required third party software to download
+Note: The first time you run this it will take a while to download the dependencies
 
