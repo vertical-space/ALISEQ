@@ -78,8 +78,6 @@ rule filter_transcriptome:
     output:
         modified='%s/water_buffalo_transcriptome.filtered.fasta' % LOCALDATA
     run:
-        from Bio import SeqIO
-
         gene_list = {}
 
         for record in SeqIO.parse(input.original, 'fasta'):
@@ -116,8 +114,6 @@ rule download_expression_data:
         URL='https://www.ebi.ac.uk/gxa/experiments-content/E-MTAB-3716/resources/ExperimentDownloadSupplier.RnaSeqBaseline/fpkms.tsv'
 
         shell("wget --tries=4 -O {output.original} {URL}")
-
-        import pandas as pd
 
         df = pd.read_csv(output.original, sep='\t', comment='#')
         df.fillna(0, inplace=True)
