@@ -17,7 +17,7 @@ params:
 #  - rpkm_file             = rpkm_fixed.csv
 #  - transcriptome         = water_buffalo_transcriptome.fasta
 #  - fastq                 = ERR2353209.1.fastq
-  - use_multipliers
+#  - multipliers           = 1,2,4,8,16,32
 #  - clobber
 #  - uniform_insert_sizes
 
