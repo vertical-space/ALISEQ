@@ -441,7 +441,7 @@ def createReadLibrary(df, reads_file_1, reads_file_2, args):
         # create alt_seq reads
         for i in range(row.alt_read_count):
             READ_COUNTER = createReadPair(
-                row.seq, reads_file_1, reads_file_2, READ_COUNTER, args)
+                row.alt_seq, reads_file_1, reads_file_2, READ_COUNTER, args)
             
 
 def simulateSequencingExperiment(args):
@@ -466,9 +466,8 @@ def simulateSequencingExperiment(args):
     statistics.to_csv(outfile_1)
     
     # simulate the sequencing run/s
-    multipliers = [1,]
-    if args.use_multipliers:
-        multipliers.extend([2,4,8,16,32])
+    multipliers = [int(i) for i in args.multipliers.split(',')]
+        
     for m in multipliers:
         df_new = df.copy()
         df_new.ref_read_count *= m
@@ -626,8 +625,8 @@ def argParser():
                         help='which tissue to model expression values on?')
     parser.add_argument('-l', '--transcriptome', required=False, default="water_buffalo_transcriptome.fasta",
                         help='a transcriptome file containing the longest transcript at each protein coding locus')
-    parser.add_argument('-m', '--use_multipliers', action='store_true',
-                        help='whether to simulate multiple runs with different read depths')
+    parser.add_argument('-m', '--multipliers', required=False, default='1,2,4,8,16,32',
+                        help='simulate multiple runs with these different read depths, relative to the target library size')
     parser.add_argument('-n', '--clobber', action='store_true',
                         help='whether to overwrite existing files')
     parser.add_argument('-o', '--insert_mean', required=False, type=float, default=100, 
