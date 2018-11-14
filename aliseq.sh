@@ -9,7 +9,7 @@ snakemake --cluster-config $DIR/scripts/cluster.json \
           --jobs 1000 \
           --snakefile $DIR/scripts/workflow.snk
 
-snakemake --report simulate_reads.report.html \
+snakemake --report aliseq.report.html \
           --snakefile $DIR/scripts/workflow.snk 
 
 # create the following directory if it doesn't exist already (-p prevents overwriting)
