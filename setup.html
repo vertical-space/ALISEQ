@@ -163,22 +163,19 @@
 <div class="section" id="download-the-source-code">
 <h2>Download the source code<a class="headerlink" href="#download-the-source-code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/vertical-space/ALISEQ
-
 git clone https://github.com/secastel/allelecounter.git ALISEQ/allelecounter
 
 <span class="nb">export</span> <span class="nv">SRC_DIR</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>
-
 conda env create -f ALISEQ/envs/aliseq.yaml -p <span class="si">${</span><span class="nv">SRC_DIR</span><span class="si">}</span>/ALISEQ
-
 <span class="nb">source</span> activate aliseq
 
-mkdir testdirectory   <span class="c1"># or whatever you want to call your working directory</span>
+<span class="nb">export</span> <span class="nv">TEST_DIR</span><span class="o">=</span>testdirectory <span class="c1"># or whatever you want to call your working directory</span>
 
-cp ALISEQ/data/targets.txt testdirectory
-
-cp ALISEQ/data/targets.txt testdirectory
-
-<span class="nb">cd</span> testdirectory
+mkdir <span class="si">${</span><span class="nv">TEST_DIR</span><span class="si">}</span>
+cp ALISEQ/data/aliseq_params.txt <span class="si">${</span><span class="nv">TEST_DIR</span><span class="si">}</span>
+cp ALISEQ/data/simulation_params.txt <span class="si">${</span><span class="nv">TEST_DIR</span><span class="si">}</span>
+cp ALISEQ/data/targets.txt <span class="si">${</span><span class="nv">TEST_DIR</span><span class="si">}</span>
+<span class="nb">cd</span> <span class="si">${</span><span class="nv">TEST_DIR</span><span class="si">}</span>
 </pre></div>
 </div>
 </div>

@@ -41,8 +41,7 @@ Then launch the workflow with:
 
 .. note::
 
-   If the following error is encountered (e.g. after a power failure or network error): 
-   "Error: Directory cannot be locked ...", run the following cmd before retrying
+   If you encounter the following error mesage (e.g. after a power failure or loss of network connection) ``Error: Directory cannot be locked...``, run the following cmd before retrying
    
    .. code-block:: bash
 
