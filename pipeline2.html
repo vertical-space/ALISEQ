@@ -173,8 +173,12 @@ used, in which case it will overwrite previous runfiles of the same name, if the
 exist.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>If the following error is encountered (e.g. after a power failure or network error):
-“Error: Directory cannot be locked …”, run the following cmd before retrying</p>
+<p>If the following error is encountered (e.g. after a power failure or network error):</p>
+<div class="admonition error">
+<p class="first admonition-title">Error</p>
+<p class="last">Error: Directory cannot be locked…</p>
+</div>
+<p>run the following cmd before retrying:</p>
 <div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>snakemake --unlock -s ../ALISEQ/scripts/simulate_reads.snk
 </pre></div>
 </div>

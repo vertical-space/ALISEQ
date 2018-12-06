@@ -24,8 +24,14 @@ exist.
 .. note::
 
    If the following error is encountered (e.g. after a power failure or network error): 
-   "Error: Directory cannot be locked ...", run the following cmd before retrying
+   
+   .. error::
+   
+      Error: Directory cannot be locked...
+   
+   run the following cmd before retrying:
    
    .. code-block:: bash
 
       snakemake --unlock -s ../ALISEQ/scripts/simulate_reads.snk
+
