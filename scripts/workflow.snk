@@ -40,7 +40,6 @@ target_list = [s for s in target_list if not s[0] == '#'] # ignore comments
 file_list = ["reports/%s.html" % s for s in target_list] 
 
 
-
 rule all:
     input:
         file_list

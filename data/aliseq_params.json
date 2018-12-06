@@ -1,5 +1,6 @@
 {
 	"params": {
+
 		"trimgalore_options": {
 			"quality": 20, 
 			"stringency": 2, 
