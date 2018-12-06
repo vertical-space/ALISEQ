@@ -438,8 +438,7 @@ rule report:
         url_2 = reads[1]
 
         results_table = maketable.make_table_from_csv(input.res, sep='\t')
-        filters =  maketable.make_table_from_df(pd.Series(filter_params))
-        #filters = str(filter_params)
+        filters =  maketable.make_table_from_df(pd.Series(config['filtering_options']))
 
         html_report("""
         ==========================================================
