@@ -1,6 +1,16 @@
 Running the allele specific expression (ASE) pipeline
 ================================================================================
 
+This workflow will perform all of the steps required to identify genes exhibiting allelic imballance. 
+
+It will retrieve read data from the SRA, or use simulated datasets produced by the simulate reads pipeline
+
+   - while the software can also process arbitrary fastq files (as long as they are paired), please note 
+     that it will not be able to construct a report
+
+All log files will be found in the ``logs`` directory at the end of the run.
+
+
 Edit the file targets.txt
 --------------------------------------------------------------------------------
 
@@ -15,7 +25,7 @@ manually edit the file targets.txt, placing one accession number per line, e.g.
    ERR2352660
    ERR2352670
 
-alternatively, if you have run the simulate reads pipeline, you can specify 
+Alternatively, if you have run the simulate reads pipeline, you can specify 
 simulated data as follows:
 
 ::
@@ -32,7 +42,6 @@ Make sure the names correspond to the prefix of paired fastq files in the reads 
    reads/simulation_1_x2.1.fastq.gz
    reads/simulation_1_x2.2.fastq.gz
 
-
 Modifying workflow parameters
 --------------------------------------------------------------------------------
 
@@ -47,7 +56,6 @@ launch the workflow with:
 .. code-block:: bash
 
    bash ../ALISEQ/aliseq.sh
-
 
 .. note::
 
