@@ -5,8 +5,10 @@ This workflow will perform all of the steps required to identify genes exhibitin
 
 It will retrieve read data from the SRA, or use simulated datasets produced by the simulate reads pipeline
 
-   - while the software can also process arbitrary fastq files (as long as they are paired), please note 
-     that it will not be able to construct a report
+.. note::
+
+   while the software can also process arbitrary fastq files (as long as they are paired), please note 
+   that it will not be able to construct a report
 
 All log files will be found in the ``logs`` directory at the end of the run.
 
