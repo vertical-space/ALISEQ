@@ -87,6 +87,8 @@
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Instalation and setup</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Running the allele specific expression (ASE) pipeline</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#edit-the-file-targets-txt">Edit the file targets.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modifying-workflow-parameters">Modifying workflow parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-workflow">Running the workflow</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pipeline2.html">Running the read simulation pipeline</a></li>
@@ -171,7 +173,7 @@
 </pre></div>
 </div>
 <p>alternatively, if you have run the simulate reads pipeline, you can specify
-simulated data, e.g.</p>
+simulated data as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">simulation_1_x1</span>
 <span class="n">simulation_1_x2</span>
 </pre></div>
@@ -183,7 +185,14 @@ simulated data, e.g.</p>
 <span class="n">reads</span><span class="o">/</span><span class="n">simulation_1_x2</span><span class="o">.</span><span class="mf">2.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
 </pre></div>
 </div>
-<p>Then launch the workflow with:</p>
+</div>
+<div class="section" id="modifying-workflow-parameters">
+<h2>Modifying workflow parameters<a class="headerlink" href="#modifying-workflow-parameters" title="Permalink to this headline">¶</a></h2>
+<p>If desired, manually edit the file <code class="docutils literal notranslate"><span class="pre">aliseq_params.json</span></code></p>
+</div>
+<div class="section" id="running-the-workflow">
+<h2>Running the workflow<a class="headerlink" href="#running-the-workflow" title="Permalink to this headline">¶</a></h2>
+<p>launch the workflow with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash ../ALISEQ/aliseq.sh
 </pre></div>
 </div>

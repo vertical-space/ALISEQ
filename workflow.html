@@ -168,16 +168,12 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 
 
-<span class="c1"># note: this should probably go into a seperate file</span>
-<span class="n">filter_params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;minCoverage&#39;</span><span class="p">:</span>   <span class="mi">30</span><span class="p">,</span> 
-    <span class="s1">&#39;minFoldChange&#39;</span><span class="p">:</span> <span class="mf">1.75</span><span class="p">,</span> 
-    <span class="s1">&#39;minSnps&#39;</span><span class="p">:</span>       <span class="mi">3</span><span class="p">,</span>
-<span class="p">}</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;aliseq_params.json&quot;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">))[</span><span class="s1">&#39;params&#39;</span><span class="p">]</span>
 
 <span class="n">BASEDIR</span> <span class="o">=</span> <span class="n">workflow</span><span class="o">.</span><span class="n">basedir</span> <span class="c1"># this is full path to the snakefile itself</span>
 <span class="n">ENVDIR</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/../envs&#39;</span> <span class="o">%</span> <span class="n">BASEDIR</span>
@@ -203,7 +199,6 @@
 <span class="n">target_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">target_list</span> <span class="k">if</span> <span class="n">s</span><span class="p">]</span> <span class="c1"># ignore blank lines</span>
 <span class="n">target_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">target_list</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span><span class="p">]</span> <span class="c1"># ignore comments</span>
 <span class="n">file_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;reports/</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">target_list</span><span class="p">]</span> 
-
 
 
 <span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
@@ -275,7 +270,12 @@
         <span class="s2">&quot;trimmed/{sample}.2_val_2.fq.gz&quot;</span><span class="p">,</span>
         <span class="s2">&quot;trimmed/{sample}.2.fastq.gz_trimming_report.txt&quot;</span>
     <span class="n">params</span><span class="p">:</span>
-        <span class="n">extra</span><span class="o">=</span><span class="s2">&quot;--quality 20 --stringency 2 --length 30  --trim-n&quot;</span> <span class="c1"># NOTE: --paired is already included in the wrapper script</span>
+        <span class="n">extra</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+            <span class="s2">&quot;--quality </span><span class="si">%d</span><span class="s2">&quot;</span>    <span class="o">%</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;trimgalore_options&quot;</span><span class="p">][</span><span class="s2">&quot;quality&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;--stringency </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;trimgalore_options&quot;</span><span class="p">][</span><span class="s2">&quot;stringency&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;--length </span><span class="si">%d</span><span class="s2">&quot;</span>     <span class="o">%</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;trimgalore_options&quot;</span><span class="p">][</span><span class="s2">&quot;length&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;--trim-n&quot;</span><span class="p">,</span>
+            <span class="p">])</span> <span class="c1"># NOTE: --paired is already included in the wrapper script</span>
     <span class="n">log</span><span class="p">:</span>
         <span class="s2">&quot;logs/trim_galore/{sample}.log&quot;</span>
     <span class="n">wrapper</span><span class="p">:</span>
@@ -336,8 +336,8 @@
     <span class="n">log</span><span class="p">:</span>                                <span class="c1"># optional</span>
         <span class="s2">&quot;logs/hisat2/{sample}.log&quot;</span>
     <span class="n">params</span><span class="p">:</span>                             <span class="c1"># idx is required, extra is optional</span>
-        <span class="n">idx</span><span class="o">=</span><span class="s2">&quot;UOA_WB_1&quot;</span>
-        <span class="c1"># extra=&quot;-k 1&quot; # suppress multimapping reads</span>
+        <span class="n">idx</span><span class="o">=</span><span class="s2">&quot;UOA_WB_1&quot;</span><span class="p">,</span>
+        <span class="n">extra</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;hisat2_options&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
     <span class="n">threads</span><span class="p">:</span> 
         <span class="mi">8</span>                               <span class="c1"># optional, defaults to 1</span>
     <span class="n">conda</span><span class="p">:</span>
@@ -444,15 +444,19 @@
         <span class="n">csv</span><span class="o">=</span><span class="s2">&quot;expression/{sample}.csv&quot;</span>
     <span class="n">conda</span><span class="p">:</span>
         <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/allelecounter.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">params</span><span class="p">:</span>
+        <span class="n">min_cov</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;allele_counter_options&#39;</span><span class="p">][</span><span class="s1">&#39;min_cov&#39;</span><span class="p">],</span>
+        <span class="n">min_baseq</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;allele_counter_options&#39;</span><span class="p">][</span><span class="s1">&#39;min_baseq&#39;</span><span class="p">],</span>
+        <span class="n">min_mapq</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;allele_counter_options&#39;</span><span class="p">][</span><span class="s1">&#39;min_mapq&#39;</span><span class="p">]</span>
     <span class="n">shell</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        python {input.script} --vcf {input.vcf} \</span>
 <span class="sd">                              --sample {input.bam} \</span>
 <span class="sd">                              --bam {input.bam} \</span>
 <span class="sd">                              --ref {input.genome} \</span>
-<span class="sd">                              --min_cov 10 \</span>
-<span class="sd">                              --min_baseq 16 \</span>
-<span class="sd">                              --min_mapq 35 \</span>
+<span class="sd">                              --min_cov {params.min_cov} \</span>
+<span class="sd">                              --min_baseq {params.min_baseq} \</span>
+<span class="sd">                              --min_mapq {params.min_mapq} \</span>
 <span class="sd">                              --o {output.csv}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -506,9 +510,9 @@
     <span class="n">conda</span><span class="p">:</span>
         <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/bcftools.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
     <span class="n">params</span><span class="p">:</span>
-        <span class="n">minCoverage</span><span class="o">=</span><span class="n">filter_params</span><span class="p">[</span><span class="s1">&#39;minCoverage&#39;</span><span class="p">],</span>
-        <span class="n">minFoldChange</span><span class="o">=</span><span class="n">filter_params</span><span class="p">[</span><span class="s1">&#39;minFoldChange&#39;</span><span class="p">],</span>
-        <span class="n">minSnps</span><span class="o">=</span><span class="n">filter_params</span><span class="p">[</span><span class="s1">&#39;minSnps&#39;</span><span class="p">]</span>
+        <span class="n">minCoverage</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;filtering_options&#39;</span><span class="p">][</span><span class="s1">&#39;minCoverage&#39;</span><span class="p">],</span>
+        <span class="n">minFoldChange</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;filtering_options&#39;</span><span class="p">][</span><span class="s1">&#39;minFoldChange&#39;</span><span class="p">],</span>
+        <span class="n">minSnps</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;filtering_options&#39;</span><span class="p">][</span><span class="s1">&#39;minSnps&#39;</span><span class="p">]</span>
     <span class="n">shell</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        python {input.script} --input {input.data} \</span>
@@ -539,9 +543,11 @@
         <span class="n">png</span><span class="o">=</span><span class="s2">&quot;graphics/{sample}.insert_size_histogram.png&quot;</span>
     <span class="n">conda</span><span class="p">:</span>
         <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/picard.yaml&quot;</span> <span class="o">%</span> <span class="n">ENVDIR</span>
+    <span class="n">params</span><span class="p">:</span>
+        <span class="n">M</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;picard_options&#39;</span><span class="p">][</span><span class="s1">&#39;M&#39;</span><span class="p">]</span>
     <span class="n">shell</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        picard CollectInsertSizeMetrics I={input.bam} O={output.txt} H={output.pdf} M=0.5</span>
+<span class="sd">        picard CollectInsertSizeMetrics I={input.bam} O={output.txt} H={output.pdf} M={params.M}</span>
 <span class="sd">        convert {output.pdf} {output.png}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -592,8 +598,7 @@
         <span class="n">url_2</span> <span class="o">=</span> <span class="n">reads</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
         <span class="n">results_table</span> <span class="o">=</span> <span class="n">maketable</span><span class="o">.</span><span class="n">make_table_from_csv</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">res</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">filters</span> <span class="o">=</span>  <span class="n">maketable</span><span class="o">.</span><span class="n">make_table_from_df</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">filter_params</span><span class="p">))</span>
-        <span class="c1">#filters = str(filter_params)</span>
+        <span class="n">filters</span> <span class="o">=</span>  <span class="n">maketable</span><span class="o">.</span><span class="n">make_table_from_df</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;filtering_options&#39;</span><span class="p">]))</span>
 
         <span class="n">html_report</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">        ==========================================================</span>

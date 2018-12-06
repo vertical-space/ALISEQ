@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="pipeline1.html">Running the allele specific expression (ASE) pipeline</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Running the read simulation pipeline</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#modifying-simulation-parameters">Modifying simulation parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-workflow">Running the workflow</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflow</a></li>
@@ -159,18 +160,21 @@
             
   <div class="section" id="running-the-read-simulation-pipeline">
 <h1>Running the read simulation pipeline<a class="headerlink" href="#running-the-read-simulation-pipeline" title="Permalink to this headline">¶</a></h1>
-<p>To launch the workflow with default settings:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash ../ALISEQ/simulate_reads.sh
-</pre></div>
-</div>
 <div class="section" id="modifying-simulation-parameters">
 <h2>Modifying simulation parameters<a class="headerlink" href="#modifying-simulation-parameters" title="Permalink to this headline">¶</a></h2>
-<p>Edit the file params.yaml</p>
+<p>If desired, manually edit the file <code class="docutils literal notranslate"><span class="pre">simulation_params.yaml</span></code></p>
 <p>Uncomment lines as required then adjust settings as desired. Use the default
 values (provided) as a starting point</p>
 <p>It is necesary to set a new “output_tag” for each run, unless “clobber” is also
 used, in which case it will overwrite previous runfiles of the same name, if they
 exist.</p>
+</div>
+<div class="section" id="running-the-workflow">
+<h2>Running the workflow<a class="headerlink" href="#running-the-workflow" title="Permalink to this headline">¶</a></h2>
+<p>launch the workflow with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash ../ALISEQ/simulate_reads.sh
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>If you encounter the following error mesage (e.g. after a power failure or loss of network connection) <code class="docutils literal notranslate"><span class="pre">Error:</span> <span class="pre">Directory</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">locked...</span></code>, run the following cmd before retrying</p>

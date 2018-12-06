@@ -16,7 +16,7 @@ manually edit the file targets.txt, placing one accession number per line, e.g.
    ERR2352670
 
 alternatively, if you have run the simulate reads pipeline, you can specify 
-simulated data, e.g.
+simulated data as follows:
 
 ::
 
@@ -31,8 +31,18 @@ Make sure the names correspond to the prefix of paired fastq files in the reads 
    reads/simulation_1_x1.2.fastq.gz
    reads/simulation_1_x2.1.fastq.gz
    reads/simulation_1_x2.2.fastq.gz
-  
-Then launch the workflow with:
+
+
+Modifying workflow parameters
+--------------------------------------------------------------------------------
+
+If desired, manually edit the file ``aliseq_params.json``
+
+
+Running the workflow
+--------------------------------------------------------------------------------
+
+launch the workflow with:
 
 .. code-block:: bash
 
@@ -46,3 +56,4 @@ Then launch the workflow with:
    .. code-block:: bash
 
       snakemake --unlock -s ../ALISEQ/scripts/workflow.snk
+
