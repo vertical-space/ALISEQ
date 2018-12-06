@@ -110,13 +110,12 @@ rule trim_reads:
         "trimmed/{sample}.2_val_2.fq.gz",
         "trimmed/{sample}.2.fastq.gz_trimming_report.txt"
     params:
-#        extra=" ".join([
-#            "--quality %d"    % config["trimgalore_options"]["quality"],
-#            "--stringency %d" % config["trimgalore_options"]["stringency"],
-#            "--length %d"     % config["trimgalore_options"]["length"],
-#            "trim-n",
-#            ]) # NOTE: --paired is already included in the wrapper script
-        extra="--quality 20 --stringency 2 --length 30  --trim-n" # NOTE: --paired is already included in the wrapper script
+        extra=" ".join([
+            "--quality %d"    % config["trimgalore_options"]["quality"],
+            "--stringency %d" % config["trimgalore_options"]["stringency"],
+            "--length %d"     % config["trimgalore_options"]["length"],
+            "--trim-n",
+            ]) # NOTE: --paired is already included in the wrapper script
     log:
         "logs/trim_galore/{sample}.log"
     wrapper:
