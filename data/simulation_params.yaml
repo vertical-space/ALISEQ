@@ -1,0 +1,23 @@
+params:
+  - output_tag            = 1
+#  - snp_frequency         = 0.000625
+#  - ase_frequency         = 0.1
+#  - lib_size              = 2500000
+#  - read_length           = 120
+#  - inbalance             = 2
+#  - gene_limit            = 1000000
+#  - insert_mean           = 100
+#  - insert_sd             = 150
+#  - skew                  = 8
+#  - insert_min            = 0
+#  - insert_max            = 1000
+#  - adaptor               = AGATCGGAAGAGC
+#  - tissue                = testis
+#  - logfile               = logs/simulation_logs.txt
+#  - rpkm_file             = data/rpkm_fixed.csv
+#  - transcriptome         = data/water_buffalo_transcriptome.filtered.fasta
+#  - fastq                 = data/ERR2353209.1.fastq
+#  - multipliers           = 1,2,4,8,16,32
+#  - clobber
+#  - uniform_insert_sizes
+

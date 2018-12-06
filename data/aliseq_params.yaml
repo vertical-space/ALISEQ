@@ -7,7 +7,7 @@ params:
     - trim-n
 
   hisat2_options:
-    - k                     = 1
+#    - k                     = 1
 
   picard_options:
     - M                     = 0.5

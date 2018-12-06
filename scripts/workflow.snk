@@ -7,16 +7,12 @@ snakemake -nps workflow.snk
 """
 
 import os
+import json
 import pathlib
 import pandas as pd
 
 
-# note: this should probably go into a seperate file
-filter_params = {
-    'minCoverage':   30, 
-    'minFoldChange': 1.75, 
-    'minSnps':       3,
-}
+config = json.load(open("aliseq_params.json", 'r'))['params']
 
 BASEDIR = workflow.basedir # this is full path to the snakefile itself
 ENVDIR  = '%s/../envs' % BASEDIR
@@ -114,7 +110,12 @@ rule trim_reads:
         "trimmed/{sample}.2_val_2.fq.gz",
         "trimmed/{sample}.2.fastq.gz_trimming_report.txt"
     params:
-        extra="--quality 20 --stringency 2 --length 30  --trim-n" # NOTE: --paired is already included in the wrapper script
+        extra=" ".join([
+            "--quality %d"    % config["trimgalore_options"]["quality"],
+            "--stringency %d" % config["trimgalore_options"]["stringency"],
+            "--length %d"     % config["trimgalore_options"]["length"],
+            "trim-n",
+            ]) # NOTE: --paired is already included in the wrapper script
     log:
         "logs/trim_galore/{sample}.log"
     wrapper:
@@ -176,7 +177,9 @@ rule hisat2_map_reads:
         "logs/hisat2/{sample}.log"
     params:                             # idx is required, extra is optional
         idx="UOA_WB_1"
-        # extra="-k 1" # suppress multimapping reads
+        extra=' '.join(
+            ' '.join(config['hisat2_options'].items())
+            )
     threads: 
         8                               # optional, defaults to 1
     conda:
@@ -283,15 +286,19 @@ rule allele_counter:
         csv="expression/{sample}.csv"
     conda:
         "%s/allelecounter.yaml" % ENVDIR
+    params:
+        min_cov=config['allele_counter_options']['min_cov'],
+        min_baseq=config['allele_counter_options']['min_baseq'],
+        min_mapq=config['allele_counter_options']['min_mapq']
     shell:
         """
         python {input.script} --vcf {input.vcf} \
                               --sample {input.bam} \
                               --bam {input.bam} \
                               --ref {input.genome} \
-                              --min_cov 10 \
-                              --min_baseq 16 \
-                              --min_mapq 35 \
+                              --min_cov {params.min_cov} \
+                              --min_baseq {params.min_baseq} \
+                              --min_mapq {params.min_mapq} \
                               --o {output.csv}
         """
 
@@ -345,9 +352,9 @@ rule summary:
     conda:
         "%s/bcftools.yaml" % ENVDIR
     params:
-        minCoverage=filter_params['minCoverage'],
-        minFoldChange=filter_params['minFoldChange'],
-        minSnps=filter_params['minSnps']
+        minCoverage=config['filter_params']['minCoverage'],
+        minFoldChange=config['filter_params']['minFoldChange'],
+        minSnps=config['filter_params']['minSnps']
     shell:
         """
         python {input.script} --input {input.data} \
@@ -378,9 +385,11 @@ rule insert_size_metrics:
         png="graphics/{sample}.insert_size_histogram.png"
     conda:
         "%s/picard.yaml" % ENVDIR
+    params:
+        M=config['picard_options']['M']
     shell:
         """
-        picard CollectInsertSizeMetrics I={input.bam} O={output.txt} H={output.pdf} M=0.5
+        picard CollectInsertSizeMetrics I={input.bam} O={output.txt} H={output.pdf} M={params.M}
         convert {output.pdf} {output.png}
         """
 
