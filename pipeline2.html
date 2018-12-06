@@ -171,6 +171,14 @@ values (provided) as a starting point</p>
 <p>It is necesary to set a new “output_tag” for each run, unless “clobber” is also
 used, in which case it will overwrite previous runfiles of the same name, if they
 exist.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If the following error is encountered (e.g. after a power failure or network error):
+“Error: Directory cannot be locked …”, run the following cmd before retrying</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>snakemake --unlock -s ../ALISEQ/scripts/simulate_reads.snk
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 

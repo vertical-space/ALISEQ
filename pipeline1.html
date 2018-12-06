@@ -187,6 +187,14 @@ simulated data, e.g.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash ../ALISEQ/aliseq.sh
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If the following error is encountered (e.g. after a power failure or network error):
+“Error: Directory cannot be locked …”, run the following cmd before retrying</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>snakemake --unlock -s ../ALISEQ/scripts/workflow.snk
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
