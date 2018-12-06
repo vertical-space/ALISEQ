@@ -350,9 +350,9 @@ rule summary:
     conda:
         "%s/bcftools.yaml" % ENVDIR
     params:
-        minCoverage=config['filter_params']['minCoverage'],
-        minFoldChange=config['filter_params']['minFoldChange'],
-        minSnps=config['filter_params']['minSnps']
+        minCoverage=config['filtering_options']['minCoverage'],
+        minFoldChange=config['filtering_options']['minFoldChange'],
+        minSnps=config['filtering_options']['minSnps']
     shell:
         """
         python {input.script} --input {input.data} \
