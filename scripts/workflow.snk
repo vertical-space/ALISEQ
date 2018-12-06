@@ -176,7 +176,7 @@ rule hisat2_map_reads:
     log:                                # optional
         "logs/hisat2/{sample}.log"
     params:                             # idx is required, extra is optional
-        idx="UOA_WB_1"
+        idx="UOA_WB_1",
         extra=' '.join(' '.join(config['hisat2_options'].items()))
     threads: 
         8                               # optional, defaults to 1
