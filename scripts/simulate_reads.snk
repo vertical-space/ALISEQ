@@ -50,7 +50,7 @@ def stringFromDict(mydict):
     return ' '.join(args)
 
 
-configfile: "params.yaml"
+configfile: "simulation_params.yaml"
 
 PARAMS = config2dict(config['params'])
 

@@ -39,3 +39,10 @@ Then launch the workflow with:
    bash ../ALISEQ/aliseq.sh
 
 
+.. note::
+
+   If you encounter the following error mesage (e.g. after a power failure or loss of network connection) ``Error: Directory cannot be locked...``, run the following cmd before retrying
+   
+   .. code-block:: bash
+
+      snakemake --unlock -s ../ALISEQ/scripts/workflow.snk

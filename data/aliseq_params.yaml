@@ -1,0 +1,26 @@
+params:
+
+  trimgalore_options:
+    - quality               = 20 
+    - stringency            = 2
+    - length                = 30
+    - trim-n
+
+  hisat2_options:
+    - k                     = 1
+
+  picard_options:
+    - M                     = 0.5
+
+  allele_counter_options:
+    - min_cov               = 10
+    - min_baseq             = 16
+    - min_mapq              = 35
+
+  filtering_options:
+    - output_tag            = 1
+    - minCoverage           = 30
+    - minFoldChange         = 1.75
+    - minSnps               = 3
+  
+

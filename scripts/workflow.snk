@@ -11,6 +11,7 @@ import pathlib
 import pandas as pd
 
 
+# note: this should probably go into a seperate file
 filter_params = {
     'minCoverage':   30, 
     'minFoldChange': 1.75, 
@@ -38,18 +39,20 @@ run2sampleACC = dict(zip(
 )
 
 target_list = [s.strip() for s in open('%s/targets.txt' % os.getcwd(), 'r').read().split('\n')]
-file_list = ["reports/%s.html" % s for s in target_list if s] 
-file_list = [s for s in file_list if not s[0] == '#']
+target_list = [s for s in target_list if s] # ignore blank lines
+target_list = [s for s in target_list if not s[0] == '#'] # ignore comments
+file_list = ["reports/%s.html" % s for s in target_list] 
+
 
 
 rule all:
     input:
         file_list
     run:
+        # add dummy metadata when analysing simulations
         for file_path in {input}:
             if 'simulation' in file_path:
                 sample_id = file_path.split('reports/')[1].split('.html')[0]
-                print('testing out the function', file_path, sample_id)
                 metadata[sample_id] = pd.Series([sample_id, 'simulation','simulation','simulation','simulation','simulation'])
                 run2sampleACC[sample_id] = sample_id
                 url_index[sample_id] = ';'.join([sample_id, sample_id])

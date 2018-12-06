@@ -20,3 +20,12 @@ It is necesary to set a new "output_tag" for each run, unless "clobber" is also
 used, in which case it will overwrite previous runfiles of the same name, if they 
 exist.
 
+
+.. note::
+
+   If you encounter the following error mesage (e.g. after a power failure or loss of network connection) ``Error: Directory cannot be locked...``, run the following cmd before retrying
+   
+   .. code-block:: bash
+
+      snakemake --unlock -s ../ALISEQ/scripts/simulate_reads.snk
+
