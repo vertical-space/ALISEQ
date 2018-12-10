@@ -258,16 +258,14 @@ gene has been assigned as ASE or not)</p>
 <code class="descclassname">simulate_reads.</code><code class="descname">invert</code><span class="sig-paren">(</span><em>i</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simulate_reads.html#invert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simulate_reads.invert" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a coordinate corresponding to a position on the reverse strand
 that matches a coordinate on the forward strand, i.e.</p>
-<p>0     5
-| –&gt; | 
-AAAAAAAAAAAAAAAA
-TTTTTTTTTTTTTTTT</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><a href="#id1"><span class="problematic" id="id2">|</span></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span>     <span class="mi">5</span>
+<span class="o">|</span> <span class="o">--&gt;</span> <span class="o">|</span> 
+<span class="n">AAAAAAAAAAAAAAAA</span>
+<span class="n">TTTTTTTTTTTTTTTT</span>
+      <span class="o">|</span>        <span class="o">|</span>
+      <span class="mi">9</span>    <span class="o">&lt;--</span> <span class="mi">0</span>
+</pre></div>
 </div>
-<p>9    &lt;– 0</p>
-</div></blockquote>
 </dd></dl>
 
 <dl class="function">
