@@ -7,3 +7,7 @@ atcg"""
     assert obs == exp
 
 
+def newFunction():
+    '''I created this new fuction to test some changes...
+    '''
+    print("testing my changes")
